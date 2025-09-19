@@ -319,8 +319,8 @@
                         <x-nav-link href="#ice" :active="request()->is('ice')">{{ __('home.nav_ice') }}</x-nav-link>
                         <x-nav-link href="#bar_nav" :active="request()->is('bar')">{{ __('home.nav_bar') }}</x-nav-link>
                         <x-nav-link href="#location" :active="request()->is('location')">{{ __('home.nav_location') }}</x-nav-link>
-                        <x-nav-link href="#events" :active="request()->is('events')">{{ __('home.nav_events') }}</x-nav-link>
-                        <x-nav-link href="/archived" :active="request()->is('archived_events')">{{ __('home.nav_arch_events') }}</x-nav-link>
+                        {{-- <x-nav-link href="#events" :active="request()->is('events')">{{ __('home.nav_events') }}</x-nav-link>
+                        <x-nav-link href="/archived" :active="request()->is('archived_events')">{{ __('home.nav_arch_events') }}</x-nav-link> --}}
                         <x-nav-link href="#contact" :active="request()->is('contact')">{{ __('home.nav_contact') }}</x-nav-link>
                         <x-nav-link
                             @click="
@@ -397,10 +397,10 @@
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_bar') }}</a>
                     <a href="#location"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_location') }}</a>
-                    <a href="#events"
+                    {{-- <a href="#events"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_events') }}</a>
                     <a href="/archived"
-                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_arch_events') }}</a>
+                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_arch_events') }}</a> --}}
                     <a href="#contact"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_contact') }}</a>
                     <a @click="
@@ -754,7 +754,7 @@
 
         </section>
 
-        <div class="relative max-w-7xl mx-auto -mt-16 -mb-8">
+        {{-- <div class="relative max-w-7xl mx-auto -mt-16 -mb-8">
 
             <!-- Brush border layer -->
             <img src="material/paper.png" class="absolute inset-0 w-full h-full pointer-events-none z-20"
@@ -764,9 +764,9 @@
             <div class="relative z-30 p-32 text-center flex items-center justify-center">
                 <h1 class="text-6xl xl:text-7xl font-bold">{{ __('home.nav_events') }}</h1>
             </div>
-        </div>
+        </div> --}}
 
-        <section id="events">
+        {{-- <section id="events">
             <div class="w-full flex items-center justify-center bg-stone-700 text-gray-800 font-bold mb-8">
                 <div class="w-full">
                     <div>
@@ -775,13 +775,11 @@
                                 @foreach (File::files(public_path('plagaty')) as $index => $file)
                                     <div class="relative flex flex-col items-center w-full md:w-3/4">
 
-                                        {{-- Info box --}}
                                         <div class="bg-stone-200 bg-opacity-80 p-3 w-full">
                                             <p class="text-xs text-gray-700">18-05-2025 / 18:00</p>
                                             <h2 class="mt-1 text-lg text-gray-800">NÁZOV | INFO</h2>
                                         </div>
 
-                                        {{-- Image --}}
                                         <div class="w-full h-auto overflow-hidden">
                                             <img src="{{ asset('plagaty/' . basename($file)) }}"
                                                 class="w-full h-auto md:h-full object-contain md:object-cover block">
@@ -793,7 +791,7 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> --}}
 
         <div class="relative w-full max-w-7xl mx-auto -mt-16 -mb-8">
             <!-- Brush border layer -->
