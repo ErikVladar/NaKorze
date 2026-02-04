@@ -8,6 +8,7 @@ return [
     'nav_bar' => 'Bar',
     'nav_location' => 'Lokácia',
     'nav_events' => 'Eventy',
+    'nav_formular' => 'Formular',
     'nav_arch_events' => 'Archivovane Eventy',
     'nav_contact' => 'Opýtajte sa nás',
     'offer' => 'Ponuka',
