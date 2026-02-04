@@ -1,14 +1,10 @@
 <?php
 
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-use Livewire\Volt\Volt;
-
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\LanguageController;
-use Illuminate\Http\Request;
 
 use App\Http\Controllers\ContactController;
+use App\Http\Controllers\DashboardController;
 
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
@@ -23,26 +19,26 @@ Route::get('/set-locale', function (\Illuminate\Http\Request $request) {
     return redirect()->back();
 })->name('set-locale');
 
-// Test route
 Route::get('/', function () {
-    return view('welcome'); // You can use any view
+    return view('welcome');
 });
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth'])
+    ->name('dashboard');
+
+Route::delete('/users/{user}', [DashboardController::class, 'destroy'])
+    ->middleware(['auth'])
+    ->name('users.destroy');
 
 Route::get('/archived', function () {
     return view('archived'); // You can use any view
 });
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
-
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
-
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-
 
 require __DIR__.'/auth.php';
