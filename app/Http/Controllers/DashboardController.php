@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Coupon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -22,8 +23,9 @@ class DashboardController extends Controller
         }
         
         $users = $query->orderBy('id', 'asc')->paginate(15);
+        $coupons = Coupon::orderBy('created_at', 'desc')->paginate(15);
 
-        return view('dashboard', compact('users'));
+        return view('dashboard', compact('users', 'coupons'));
     }
 
     /**

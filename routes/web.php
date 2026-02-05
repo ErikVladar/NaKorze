@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FormController;
 
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
@@ -22,6 +23,11 @@ Route::get('/set-locale', function (\Illuminate\Http\Request $request) {
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/formular', [FormController::class, 'show'])->name('form.show');
+Route::post('/formular', [FormController::class, 'store'])->name('form.store');
+Route::get('/coupon/{coupon}', [FormController::class, 'success'])->name('form.success');
+
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])

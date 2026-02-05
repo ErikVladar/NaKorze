@@ -8,6 +8,7 @@ return [
     'nav_bar' => 'Bar',
     'nav_location' => 'Location',
     'nav_events' => 'Events',
+    'nav_formular' => 'Formular',
     'nav_arch_events' => 'Archived Events',
     'nav_contact' => 'Ask Us',
     'offer' => 'Menu',

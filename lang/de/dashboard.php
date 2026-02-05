@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'dashboard' => 'Dashboard',
+    'logged_in' => 'Du bist angemeldet!',
+    'users' => 'Benutzer',
+    'coupons' => 'Gutscheine',
+    'id' => 'ID',
+    'name' => 'Name',
+    'email' => 'E-Mail',
+    'role' => 'Rolle',
+    'joined' => 'Beigetreten',
+    'actions' => 'Aktionen',
+    'delete' => 'Löschen',
+    'code' => 'Code',
+    'discount' => 'Rabatt',
+    'valid_from' => 'Gültig ab',
+    'valid_until' => 'Gültig bis',
+    'status' => 'Status',
+    'redeemed' => 'Eingelöst',
+    'valid' => 'Gültig',
+    'invalid' => 'Ungültig',
+    'no_users_found' => 'Keine Benutzer gefunden',
+    'no_coupons_found' => 'Keine Gutscheine gefunden',
+];

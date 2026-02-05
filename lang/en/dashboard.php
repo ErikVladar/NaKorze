@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'dashboard' => 'Dashboard',
+    'logged_in' => "You're logged in!",
+    'users' => 'Users',
+    'coupons' => 'Coupons',
+    'id' => 'ID',
+    'name' => 'Name',
+    'email' => 'Email',
+    'role' => 'Role',
+    'joined' => 'Joined',
+    'actions' => 'Actions',
+    'delete' => 'Delete',
+    'code' => 'Code',
+    'discount' => 'Discount',
+    'valid_from' => 'Valid From',
+    'valid_until' => 'Valid Until',
+    'status' => 'Status',
+    'redeemed' => 'Redeemed',
+    'valid' => 'Valid',
+    'invalid' => 'Invalid',
+    'no_users_found' => 'No users found',
+    'no_coupons_found' => 'No coupons found',
+];
