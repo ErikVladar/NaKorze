@@ -271,7 +271,7 @@
 
         @media (min-width: 768px) {
             .bg-hero {
-                background-image: url('material/NaKorze_SamolepkaKniznica_249x104cm_Tlac-page-00001.jpg');
+                background-image: url('material/hero-bg.jpg');
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
@@ -280,7 +280,7 @@
 
         @media (min-width: 1920px) {
             .bg-hero {
-                background-image: url('material/NaKorze_SamolepkaKniznica_249x104cm_Tlac-page-00001.jpg');
+                background-image: url('material/hero-bg.jpg');
                 background-repeat: no-repeat;
                 background-position: center;
                 background-size: cover;
@@ -366,7 +366,7 @@
                             </ul>
                         </div>
                     </div>
-                    <div class="md:hidden z-40">
+                    <div class="md:hidden z-50">
                         <button type="button"
                             class="inline-flex items-center justify-center p-2 rounded-md text-gray-200 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
                             aria-controls="mobile-menu" aria-expanded="false">
@@ -398,10 +398,12 @@
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_bar') }}</a>
                     <a href="#location"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_location') }}</a>
-                    <a href="#events"
+                    <a href="/formular"
+                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_formular') }}</a>
+                    {{-- <a href="#events"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_events') }}</a>
                     <a href="/archived"
-                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_arch_events') }}</a>
+                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_arch_events') }}</a> --}}
                     <a href="#contact"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_contact') }}</a>
                     <a @click="

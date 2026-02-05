@@ -1,0 +1,25 @@
+<?php
+
+return [
+    'dashboard' => 'Nástrojový panel',
+    'logged_in' => 'Ste prihlásení!',
+    'users' => 'Používatelia',
+    'coupons' => 'Kupóny',
+    'id' => 'ID',
+    'name' => 'Meno',
+    'email' => 'E-mail',
+    'role' => 'Rola',
+    'joined' => 'Pripojil sa',
+    'actions' => 'Akcie',
+    'delete' => 'Odstrániť',
+    'code' => 'Kód',
+    'discount' => 'Zľava',
+    'valid_from' => 'Platné od',
+    'valid_until' => 'Platné do',
+    'status' => 'Stav',
+    'redeemed' => 'Uplatnené',
+    'valid' => 'Platné',
+    'invalid' => 'Neplatné',
+    'no_users_found' => 'Žiadni používatelia sa nenašli',
+    'no_coupons_found' => 'Nenašli sa žiadne kupóny',
+];
