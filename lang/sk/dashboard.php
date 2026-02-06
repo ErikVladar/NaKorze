@@ -20,6 +20,8 @@ return [
     'redeemed' => 'Uplatnené',
     'valid' => 'Platné',
     'invalid' => 'Neplatné',
+    'verify' => 'Overiť',
+    'verified' => 'Overené',
     'no_users_found' => 'Žiadni používatelia sa nenašli',
     'no_coupons_found' => 'Nenašli sa žiadne kupóny',
 ];

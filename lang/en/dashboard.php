@@ -20,6 +20,8 @@ return [
     'redeemed' => 'Redeemed',
     'valid' => 'Valid',
     'invalid' => 'Invalid',
+    'verify' => 'Verify',
+    'verified' => 'Verified',
     'no_users_found' => 'No users found',
     'no_coupons_found' => 'No coupons found',
 ];

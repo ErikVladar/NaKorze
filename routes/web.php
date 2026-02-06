@@ -33,6 +33,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
+Route::post('/coupons/verify', [DashboardController::class, 'verify'])
+    ->middleware(['auth'])
+    ->name('coupons.verify');
+
 Route::delete('/users/{user}', [DashboardController::class, 'destroy'])
     ->middleware(['auth'])
     ->name('users.destroy');

@@ -7,6 +7,7 @@ use App\Models\Coupon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class DashboardController extends Controller
 {
@@ -35,7 +36,7 @@ class DashboardController extends Controller
     {
         $current = Auth::user();
 
-        if (! $current || ! $current->isAdmin()) {
+        if (! $current) {
             abort(403);
         }
 
@@ -47,5 +48,41 @@ class DashboardController extends Controller
         $user->delete();
 
         return back()->with('success', 'User deleted');
+    }
+
+    /**
+     * Verify a coupon by id or code (admin only).
+     */
+    public function verify(Request $request): RedirectResponse
+    {
+        $current = Auth::user();
+
+        if (! $current || ! $current->isAdmin()) {
+            abort(403);
+        }
+
+        $data = $request->validate([
+            'coupon_id' => ['nullable', 'integer', 'exists:coupons,id'],
+            'code' => ['nullable', 'string'],
+        ]);
+
+        $coupon = null;
+
+        if (! empty($data['coupon_id'])) {
+            $coupon = Coupon::find($data['coupon_id']);
+        } elseif (! empty($data['code'])) {
+            $coupon = Coupon::where('code', $data['code'])->first();
+        }
+
+        if (! $coupon) {
+            return back()->with('error', 'Coupon not found');
+        }
+
+        $coupon->is_verified = true;
+        $coupon->verified_at = Carbon::now();
+        $coupon->verified_by = $current->id;
+        $coupon->save();
+
+        return back()->with('success', 'Coupon verified');
     }
 }
