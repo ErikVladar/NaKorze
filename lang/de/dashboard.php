@@ -20,6 +20,8 @@ return [
     'redeemed' => 'Eingelöst',
     'valid' => 'Gültig',
     'invalid' => 'Ungültig',
+    'verify' => 'Überprüfen',
+    'verified' => 'Überprüft',
     'no_users_found' => 'Keine Benutzer gefunden',
     'no_coupons_found' => 'Keine Gutscheine gefunden',
 ];

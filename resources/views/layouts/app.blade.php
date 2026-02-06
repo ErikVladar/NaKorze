@@ -328,6 +328,14 @@
                     </a>
                     <div class="hidden md:flex items-center space-x-6">
                         <x-nav-link href="/" :active="request()->is('home')">{{ __('formular.nav_home') }}</x-nav-link>
+                        @auth
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('Log in') }}</a>
+                        @endauth
 
                         <span class="inline-block h-6 border-l border-white"></span>
                         <div id="locale-dropdown" class="relative w-32">
@@ -424,6 +432,18 @@
                                     role="menuitem">Deutsch</a>
                             </li>
                         </ul>
+                    </div>
+
+                    <!-- Auth / Logout (mobile) -->
+                    <div class="px-4 pt-4">
+                        @auth
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
+                            </form>
+                        @else
+                            <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('Log in') }}</a>
+                        @endauth
                     </div>
                 </div>
 

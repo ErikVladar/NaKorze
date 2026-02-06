@@ -26,6 +26,9 @@ class Coupon extends Model
         'valid_until',
         'is_redeemed',
         'redeemed_at',
+        'is_verified',
+        'verified_at',
+        'verified_by',
         'personal_information_id',
     ];
 
@@ -41,6 +44,8 @@ class Coupon extends Model
             'valid_until' => 'date',
             'is_redeemed' => 'boolean',
             'redeemed_at' => 'datetime',
+            'is_verified' => 'boolean',
+            'verified_at' => 'datetime',
         ];
     }
 
