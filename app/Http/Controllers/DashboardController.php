@@ -75,7 +75,11 @@ class DashboardController extends Controller
         }
 
         if (! $coupon) {
-            return back()->with('error', 'Coupon not found');
+            return back()->with('error', __('dashboard.coupon_not_found'));
+        }
+
+        if ($coupon->is_verified) {
+            return back()->with('info', __('dashboard.coupon_already_verified', ['code' => $coupon->code]));
         }
 
         $coupon->is_verified = true;
@@ -83,6 +87,6 @@ class DashboardController extends Controller
         $coupon->verified_by = $current->id;
         $coupon->save();
 
-        return back()->with('success', 'Coupon verified');
+        return back()->with('success', __('dashboard.coupon_verified', ['code' => $coupon->code]));
     }
 }
