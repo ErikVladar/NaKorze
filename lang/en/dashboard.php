@@ -22,6 +22,11 @@ return [
     'invalid' => 'Invalid',
     'verify' => 'Verify',
     'verified' => 'Verified',
+    'coupon_verified' => 'Coupon :code verified successfully.',
+    'coupon_not_found' => 'Coupon not found.',
+    'coupon_already_verified' => 'Coupon :code is already verified.',
+    'verified_by' => 'Verified by :name :date',
+    'unknown' => 'Unknown',
     'no_users_found' => 'No users found',
     'no_coupons_found' => 'No coupons found',
 ];

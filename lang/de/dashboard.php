@@ -22,6 +22,11 @@ return [
     'invalid' => 'Ungültig',
     'verify' => 'Überprüfen',
     'verified' => 'Überprüft',
+    'coupon_verified' => 'Gutschein :code erfolgreich überprüft.',
+    'coupon_not_found' => 'Gutschein nicht gefunden.',
+    'coupon_already_verified' => 'Gutschein :code ist bereits überprüft.',
+    'verified_by' => 'Überprüft od. :name :date',
+    'unknown' => 'Unbekannt',
     'no_users_found' => 'Keine Benutzer gefunden',
     'no_coupons_found' => 'Keine Gutscheine gefunden',
 ];

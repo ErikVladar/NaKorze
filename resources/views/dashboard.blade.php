@@ -2,7 +2,20 @@
     <div id="form" class="relative z-30 rounded-2xl overflow-hidden group min-h-auto bg-opacity-95 p-8">
         <div class="w-full mx-auto">
 
-
+            {{-- Flash messages --}}
+            @if (session('success') || session('error') || session('info'))
+                <div class="mb-4 max-w-3xl mx-auto">
+                    @if (session('success'))
+                        <div class="rounded-md bg-green-600 text-white px-4 py-3">{{ session('success') }}</div>
+                    @endif
+                    @if (session('info'))
+                        <div class="rounded-md bg-red-600 text-white px-4 py-3 mt-2">{{ session('info') }}</div>
+                    @endif
+                    @if (session('error'))
+                        <div class="rounded-md bg-red-600 text-white px-4 py-3 mt-2">{{ session('error') }}</div>
+                    @endif
+                </div>
+            @endif
             
 
             <!-- Coupons Section -->
@@ -59,7 +72,12 @@
                                         @endif
                                     </td>
                                     <td class="px-4 py-3">
-                                        @if ($c->is_redeemed)
+                                        @if ($c->is_verified)
+                                            @php $verifier = $c->verifiedBy; @endphp
+                                            <div class="text-xs text-gray-300">
+                                                {{ __('dashboard.verified_by', ['name' => $verifier?->name ?? __('dashboard.unknown'), 'date' => $c->verified_at?->format('Y-m-d') ?? '']) }}
+                                            </div>
+                                        @elseif ($c->is_redeemed)
                                             <span class="text-gray-400 text-xs">{{ $c->redeemed_at->format('Y-m-d') }}</span>
                                         @else
                                             <span class="text-gray-500 text-xs">—</span>
@@ -73,13 +91,15 @@
                                                     <input type="hidden" name="coupon_id" value="{{ $c->id }}">
                                                     <button class="px-2 py-1 bg-yellow-600 text-black text-xs rounded">{{ __('dashboard.verify') }}</button>
                                                 </form>
+                                            @else
+                                                <span class="text-gray-400 text-xs">—</span>
                                             @endunless
                                         </td>
                                     @endauth
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="7" class="px-4 py-6 text-center text-gray-500">{{ __('dashboard.no_coupons_found') }}</td>
+                                    <td colspan="{{ auth()->check() ? 7 : 6 }}" class="px-4 py-6 text-center text-gray-500">{{ __('dashboard.no_coupons_found') }}</td>
                                 </tr>
                             @endforelse
                         </tbody>
@@ -129,7 +149,10 @@
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400 mb-1">{{ __('dashboard.redeemed') }}</p>
-                                @if ($c->is_redeemed)
+                                @if ($c->is_verified)
+                                    @php $verifier = $c->verifiedBy; @endphp
+                                    <p class="text-xs text-gray-300">{{ __('dashboard.verified_by', ['name' => $verifier?->name ?? __('dashboard.unknown'), 'date' => $c->verified_at?->format('Y-m-d') ?? '']) }}</p>
+                                @elseif ($c->is_redeemed)
                                     <p class="text-xs text-gray-400">{{ $c->redeemed_at->format('Y-m-d') }}</p>
                                 @else
                                     <p class="text-xs text-gray-500">—</p>
@@ -207,9 +230,9 @@
                                     @endauth
                                 </tr>
                             @empty
-                                <tr>
-                                    <td colspan="6" class="px-4 py-6 text-center text-gray-500">{{ __('dashboard.no_users_found') }}</td>
-                                </tr>
+                                    <tr>
+                                        <td colspan="{{ (auth()->check() && auth()->user()->isAdmin()) ? 6 : 5 }}" class="px-4 py-6 text-center text-gray-500">{{ __('dashboard.no_users_found') }}</td>
+                                    </tr>
                             @endforelse
                         </tbody>
                     </table>

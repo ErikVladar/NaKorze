@@ -22,6 +22,11 @@ return [
     'invalid' => 'Neplatné',
     'verify' => 'Overiť',
     'verified' => 'Overené',
+    'coupon_verified' => 'Kupón :code bol úspešne overený.',
+    'coupon_not_found' => 'Kupón sa nenašiel.',
+    'coupon_already_verified' => 'Kupón :code už bol overený.',
+    'verified_by' => 'Overil :name :date',
+    'unknown' => 'Neznámy',
     'no_users_found' => 'Žiadni používatelia sa nenašli',
     'no_coupons_found' => 'Nenašli sa žiadne kupóny',
 ];
