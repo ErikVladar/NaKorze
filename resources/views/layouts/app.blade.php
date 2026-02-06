@@ -469,7 +469,7 @@
             <div class="absolute inset-0 bg-black bg-opacity-85 z-10"></div>
 
 
-            <div class="hidden md:grid md:grid-cols-1 gap-8 md:px-10 py-12">
+            <div class="grid md:grid-cols-1 gap-8 md:px-10 py-12">
             <main>
                 {{ $slot }}
             </main>
