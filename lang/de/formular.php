@@ -30,4 +30,12 @@ return [
     'coupon_how_to_3' => 'Ihr Rabatt wird auf Ihren Kauf angewendet',
     'submit_another_form' => 'Weiteres Formular einreichen',
     'back_home' => 'Zurück zur Startseite',
+    'coupon_available' => 'Gutschein verfügbar',
+    'coupon_verified' => 'Gutschein verifiziert',
+    'coupon_not_verified' => 'Noch nicht verifiziert',
+    'coupon_redeemed' => 'Gutschein eingelöst',
+    'coupon_already_used' => 'Dieser Gutschein wurde bereits eingelöst.',
+    'redeemed_at' => 'Eingelöst am',
+    'coupon_details' => 'Gutschein-Details',
+    'login_to_verify' => 'Melden Sie sich an, um diesen Gutschein einzulösen.',
 ];

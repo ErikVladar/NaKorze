@@ -51,9 +51,9 @@ class DashboardController extends Controller
     }
 
     /**
-     * Verify a coupon by id or code (admin only).
+     * Redeem a coupon by id or code (admin only).
      */
-    public function verify(Request $request): RedirectResponse
+    public function redeem(Request $request): RedirectResponse
     {
         $current = Auth::user();
 
@@ -78,15 +78,21 @@ class DashboardController extends Controller
             return back()->with('error', __('dashboard.coupon_not_found'));
         }
 
-        if ($coupon->is_verified) {
-            return back()->with('info', __('dashboard.coupon_already_verified', ['code' => $coupon->code]));
+        if ($coupon->is_redeemed) {
+            // Already redeemed - just redirect to show red view
+            return redirect()->route('coupons.view', $coupon);
         }
 
-        $coupon->is_verified = true;
-        $coupon->verified_at = Carbon::now();
-        $coupon->verified_by = $current->id;
-        $coupon->save();
+            // Not yet redeemed - mark as redeemed and redirect to show green view once
+            $coupon->is_redeemed = true;
+            $coupon->redeemed_at = Carbon::now();
+            $coupon->save();
 
-        return back()->with('success', __('dashboard.coupon_verified', ['code' => $coupon->code]));
+            // Redirect with a one-time flag so the view can show the "just redeemed" green screen
+            return redirect()->route('coupons.view', $coupon)
+                ->with([
+                    'just_redeemed' => true,
+                    'success' => __('dashboard.coupon_redeemed_success', ['code' => $coupon->code]),
+                ]);
     }
 }

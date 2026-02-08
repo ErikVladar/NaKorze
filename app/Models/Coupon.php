@@ -106,10 +106,13 @@ class Coupon extends Model
 
     /**
      * Generate QR code as HTML image tag.
+     * Encodes the URL to the coupon view page.
      */
     public function getQrCode(): string
     {
-        $qrCode = new QrCode($this->getQrCodeData());
+        // Encode the full URL to the coupon view page
+        $couponUrl = route('coupons.view', $this->id);
+        $qrCode = new QrCode($couponUrl);
         $writer = new PngWriter();
         $result = $writer->write($qrCode);
 
