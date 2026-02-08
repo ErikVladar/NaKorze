@@ -25,8 +25,11 @@ class DashboardController extends Controller
         
         $users = $query->orderBy('id', 'asc')->paginate(15);
         $coupons = Coupon::orderBy('created_at', 'desc')->paginate(15);
+        
+        // Fetch personal information records
+        $personalInfo = \App\Models\PersonalInformation::orderBy('created_at', 'desc')->paginate(15);
 
-        return view('dashboard', compact('users', 'coupons'));
+        return view('dashboard', compact('users', 'coupons', 'personalInfo'));
     }
 
     /**
@@ -80,7 +83,7 @@ class DashboardController extends Controller
 
         if ($coupon->is_redeemed) {
             // Already redeemed - just redirect to show red view
-            return redirect()->route('coupons.view', $coupon);
+            return redirect()->route('coupons.view', $coupon->code);
         }
 
             // Not yet redeemed - mark as redeemed and redirect to show green view once
@@ -89,7 +92,7 @@ class DashboardController extends Controller
             $coupon->save();
 
             // Redirect with a one-time flag so the view can show the "just redeemed" green screen
-            return redirect()->route('coupons.view', $coupon)
+            return redirect()->route('coupons.view', $coupon->code)
                 ->with([
                     'just_redeemed' => true,
                     'success' => __('dashboard.coupon_redeemed_success', ['code' => $coupon->code]),

@@ -30,10 +30,9 @@
                             <p class="text-lg font-mono font-semibold text-gray-800">{{ $coupon->code }}</p>
                         </div>
 
-                        <!-- Discount -->
+                        <!-- Benefit -->
                         <div>
-                            <p class="text-sm text-gray-600">{{ __('dashboard.discount') }}</p>
-                            <p class="text-lg font-bold text-green-600">{{ $coupon->discount_percent }}%</p>
+                            <p class="text-lg font-bold text-green-600">{{ __('formular.free_drink') ?? '1 Free Drink' }}</p>
                         </div>
 
                         <!-- Valid Dates -->
@@ -50,8 +49,23 @@
                     </div>
                 </div>
 
+                <!-- Redeem Button -->
+                @auth
+                    <form method="POST" action="{{ route('coupons.redeem') }}" class="space-y-3">
+                        @csrf
+                        <input type="hidden" name="code" value="{{ $coupon->code }}">
+                        <button type="submit" class="block w-full text-center py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                            {{ __('dashboard.redeem') ?? 'Redeem' }}
+                        </button>
+                    </form>
+                @else
+               
+                @endauth
+
+                 <br>
+
                 <!-- Back Button -->
-                <a href="/dashboard" class="block w-full text-center py-3 bg-green-600 hover:bg-green-700 text-gray-200 font-semibold rounded-lg transition">
+                <a href="/dashboard" class="block w-full text-center py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition">
                     {{ __('formular.back_home') ?? 'Back to Home' }}
                 </a>
             </div>

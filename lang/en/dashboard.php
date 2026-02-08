@@ -32,4 +32,10 @@ return [
     'unknown' => 'Unknown',
     'no_users_found' => 'No users found',
     'no_coupons_found' => 'No coupons found',
+    'personal_information' => 'Personal Information',
+    'phone' => 'Phone',
+    'message' => 'Message',
+    'submitted' => 'Submitted',
+    'no_personal_information' => 'No personal information found',
+    'benefit' => 'Benefit',
 ];

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
 use App\Models\Coupon;
+use App\Mail\CouponMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class FormController extends Controller
 {
@@ -30,6 +32,15 @@ class FormController extends Controller
             'gdpr_consent' => 'required|accepted',
         ]);
 
+        // Check if this email already has an active (non-redeemed) coupon
+        $existingCoupon = Coupon::where('email', $validated['email'])
+            ->where('is_redeemed', false)
+            ->first();
+
+        if ($existingCoupon) {
+            return back()->with('error', __('formular.email_already_has_coupon') ?? 'This email address already has an active coupon.');
+        }
+
         $validated['consent_date'] = now();
 
         $personalInfo = PersonalInformation::create($validated);
@@ -37,11 +48,15 @@ class FormController extends Controller
         // Generate coupon for this submission
         $coupon = Coupon::create([
             'code' => Coupon::generateCode(),
-            'discount_percent' => 10, // 10% discount
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
             'valid_from' => now()->toDateString(),
             'valid_until' => now()->addMonths(3)->toDateString(),
             'personal_information_id' => $personalInfo->id,
         ]);
+
+        // Send coupon details to the user's email
+        Mail::to($validated['email'])->send(new CouponMail($coupon));
 
         return redirect()->route('form.success', $coupon->id);
     }
@@ -57,8 +72,10 @@ class FormController extends Controller
     /**
      * Show coupon view from QR code or redeem action.
      */
-    public function viewCoupon(Request $request, Coupon $coupon)
+    public function viewCoupon(Request $request, $code)
     {
+        $coupon = Coupon::where('code', $code)->firstOrFail();
+
         // If the requester is not authenticated, show an info-only screen
         // Guests are not allowed to redeem coupons — only authenticated users may.
         if (! auth()->check()) {
