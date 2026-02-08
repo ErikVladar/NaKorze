@@ -37,7 +37,6 @@
                         <thead>
                             <tr class="border-b border-gray-500 bg-gray-700">
                                 <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.code') }}</th>
-                                <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.discount') }}</th>
                                 <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.valid_from') }}</th>
                                 <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.valid_until') }}</th>
                                 <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.status') }}</th>
@@ -51,7 +50,6 @@
                             @forelse ($coupons as $c)
                                 <tr class="hover:bg-gray-700 transition">
                                     <td class="px-4 py-3 font-mono font-semibold text-yellow-400">{{ $c->code }}</td>
-                                    <td class="px-4 py-3">{{ $c->discount_percent }}%</td>
                                     <td class="px-4 py-3">{{ $c->valid_from->format('Y-m-d') }}</td>
                                     <td class="px-4 py-3">{{ $c->valid_until->format('Y-m-d') }}</td>
                                     <td class="px-4 py-3">
@@ -157,6 +155,77 @@
                 @if ($coupons->hasPages())
                     <div class="mt-4">
                         {{ $coupons->links() }}
+                    </div>
+                @endif
+            </div>
+
+            <!-- Personal Information Section -->
+            <div class="mb-8">
+                <h2 class="text-xl font-semibold text-white mb-4">{{ __('dashboard.personal_information') ?? 'Personal Information' }}</h2>
+
+                <!-- Desktop Table (hidden on mobile) -->
+                <div class="hidden md:block overflow-x-auto">
+                    <table class="w-full text-sm text-gray-200">
+                        <thead>
+                            <tr class="border-b border-gray-500 bg-gray-700">
+                                <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.name') }}</th>
+                                <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.email') }}</th>
+                                <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.phone') ?? 'Phone' }}</th>
+                                <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.message') ?? 'Message' }}</th>
+                                <th class="text-left px-4 py-3 font-semibold">{{ __('dashboard.submitted') ?? 'Submitted' }}</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-600">
+                            @forelse ($personalInfo as $info)
+                                <tr class="hover:bg-gray-700 transition">
+                                    <td class="px-4 py-3">{{ $info->name }}</td>
+                                    <td class="px-4 py-3">{{ $info->email }}</td>
+                                    <td class="px-4 py-3">{{ $info->phone ?? '—' }}</td>
+                                    <td class="px-4 py-3 max-w-xs truncate">{{ $info->message ?? '—' }}</td>
+                                    <td class="px-4 py-3">{{ $info->created_at->format('Y-m-d H:i') }}</td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-4 py-6 text-center text-gray-500">{{ __('dashboard.no_personal_information') ?? 'No personal information found' }}</td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mobile Cards (shown on mobile only) -->
+                <div class="md:hidden space-y-4">
+                    @forelse ($personalInfo as $info)
+                        <div class="bg-gray-700 p-4 rounded-lg space-y-2">
+                            <div>
+                                <p class="text-xs text-gray-400">{{ __('dashboard.name') }}</p>
+                                <p class="font-semibold">{{ $info->name }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">{{ __('dashboard.email') }}</p>
+                                <p class="text-sm break-all">{{ $info->email }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">{{ __('dashboard.phone') ?? 'Phone' }}</p>
+                                <p class="text-sm">{{ $info->phone ?? '—' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">{{ __('dashboard.message') ?? 'Message' }}</p>
+                                <p class="text-sm break-words">{{ $info->message ?? '—' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-xs text-gray-400">{{ __('dashboard.submitted') ?? 'Submitted' }}</p>
+                                <p class="text-sm">{{ $info->created_at->format('Y-m-d H:i') }}</p>
+                            </div>
+                        </div>
+                    @empty
+                        <div class="text-center text-gray-500 py-6">{{ __('dashboard.no_personal_information') ?? 'No personal information found' }}</div>
+                    @endforelse
+                </div>
+
+                @if ($personalInfo->hasPages())
+                    <div class="mt-4">
+                        {{ $personalInfo->links() }}
                     </div>
                 @endif
             </div>

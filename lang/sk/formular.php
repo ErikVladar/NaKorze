@@ -38,4 +38,6 @@ return [
     'redeemed_at' => 'Uplatnené dňa',
     'coupon_details' => 'Detaily kupónu',
     'login_to_verify' => 'Prihláste sa na uplatnenie tohto kupónu.',
+    'free_drink' => '1 Bezplatný nápoj',
+    'email_already_has_coupon' => 'Táto e-mailová adresa už má aktívny kupón.',
 ];

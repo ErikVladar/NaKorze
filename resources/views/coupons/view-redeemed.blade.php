@@ -25,10 +25,10 @@
                             <p class="text-lg font-mono font-semibold text-gray-800">{{ $coupon->code }}</p>
                         </div>
 
-                        <!-- Discount -->
+                        <!-- Benefit -->
                         <div>
-                            <p class="text-sm text-gray-600">{{ __('dashboard.discount') }}</p>
-                            <p class="text-lg font-bold text-green-600">{{ $coupon->discount_percent }}%</p>
+                            <p class="text-sm text-gray-600">{{ __('dashboard.benefit') ?? 'Benefit' }}</p>
+                            <p class="text-lg font-bold text-green-600">{{ __('formular.free_drink') ?? '1 Free Drink' }}</p>
                         </div>
 
                         <!-- Valid Dates -->

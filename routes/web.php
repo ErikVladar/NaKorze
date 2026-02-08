@@ -27,7 +27,7 @@ Route::get('/', function () {
 Route::get('/formular', [FormController::class, 'show'])->name('form.show');
 Route::post('/formular', [FormController::class, 'store'])->name('form.store');
 Route::get('/coupon/{coupon}', [FormController::class, 'success'])->name('form.success');
-Route::get('/coupons/{coupon}/view', [FormController::class, 'viewCoupon'])->name('coupons.view');
+Route::get('/coupons/{code}/view', [FormController::class, 'viewCoupon'])->name('coupons.view');
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])

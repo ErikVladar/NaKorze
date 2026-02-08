@@ -32,4 +32,10 @@ return [
     'unknown' => 'Unbekannt',
     'no_users_found' => 'Keine Benutzer gefunden',
     'no_coupons_found' => 'Keine Gutscheine gefunden',
+    'personal_information' => 'Persönliche Informationen',
+    'phone' => 'Telefon',
+    'message' => 'Nachricht',
+    'submitted' => 'Eingereicht',
+    'no_personal_information' => 'Keine persönlichen Informationen gefunden',
+    'benefit' => 'Vorteil',
 ];

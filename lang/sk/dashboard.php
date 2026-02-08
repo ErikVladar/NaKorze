@@ -32,4 +32,10 @@ return [
     'unknown' => 'Neznámy',
     'no_users_found' => 'Žiadni používatelia sa nenašli',
     'no_coupons_found' => 'Nenašli sa žiadne kupóny',
+    'personal_information' => 'Osobné informácie',
+    'phone' => 'Telefón',
+    'message' => 'Správa',
+    'submitted' => 'Odoslané',
+    'no_personal_information' => 'Žiadne osobné informácie sa nenašli',
+    'benefit' => 'Výhoda',
 ];

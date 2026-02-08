@@ -329,9 +329,14 @@
                     <div class="hidden md:flex items-center space-x-6">
                         <x-nav-link href="/" :active="request()->is('home')">{{ __('formular.nav_home') }}</x-nav-link>
                         @auth
+                            <x-nav-link href="/dashboard" :active="request()->is('home')">Dashboard</x-nav-link>
+                        @else
+                        @endauth
+                        @auth
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
+                                <button type="submit"
+                                    class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('Log in') }}</a>
@@ -439,7 +444,8 @@
                         @auth
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
-                                <button type="submit" class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
+                                <button type="submit"
+                                    class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
                             </form>
                         @else
                             <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('Log in') }}</a>
@@ -470,10 +476,10 @@
 
 
             <div class="grid md:grid-cols-1 gap-8 md:px-10 py-12">
-            <main class="relative z-20">
-                {{ $slot }}
-            </main>
-       </div>
+                <main class="relative z-20">
+                    {{ $slot }}
+                </main>
+            </div>
 
 
         </section>

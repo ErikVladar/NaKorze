@@ -38,4 +38,6 @@ return [
     'redeemed_at' => 'Redeemed at',
     'coupon_details' => 'Coupon Details',
     'login_to_verify' => 'Log in to redeem this coupon.',
+    'free_drink' => '1 Free Drink',
+    'email_already_has_coupon' => 'This email address already has an active coupon.',
 ];

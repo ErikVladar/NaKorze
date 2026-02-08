@@ -36,6 +36,8 @@ return [
     'coupon_redeemed' => 'Gutschein eingelöst',
     'coupon_already_used' => 'Dieser Gutschein wurde bereits eingelöst.',
     'redeemed_at' => 'Eingelöst am',
-    'coupon_details' => 'Gutschein-Details',
+    'coupon_details' => 'Gutscheindetails',
     'login_to_verify' => 'Melden Sie sich an, um diesen Gutschein einzulösen.',
+    'free_drink' => '1 kostenloses Getränk',
+    'email_already_has_coupon' => 'Diese E-Mail-Adresse hat bereits einen aktiven Gutschein.',
 ];

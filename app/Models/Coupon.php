@@ -21,8 +21,8 @@ class Coupon extends Model
      */
     protected $fillable = [
         'code',
-        'discount_amount',
-        'discount_percent',
+        'email',
+        'phone',
         'valid_from',
         'valid_until',
         'is_redeemed',
@@ -106,12 +106,12 @@ class Coupon extends Model
 
     /**
      * Generate QR code as HTML image tag.
-     * Encodes the URL to the coupon view page.
+     * Encodes the URL to the coupon view page using the coupon code.
      */
     public function getQrCode(): string
     {
-        // Encode the full URL to the coupon view page
-        $couponUrl = route('coupons.view', $this->id);
+        // Encode the full URL to the coupon view page using the coupon code instead of ID
+        $couponUrl = route('coupons.view', $this->code);
         $qrCode = new QrCode($couponUrl);
         $writer = new PngWriter();
         $result = $writer->write($qrCode);
