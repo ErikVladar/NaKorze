@@ -53,4 +53,30 @@ class FormController extends Controller
     {
         return view('form-success', compact('coupon'));
     }
+
+    /**
+     * Show coupon view from QR code or redeem action.
+     */
+    public function viewCoupon(Request $request, Coupon $coupon)
+    {
+        // If the requester is not authenticated, show an info-only screen
+        // Guests are not allowed to redeem coupons — only authenticated users may.
+        if (! auth()->check()) {
+            return view('coupons.view-info', compact('coupon'));
+        }
+
+        // If coupon is redeemed but was just redeemed via dashboard, show the green "just redeemed" confirmation
+        if ($coupon->is_redeemed) {
+            if ($request->session()->pull('just_redeemed')) {
+                // show the available/confirmation view once
+                return view('coupons.view-available', compact('coupon'))->with('just_redeemed', true);
+            }
+
+            // Already redeemed previously — show the red redeemed view
+            return view('coupons.view-redeemed', compact('coupon'));
+        }
+
+        // Not redeemed — show the green available view
+        return view('coupons.view-available', compact('coupon'));
+    }
 }

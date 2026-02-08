@@ -30,4 +30,12 @@ return [
     'coupon_how_to_3' => 'Vaša zľava bude použitá na váš nákup',
     'submit_another_form' => 'Odoslať ďalší formulár',
     'back_home' => 'Späť na domovskú stránku',
+    'coupon_available' => 'Kupón dostupný',
+    'coupon_verified' => 'Kupón overený',
+    'coupon_not_verified' => 'Zatiaľ neoverený',
+    'coupon_redeemed' => 'Kupón už uplatnený',
+    'coupon_already_used' => 'Tento kupón bol už uplatnený.',
+    'redeemed_at' => 'Uplatnené dňa',
+    'coupon_details' => 'Detaily kupónu',
+    'login_to_verify' => 'Prihláste sa na uplatnenie tohto kupónu.',
 ];

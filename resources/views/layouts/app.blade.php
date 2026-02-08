@@ -275,7 +275,7 @@
         }
 
         .bg-hero {
-            background-image: url('material/bg.png');
+            background-image: url('/material/bg.png');
             background-repeat: repeat-y;
             background-position: top center;
             background-size: 100% auto;
@@ -470,7 +470,7 @@
 
 
             <div class="grid md:grid-cols-1 gap-8 md:px-10 py-12">
-            <main>
+            <main class="relative z-20">
                 {{ $slot }}
             </main>
        </div>

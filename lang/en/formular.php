@@ -30,4 +30,12 @@ return [
     'coupon_how_to_3' => 'Your discount will be applied to your purchase',
     'submit_another_form' => 'Submit Another Form',
     'back_home' => 'Back to Home',
+    'coupon_available' => 'Coupon Available',
+    'coupon_verified' => 'Coupon Verified',
+    'coupon_not_verified' => 'Not Verified Yet',
+    'coupon_redeemed' => 'Coupon Redeemed',
+    'coupon_already_used' => 'This coupon has been redeemed.',
+    'redeemed_at' => 'Redeemed at',
+    'coupon_details' => 'Coupon Details',
+    'login_to_verify' => 'Log in to redeem this coupon.',
 ];

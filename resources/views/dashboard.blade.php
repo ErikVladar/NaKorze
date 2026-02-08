@@ -24,10 +24,10 @@
 
                 <!-- Verification Form (authenticated users) -->
                 @auth
-                    <form method="POST" action="{{ route('coupons.verify') }}" class="mb-4 flex flex-col sm:flex-row gap-2">
+                    <form method="POST" action="{{ route('coupons.redeem') }}" class="mb-4 flex flex-col sm:flex-row gap-2">
                         @csrf
                         <input name="code" type="text" placeholder="{{ __('dashboard.code') }}" class="px-3 py-2 rounded bg-gray-800 text-gray-200 flex-1" />
-                        <button class="px-4 py-2 bg-green-600 text-white rounded whitespace-nowrap">{{ __('dashboard.verify') }}</button>
+                        <button class="px-4 py-2 bg-green-600 text-white rounded whitespace-nowrap">{{ __('dashboard.redeem') }}</button>
                     </form>
                 @endauth
 
@@ -64,20 +64,9 @@
                                                 ✕ {{ __('dashboard.invalid') }}
                                             </span>
                                         @endif
-
-                                        @if ($c->is_verified)
-                                            <div class="mt-2 text-xs text-gray-300">
-                                                {{ __('dashboard.verified') }} @if($c->verified_at) ({{ $c->verified_at->format('Y-m-d') }}) @endif
-                                            </div>
-                                        @endif
                                     </td>
                                     <td class="px-4 py-3">
-                                        @if ($c->is_verified)
-                                            @php $verifier = $c->verifiedBy; @endphp
-                                            <div class="text-xs text-gray-300">
-                                                {{ __('dashboard.verified_by', ['name' => $verifier?->name ?? __('dashboard.unknown'), 'date' => $c->verified_at?->format('Y-m-d') ?? '']) }}
-                                            </div>
-                                        @elseif ($c->is_redeemed)
+                                        @if ($c->is_redeemed)
                                             <span class="text-gray-400 text-xs">{{ $c->redeemed_at->format('Y-m-d') }}</span>
                                         @else
                                             <span class="text-gray-500 text-xs">—</span>
@@ -85,11 +74,11 @@
                                     </td>
                                     @auth
                                         <td class="px-4 py-3">
-                                            @unless($c->is_verified)
-                                                <form method="POST" action="{{ route('coupons.verify') }}" class="inline">
+                                            @unless($c->is_redeemed)
+                                                <form method="POST" action="{{ route('coupons.redeem') }}" class="inline">
                                                     @csrf
                                                     <input type="hidden" name="coupon_id" value="{{ $c->id }}">
-                                                    <button class="px-2 py-1 bg-yellow-600 text-black text-xs rounded">{{ __('dashboard.verify') }}</button>
+                                                    <button class="px-2 py-1 bg-green-600 text-white text-xs rounded">{{ __('dashboard.redeem') }}</button>
                                                 </form>
                                             @else
                                                 <span class="text-gray-400 text-xs">—</span>
@@ -141,29 +130,21 @@
                                         ✕ {{ __('dashboard.invalid') }}
                                     </span>
                                 @endif
-                                @if ($c->is_verified)
-                                    <div class="mt-2 text-xs text-gray-300">
-                                        {{ __('dashboard.verified') }} @if($c->verified_at) ({{ $c->verified_at->format('Y-m-d') }}) @endif
-                                    </div>
-                                @endif
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400 mb-1">{{ __('dashboard.redeemed') }}</p>
-                                @if ($c->is_verified)
-                                    @php $verifier = $c->verifiedBy; @endphp
-                                    <p class="text-xs text-gray-300">{{ __('dashboard.verified_by', ['name' => $verifier?->name ?? __('dashboard.unknown'), 'date' => $c->verified_at?->format('Y-m-d') ?? '']) }}</p>
-                                @elseif ($c->is_redeemed)
+                                @if ($c->is_redeemed)
                                     <p class="text-xs text-gray-400">{{ $c->redeemed_at->format('Y-m-d') }}</p>
                                 @else
                                     <p class="text-xs text-gray-500">—</p>
                                 @endif
                             </div>
                             @auth
-                                @unless($c->is_verified)
-                                    <form method="POST" action="{{ route('coupons.verify') }}" class="pt-2">
+                                @unless($c->is_redeemed)
+                                    <form method="POST" action="{{ route('coupons.redeem') }}" class="pt-2">
                                         @csrf
                                         <input type="hidden" name="coupon_id" value="{{ $c->id }}">
-                                        <button class="w-full px-2 py-1 bg-yellow-600 text-black text-xs rounded">{{ __('dashboard.verify') }}</button>
+                                        <button class="w-full px-2 py-1 bg-green-600 text-white text-xs rounded">{{ __('dashboard.redeem') }}</button>
                                     </form>
                                 @endunless
                             @endauth
