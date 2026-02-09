@@ -89,40 +89,43 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>🎉 Your Na Korze Coupon</h1>
+            <h1>🎉 {{ __('formular.email_heading') }}</h1>
         </div>
 
         <div class="content">
-            <p>Dear {{ $coupon->email }},</p>
+            <p>{!! __('formular.email_greeting', ['email' => $coupon->email]) !!}</p>
 
-            <p>Thank you for filling out our form! We're excited to offer you a special reward.</p>
+            <p>{{ __('formular.email_thank_you') }}</p>
 
             <div class="coupon-box">
-                <div class="coupon-benefit">1 Free Drink</div>
+                <div class="coupon-benefit">{{ __('formular.free_drink') }}</div>
                 <div class="coupon-code">{{ $coupon->code }}</div>
+                <div style="margin-top: 20px;">
+                    <img src="cid:coupon-qr-code" alt="QR Code" style="max-width: 200px; height: auto;" />
+                </div>
             </div>
 
             <div class="details">
                 <div class="detail-row">
-                    <span class="detail-label">Valid From:</span>
+                    <span class="detail-label">{{ __('formular.valid_from') }}:</span>
                     <span class="detail-value">{{ $coupon->valid_from->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Valid Until:</span>
+                    <span class="detail-label">{{ __('formular.valid_until') }}:</span>
                     <span class="detail-value">{{ $coupon->valid_until->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">Status:</span>
-                    <span class="detail-value">{{ $coupon->is_redeemed ? 'Redeemed' : 'Active' }}</span>
+                    <span class="detail-label">{{ __('formular.coupon_details') }}:</span>
+                    <span class="detail-value">{{ $coupon->is_redeemed ? __('formular.coupon_redeemed') : __('formular.coupon_available') }}</span>
                 </div>
             </div>
 
-            <p>You can use this coupon at our café to get a free drink. Simply present this code or scan the QR code when placing your order.</p>
+            <p>{{ __('formular.email_use') }}</p>
 
-            <p>If you have any questions, feel free to contact us at <strong>info@kaviarennakorze.sk</strong>.</p>
+            <p>{!! __('formular.email_contact', ['contact' => 'info@kaviarennakorze.sk']) !!}</p>
 
-            <p>Best regards,<br>
-            <strong>Na Korze Team</strong></p>
+            <p>{{ __('formular.email_regards') }}<br>
+            <strong>{{ __('formular.email_signature') }}</strong></p>
         </div>
 
         <div class="footer">

@@ -17,7 +17,7 @@
                     {{ $coupon->code }}
                 </p>
                 <p class="mt-4 text-lg font-semibold text-green-400">
-                    {{ $coupon->discount_percent }}% {{ __('formular.discount') }}
+                    {{ __('formular.discount') }}
                 </p>
                 <div class="mt-4 flex flex-col sm:flex-row gap-2 justify-center text-sm text-gray-400">
                     <span>{{ __('formular.valid_from') }}: <strong>{{ $coupon->valid_from->format('Y-m-d') }}</strong></span>

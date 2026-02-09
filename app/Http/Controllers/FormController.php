@@ -8,6 +8,7 @@ use App\Mail\CouponMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class FormController extends Controller
 {
@@ -56,7 +57,15 @@ class FormController extends Controller
         ]);
 
         // Send coupon details to the user's email
-        Mail::to($validated['email'])->send(new CouponMail($coupon));
+        try {
+            Mail::to($validated['email'])->send(new CouponMail($coupon));
+        } catch (\Exception $e) {
+            // Log the error but don't crash — user still gets coupon
+            Log::error('Failed to send coupon email: ' . $e->getMessage(), [
+                'email' => $validated['email'],
+                'coupon_code' => $coupon->code,
+            ]);
+        }
 
         return redirect()->route('form.success', $coupon->id);
     }
