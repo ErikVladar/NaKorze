@@ -4,11 +4,10 @@ namespace App\Mail;
 
 use App\Models\Coupon;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
-use Illuminate\Mail\Mailables\Content;
 use Illuminate\Mail\Mailables\Envelope;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\View;
 
 class CouponMail extends Mailable
 {
@@ -30,27 +29,38 @@ class CouponMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'Your Na Korze Coupon - 1 Free Drink',
+            subject: __('formular.email_subject'),
         );
     }
 
     /**
-     * Get the message content definition.
+     * Build the message.
      */
-    public function content(): Content
+    public function build()
     {
-        return new Content(
-            view: 'emails.coupon',
-        );
-    }
+        $qrCodePath = $this->coupon->getQrCodePath();
 
-    /**
-     * Get the attachments for the message.
-     *
-     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
-     */
-    public function attachments(): array
-    {
-        return [];
+        $message = $this->view('emails.coupon')
+            ->with([
+                'coupon' => $this->coupon,
+            ]);
+
+        // Attach QR code with Content-ID for inline display
+        if ($qrCodePath && file_exists($qrCodePath)) {
+            $message->attachData(
+                file_get_contents($qrCodePath),
+                'coupon-qr.png',
+                [
+                    'mime' => 'image/png',
+                ]
+            );
+
+            // Get the Swift message to set Content-ID
+            $this->withSwiftMessage(function ($message) {
+                $message->getSwiftMessage()->getChildren()[1]->setId('coupon-qr-code');
+            });
+        }
+
+        return $message;
     }
 }

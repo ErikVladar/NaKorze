@@ -120,5 +120,30 @@ class Coupon extends Model
 
         return "<img src=\"{$dataUri}\" alt=\"Coupon QR Code\" style=\"width: 250px; height: 250px;\" />";
     }
+
+    /**
+     * Generate and save QR code to disk for email attachment.
+     * Returns the path to the saved QR code file.
+     */
+    public function getQrCodePath(): ?string
+    {
+        $couponUrl = route('coupons.view', $this->code);
+        $qrCode = new QrCode($couponUrl);
+        $writer = new PngWriter();
+        $result = $writer->write($qrCode);
+
+        $filename = "qr-code-{$this->code}.png";
+        $path = storage_path("app/qr-codes/{$filename}");
+        
+        // Create directory if it doesn't exist
+        if (!is_dir(dirname($path))) {
+            mkdir(dirname($path), 0755, true);
+        }
+
+        // Save the QR code image
+        file_put_contents($path, $result->getString());
+
+        return file_exists($path) ? $path : null;
+    }
 }
 
