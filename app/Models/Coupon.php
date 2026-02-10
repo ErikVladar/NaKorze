@@ -21,6 +21,7 @@ class Coupon extends Model
      */
     protected $fillable = [
         'code',
+        'name',
         'email',
         'phone',
         'valid_from',
