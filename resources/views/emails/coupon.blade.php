@@ -93,7 +93,7 @@
         </div>
 
         <div class="content">
-            <p>{!! __('formular.email_greeting', ['email' => $coupon->email]) !!}</p>
+            <p>{!! __('formular.email_greeting', ['name' => $coupon->name]) !!}</p>
 
             <p>{{ __('formular.email_thank_you') }}</p>
 

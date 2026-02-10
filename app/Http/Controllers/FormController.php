@@ -49,6 +49,7 @@ class FormController extends Controller
         // Generate coupon for this submission
         $coupon = Coupon::create([
             'code' => Coupon::generateCode(),
+            'name' => $validated['name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'valid_from' => now()->toDateString(),
