@@ -18,12 +18,12 @@
         }
         .header {
             text-align: center;
-            border-bottom: 2px solid #28a745;
+            border-bottom: 2px solid #ecba14;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
         .header h1 {
-            color: #28a745;
+            color: #ecba14;
             margin: 0;
         }
         .content {
@@ -31,7 +31,7 @@
         }
         .coupon-box {
             background-color: #f9f9f9;
-            border: 2px solid #28a745;
+            border: 2px solid #ecba14;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
@@ -77,7 +77,7 @@
         }
         .button {
             display: inline-block;
-            background-color: #28a745;
+            background-color: #ecba14;
             color: white;
             padding: 12px 24px;
             border-radius: 5px;
@@ -89,6 +89,11 @@
 <body>
     <div class="container">
         <div class="header">
+            @if($logoUrl)
+            <div style="margin-bottom: 15px;">
+                <img src="{{ $logoUrl }}" alt="Na Korze Logo" style="max-width: 80px; height: auto; display: inline-block;" />
+            </div>
+            @endif
             <h1>🎉 {{ __('formular.email_heading') }}</h1>
         </div>
 
@@ -100,9 +105,6 @@
             <div class="coupon-box">
                 <div class="coupon-benefit">{{ __('formular.free_drink') }}</div>
                 <div class="coupon-code">{{ $coupon->code }}</div>
-                <div style="margin-top: 20px;">
-                    <img src="cid:coupon-qr-code" alt="QR Code" style="max-width: 200px; height: auto;" />
-                </div>
             </div>
 
             <div class="details">

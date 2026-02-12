@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class PersonalInformation extends Model
 {
@@ -19,6 +21,9 @@ class PersonalInformation extends Model
         'name',
         'email',
         'phone',
+        'sex',
+        'city_id',
+        'address',
         'message',
         'gdpr_consent',
         'consent_date',
@@ -35,5 +40,21 @@ class PersonalInformation extends Model
             'gdpr_consent' => 'boolean',
             'consent_date' => 'datetime',
         ];
+    }
+
+    /**
+     * Get the coupons associated with this personal information.
+     */
+    public function coupons(): HasMany
+    {
+        return $this->hasMany(Coupon::class);
+    }
+
+    /**
+     * Get the city associated with this personal information.
+     */
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 }

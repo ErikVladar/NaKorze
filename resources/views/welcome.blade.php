@@ -311,8 +311,16 @@
         <nav id="navbar" class="fixed top-0 z-50 w-full transition-all duration-300">
             <div class="mx-auto max-w-7xl px-1 sm:px-2 lg:px-3">
                 <div class="flex items-center justify-between h-20">
-                    <a>
-                    </a>
+                    @auth
+                        <a href="/home" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                        </a>
+                    @else
+                        <a></a>
+                    @endauth
                     <div class="hidden md:flex items-center space-x-6">
                         <x-nav-link href="#coffee" :active="request()->is('home')">{{ __('home.nav_home') }}</x-nav-link>
                         <x-nav-link href="#cukr" :active="request()->is('coffee')">{{ __('home.nav_coffee') }}</x-nav-link>

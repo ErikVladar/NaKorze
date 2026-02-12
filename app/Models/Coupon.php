@@ -146,5 +146,14 @@ class Coupon extends Model
 
         return file_exists($path) ? $path : null;
     }
+
+    /**
+     * Get logo path for email embedding.
+     */
+    public function getLogoPath(): ?string
+    {
+        $logoPath = public_path('logo-korza.png');
+        return file_exists($logoPath) ? $logoPath : null;
+    }
 }
 

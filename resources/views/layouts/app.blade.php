@@ -321,15 +321,21 @@
         ↑
     </button>
     <div class="min-h-full" x-data="{ showButtons: true, showModal: false }">
-        <nav id="navbar" class="fixed top-0 z-50 w-full transition-all duration-300">
+        <nav id="navbar"
+            class="fixed top-0 z-50 w-full transition-all duration-300 bg-stone-400 bg-opacity-80 backdrop-blur shadow-lg">
             <div class="mx-auto max-w-7xl px-1 sm:px-2 lg:px-3">
                 <div class="flex items-center justify-between h-20">
-                    <a>
-                    </a>
+                        <a href="/" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                            </svg>
+                        </a>
                     <div class="hidden md:flex items-center space-x-6">
-                        <x-nav-link href="/" :active="request()->is('home')">{{ __('formular.nav_home') }}</x-nav-link>
                         @auth
-                            <x-nav-link href="/dashboard" :active="request()->is('home')">Dashboard</x-nav-link>
+
+                            <x-nav-link href="/home" :active="request()->is('')">{{ __('formular.nav_home') }}</x-nav-link>
+                            {{-- <x-nav-link href="/dashboard" :active="request()->is('')">Dashboard</x-nav-link> --}}
                         @else
                         @endauth
                         @auth
@@ -401,14 +407,15 @@
                 id="mobile-menu">
                 <!-- Mobile menu section -->
                 <div class="px-4 py-3 divide-y divide-gray-700 space-y-0" x-data="{ langOpen: false }">
-                    <a href="/"
-                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('formular.nav_home') }}</a>
-
-
+                    @auth
+                        <a href="/home"
+                            class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('formular.nav_home') }}</a>
+                    @endauth
 
                     <!-- Language Switcher (mobile) -->
                     <div class="relative w-56 mt-2">
-                        <button type="button" @click="langOpen = !langOpen" @keydown.escape.window="langOpen = false"
+                        <button type="button" @click="langOpen = !langOpen"
+                            @keydown.escape.window="langOpen = false"
                             class="w-full flex items-center justify-between text-white pl-3 pr-3 py-2"
                             aria-haspopup="true" :aria-expanded="langOpen.toString()">
                             {{ __('Language') }}
@@ -459,12 +466,12 @@
     </div>
 
     <div
-        class="bg-hero bg-scroll md:bg-fixed md:bg-cover bg-center bg-repeat items-center md:bg-no-repeat [@media(min-width:1080px)]:px-32">
+        class="bg-hero min-h-screen bg-scroll md:bg-fixed md:bg-cover bg-center bg-repeat items-center md:bg-no-repeat [@media(min-width:1080px)]:px-32">
 
         <div class="h-32 w-full relative bg-cover bg-center">
         </div>
 
-        <section class="relative w-full overflow-hidden">
+        <section class="relative w-full min-h-screen overflow-hidden">
 
             <!-- Background Image -->
             <div class="absolute inset-0 bg-cover bg-center z-0"
@@ -476,7 +483,7 @@
 
 
             <div class="grid md:grid-cols-1 gap-8 md:px-10 py-12">
-                <main class="relative z-20">
+                <main class="relative z-40">
                     {{ $slot }}
                 </main>
             </div>
@@ -490,9 +497,9 @@
         <div class="mt-2 text-center text-xs text-gray-500">
             &copy; 2025 Na Korze. cukráreň & kaviareň.
         </div>
-    </footer>
+        </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/flowbite@2.3.0/dist/flowbite.min.js"></script>
 </body>
 
 </html>
@@ -684,14 +691,14 @@
     function closeModal(id) {
         document.getElementById(id).classList.add("hidden");
     }
-    window.addEventListener("scroll", function() {
-        const navbar = document.getElementById("navbar");
-        if (window.scrollY > 100) {
-            navbar.classList.add("bg-stone-400", "bg-opacity-80", "backdrop-blur", "shadow-lg");
-        } else {
-            navbar.classList.remove("bg-stone-400", "bg-opacity-80", "backdrop-blur", "shadow-lg");
-        }
-    });
+    // window.addEventListener("scroll", function() {
+    //     const navbar = document.getElementById("navbar");
+    //     if (window.scrollY > 0) {
+    //         navbar.classList.add("bg-stone-400", "bg-opacity-80", "backdrop-blur", "shadow-lg");
+    //     } else {
+    //         navbar.classList.remove("bg-stone-400", "bg-opacity-80", "backdrop-blur", "shadow-lg");
+    //     }
+    // });
 
     function updateOpeningHours() {
 

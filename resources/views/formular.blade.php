@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div id="form" class="relative z-30 rounded-2xl overflow-hidden group min-h-auto bg-opacity-95 p-8">
+    <div id="form" class="font-mono bg-stone-900 rounded-t-2xl relative z-10 overflow-visible group min-h-auto bg-opacity-95 p-8">
         <div class="w-full mx-auto">
             <h2 class="text-3xl font-bold text-white mb-4">
                 {{ __('formular.form_title') }}
@@ -39,7 +39,7 @@
                     </label>
                     <input type="text" name="name" id="name" required value="{{ old('name') }}"
                         placeholder="{{ __('formular.form_name_placeholder') }}"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        class="mt-1 block w-1/2 px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
                     @error('name')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -52,7 +52,7 @@
                     </label>
                     <input type="email" name="email" id="email" required value="{{ old('email') }}"
                         placeholder="{{ __('formular.form_email_placeholder') }}"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        class="mt-1 block w-1/2 px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
                     @error('email')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
@@ -65,23 +65,105 @@
                     </label>
                     <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
                         placeholder="{{ __('formular.form_phone_placeholder') }}"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
+                        class="mt-1 block w-1/2 px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
                     @error('phone')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <!-- Message -->
+                <!-- Sex/Gender -->
                 <div>
-                    <label for="message" class="block text-sm font-medium text-gray-300">
-                        {{ __('formular.form_message') }}
+                    <label for="sex" class="block text-sm font-medium text-gray-300">
+                        {{ __('formular.form_sex') }}
                     </label>
-                    <textarea name="message" id="message" rows="5" placeholder="{{ __('formular.form_message_placeholder') }}"
-                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500">{{ old('message') }}</textarea>
-                    @error('message')
+                    <select name="sex" id="sex" value="{{ old('sex') }}"
+                        class="mt-1 block w-1/4 px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 focus:outline-none focus:ring-blue-500 focus:border-blue-500">
+                        <option value="">{{ __('formular.form_sex_placeholder') }}</option>
+                        <option value="M" @if (old('sex') === 'M') selected @endif>{{ __('formular.form_sex_male') }}</option>
+                        <option value="F" @if (old('sex') === 'F') selected @endif>{{ __('formular.form_sex_female') }}</option>
+                    </select>
+                    @error('sex')
                         <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
+
+                <!-- City -->
+                <div x-data="cityDropdown()" class="relative w-1/2">
+                    <label for="city_id" class="block text-sm font-medium text-gray-300">
+                        {{ __('formular.form_city') }}
+                    </label>
+                    <input 
+                        type="text" 
+                        x-model="search"
+                        @focus="open = true"
+                        @input="open = true"
+                        @keydown.escape="open = false"
+                        @click.away="open = false"
+                        placeholder="{{ __('formular.form_city_placeholder') }}"
+                        autocomplete="off"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-600 rounded-md shadow-sm bg-gray-700 text-gray-100 placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500"
+                    />
+                    <input type="hidden" name="city_id" :value="selected">
+                    
+                    <!-- Dropdown -->
+                    <div 
+                        x-show="open && getFiltered().length > 0"
+                        class="absolute left-0 top-full mt-1 w-full bg-gray-700 border border-gray-600 rounded-md shadow-lg z-[9999] max-h-60 overflow-y-auto"
+                    >
+                        <template x-for="city in getFiltered()" :key="city.id">
+                            <div 
+                                @mousedown.prevent="selectCity(city)"
+                                class="px-3 py-2 cursor-pointer text-gray-100 hover:bg-blue-600"
+                            >
+                                <span x-text="city.name"></span>
+                                <span class="text-gray-400 text-sm" x-text="city.postal_code ? ' (' + city.postal_code + ')' : ''"></span>
+                            </div>
+                        </template>
+                    </div>
+                    
+                    <!-- No results -->
+                    <div 
+                        x-show="open && search.length > 0 && getFiltered().length === 0"
+                        class="absolute left-0 top-full mt-1 w-full bg-gray-700 border border-gray-600 rounded-md shadow-lg z-[9999] p-3"
+                    >
+                        <p class="text-gray-400">{{ __('formular.form_city_no_results') }}</p>
+                    </div>
+                    
+                    <!-- Selection confirmation -->
+                    <div x-show="selected && search" class="mt-2 text-sm text-gray-400">
+                        {{ __('formular.form_city_selected') }}: <span x-text="search"></span>
+                    </div>
+                    
+                    @error('city_id')
+                        <p class="mt-1 text-sm text-red-400">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <script>
+                    function cityDropdown() {
+                        return {
+                            open: false,
+                            search: '',
+                            selected: '{{ old('city_id') }}',
+                            cities: {!! json_encode($cities) !!},
+                            
+                            getFiltered() {
+                                if (!this.search) return this.cities;
+                                const q = this.search.toLowerCase();
+                                return this.cities.filter(c => 
+                                    c.name.toLowerCase().includes(q) || 
+                                    (c.postal_code && c.postal_code.includes(q))
+                                );
+                            },
+                            
+                            selectCity(city) {
+                                this.selected = city.id;
+                                this.search = city.name;
+                                this.open = false;
+                            }
+                        }
+                    }
+                </script>
 
                 <!-- GDPR Consent -->
                 <div class="flex items-start">

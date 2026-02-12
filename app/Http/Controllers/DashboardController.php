@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Coupon;
+use App\Models\PersonalInformation;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,13 +55,21 @@ class DashboardController extends Controller
     }
 
     /**
-     * Redeem a coupon by id or code (admin only).
+     * Display detailed personal information.
+     */
+    public function showPersonalInfo(PersonalInformation $personalInformation)
+    {
+        return view('personal-information-detail', compact('personalInformation'));
+    }
+
+    /**
+     * Redeem a coupon by id or code (all authenticated users).
      */
     public function redeem(Request $request): RedirectResponse
     {
         $current = Auth::user();
 
-        if (! $current || ! $current->isAdmin()) {
+        if (! $current) {
             abort(403);
         }
 

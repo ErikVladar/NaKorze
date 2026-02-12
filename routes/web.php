@@ -34,6 +34,10 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
+Route::get('/personal-information/{personalInformation}', [DashboardController::class, 'showPersonalInfo'])
+    ->middleware(['auth'])
+    ->name('personal-information.show');
+
 Route::post('/coupons/redeem', [DashboardController::class, 'redeem'])
     ->middleware(['auth'])
     ->name('coupons.redeem');
@@ -45,6 +49,11 @@ Route::delete('/users/{user}', [DashboardController::class, 'destroy'])
 Route::get('/archived', function () {
     return view('archived'); // You can use any view
 });
+
+// Home view with greeting, dashboard, and QR scanner for authenticated users
+Route::get('/home', function () {
+    return view('home');
+})->middleware(['auth'])->name('home');
 
 // Debug route for testing coupon views (remove in production)
 Route::get('/debug/test-coupon-views', function () {
