@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\PersonalInformation;
+use App\Models\City;
 use App\Models\Coupon;
 use App\Mail\CouponMail;
 use Illuminate\Http\RedirectResponse;
@@ -17,7 +18,8 @@ class FormController extends Controller
      */
     public function show()
     {
-        return view('formular');
+        $cities = City::orderBy('name')->get();
+        return view('formular', compact('cities'));
     }
 
     /**
@@ -29,6 +31,8 @@ class FormController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255',
             'phone' => 'nullable|string|max:20',
+            'sex' => 'nullable|string|in:M,F,O',
+            'city_id' => 'nullable|exists:cities,id',
             'message' => 'nullable|string|max:5000',
             'gdpr_consent' => 'required|accepted',
         ]);

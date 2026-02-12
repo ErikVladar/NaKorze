@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div id="form" class="relative z-30 rounded-2xl overflow-hidden group min-h-auto bg-opacity-95 p-8">
+    <div id="form" class="font-mono relative z-30 rounded-2xl overflow-hidden group min-h-auto bg-opacity-95 p-8">
         <div class="w-full mx-auto flex items-center justify-center min-h-screen">
             <div class="w-full max-w-md bg-white rounded-lg shadow-lg p-8">
                 <!-- Status Badge -->

@@ -43,6 +43,7 @@ class CouponMail extends Mailable
         $message = $this->view('emails.coupon')
             ->with([
                 'coupon' => $this->coupon,
+                'logoUrl' => 'http://korza.damaware.sk/logo-korza.png',
             ]);
 
         // Attach QR code with Content-ID for inline display
