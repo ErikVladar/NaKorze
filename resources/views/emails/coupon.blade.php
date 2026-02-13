@@ -18,12 +18,12 @@
         }
         .header {
             text-align: center;
-            border-bottom: 2px solid #78716C;
+            border-bottom: 2px solid #D6D3D1;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
         .header h1 {
-            color: #78716C !important;
+            color: #D6D3D1 !important;
             margin: 0;
         }
         .content {
@@ -32,7 +32,7 @@
         }
         .coupon-box {
             background-color: #23232b !important;
-            border: 2px solid #78716C;
+            border: 2px solid #D6D3D1;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
@@ -67,7 +67,7 @@
         }
         .detail-label {
             font-weight: bold;
-            color: #ffe066 !important;
+            color: #D6D3D1 !important;
         }
         .detail-value {
             color: #f3f3f3 !important;
@@ -117,15 +117,15 @@
 
             <div class="details">
                 <div class="detail-row">
-                    <span class="detail-label">{{ __('formular.valid_from') }}:</span>
+                    <span class="detail-label">{{ __('formular.valid_from') }}: </span>
                     <span class="detail-value"> {{ $coupon->valid_from->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">{{ __('formular.valid_until') }}:</span>
+                    <span class="detail-label">{{ __('formular.valid_until') }}: </span>
                     <span class="detail-value"> {{ $coupon->valid_until->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label">{{ __('formular.coupon_details') }}:</span>
+                    <span class="detail-label">{{ __('formular.coupon_details') }}: </span>
                     <span class="detail-value"> {{ $coupon->is_redeemed ? __('formular.coupon_redeemed') : __('formular.coupon_available') }}</span>
                 </div>
             </div>
