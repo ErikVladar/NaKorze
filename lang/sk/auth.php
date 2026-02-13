@@ -1,7 +1,6 @@
 <?php
 
 return [
-
     /*
     |--------------------------------------------------------------------------
     | Authentication Language Lines
@@ -35,5 +34,5 @@ return [
     'This is a secure area of the application. Please confirm your password before continuing.' => 'Toto je zabezpečená oblasť aplikácie. Prosím potvrďte svoje heslo pred pokračovaním.',
     'Thanks for signing up! Before getting started, could you verify your email address by clicking on the link we just emailed to you? If you didn\'t receive the email, we will gladly send you another.' => 'Ďakujeme za registráciu! Pred začatím, prosím overte svoju e-mailovú adresu kliknutím na odkaz, ktorý sme vám poslali. Ak ste e-mail nedostali, radi vám pošleme ďalší.',
     'Resend Verification Email' => 'Poslať overovací e-mail znova',
-
+    'Create Staff' => 'Vytvoriť zamestnanca',
 ];

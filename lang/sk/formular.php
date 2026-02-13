@@ -62,4 +62,5 @@ return [
     'email_regards' => 'S pozdravom,',
     'email_signature' => 'Tím Na Korze',
     'email_copyright' => '© :year Na Korze. Cukráreň & Kaviareň. Všetky práva vyhradené.',
+    'create_staff' => 'Vytvoriť zamestnanca',
 ];
