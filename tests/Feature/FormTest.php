@@ -27,7 +27,7 @@ class FormTest extends TestCase
      */
     public function test_form_submission_with_city(): void
     {
-        $city = City::first();
+        $city = City::factory()->create();
         
         $response = $this->post('/formular', [
             'name' => 'Test User',
