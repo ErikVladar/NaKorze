@@ -343,13 +343,16 @@
                                 @endif
                             @endauth
                             @auth
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
                                     @csrf
-                                    <button type="submit"
-                                        class="w-full text-left block py-3 px-2 text-white">{{ __('auth.Log Out') }}</button>
+                                    <x-nav-link as="button" type="submit" class="w-full text-left block py-3 px-2 text-white bg-transparent border-0 cursor-pointer">
+                                        {{ __('auth.Log Out') }}
+                                    </x-nav-link>
                                 </form>
                             @else
-                                <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('auth.Log in') }}</a>
+                                <x-nav-link href="{{ route('login') }}" class="block py-3 px-2 text-white">
+                                    {{ __('auth.Log in') }}
+                                </x-nav-link>
                             @endauth
                             <span class="inline-block h-6 border-l border-white"></span>
                             <div id="locale-dropdown" class="relative w-32">
