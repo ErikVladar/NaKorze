@@ -81,34 +81,13 @@
         function startScanner() {
             if (scannerActive) return;
 
-            // Try to use environment (back) camera on mobile
-            const config = {
-                fps: 10,
-                qrbox: { width: 250, height: 250 },
-                aspectRatio: 1.0,
-                experimentalFeatures: { useBarCodeDetectorIfSupported: true },
-                rememberLastUsedCamera: true,
-                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
-            };
-
             html5QrcodeScanner = new Html5QrcodeScanner(
                 "qr-reader",
-                config,
+                { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 },
                 false
             );
 
-            html5QrcodeScanner.render(onScanSuccess, function(error) {
-                // Show error if camera permission denied
-                const errorDiv = document.getElementById('qr-error');
-                const errorText = document.getElementById('qr-error-text');
-                if (error && error.name === 'NotAllowedError') {
-                    errorText.textContent = 'Camera access denied. Please allow camera permissions to scan QR codes.';
-                    errorDiv.classList.remove('hidden');
-                } else {
-                    errorDiv.classList.add('hidden');
-                }
-                onScanError(error);
-            });
+            html5QrcodeScanner.render(onScanSuccess, onScanError);
             scannerActive = true;
         }
 
