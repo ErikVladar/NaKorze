@@ -42,6 +42,10 @@ Route::post('/coupons/redeem', [DashboardController::class, 'redeem'])
     ->middleware(['auth'])
     ->name('coupons.redeem');
 
+Route::post('/coupons/{code}/confirm-redeem', [DashboardController::class, 'confirmRedeem'])
+    ->middleware(['auth'])
+    ->name('coupons.confirm-redeem');
+
 Route::delete('/users/{user}', [DashboardController::class, 'destroy'])
     ->middleware(['auth'])
     ->name('users.destroy');

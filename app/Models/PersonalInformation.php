@@ -23,6 +23,7 @@ class PersonalInformation extends Model
         'phone',
         'sex',
         'city_id',
+        'postal_code',
         'address',
         'message',
         'gdpr_consent',

@@ -51,13 +51,14 @@
 
                 <!-- Redeem Button -->
                 @auth
-                    <form method="POST" action="{{ route('coupons.redeem') }}" class="space-y-3">
-                        @csrf
-                        <input type="hidden" name="code" value="{{ $coupon->code }}">
-                        <button type="submit" class="block w-full text-center py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
-                            {{ __('dashboard.redeem') ?? 'Redeem' }}
-                        </button>
-                    </form>
+                    @if (!$coupon->is_redeemed)
+                        <form method="POST" action="{{ route('coupons.confirm-redeem', $coupon->code) }}" class="space-y-3">
+                            @csrf
+                            <button type="submit" class="block w-full text-center py-3 bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg transition">
+                                {{ __('dashboard.redeem') ?? 'Redeem' }}
+                            </button>
+                        </form>
+                    @endif
                 @else
                
                 @endauth
@@ -65,7 +66,7 @@
                  <br>
 
                 <!-- Back Button -->
-                <a href="/dashboard" class="block w-full text-center py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition">
+                <a href="/home" class="block w-full text-center py-3 bg-gray-200 hover:bg-gray-300 text-gray-700 font-semibold rounded-lg transition">
                     {{ __('formular.back_home') ?? 'Back to Home' }}
                 </a>
             </div>

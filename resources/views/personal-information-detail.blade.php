@@ -53,7 +53,15 @@
                     </div>
                 @endif
 
-                <!-- Address (backup) -->
+                <!-- Postal Code -->
+                @if ($personalInformation->postal_code)
+                    <div class="border-b border-gray-700 pb-4">
+                        <p class="text-gray-400 text-sm font-medium mb-2">{{ __('dashboard.postal_code') }}</p>
+                        <p class="text-white text-lg">{{ $personalInformation->postal_code }}</p>
+                    </div>
+                @endif
+
+                <!-- Street Address -->
                 @if ($personalInformation->address)
                     <div class="border-b border-gray-700 pb-4">
                         <p class="text-gray-400 text-sm font-medium mb-2">{{ __('dashboard.address') }}</p>

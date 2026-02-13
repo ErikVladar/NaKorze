@@ -61,7 +61,7 @@
                 </div>
 
                 <!-- Back Button -->
-                <a href="/dashboard" class="block w-full text-center py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition">
+                <a href="/home" class="block w-full text-center py-3 bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg transition">
                     {{ __('formular.back_home') ?? 'Back to Home' }}
                 </a>
             </div>
