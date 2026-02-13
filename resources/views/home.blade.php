@@ -81,17 +81,34 @@
         function startScanner() {
             if (scannerActive) return;
 
+            // Try to use environment (back) camera on mobile
+            const config = {
+                fps: 10,
+                qrbox: { width: 250, height: 250 },
+                aspectRatio: 1.0,
+                experimentalFeatures: { useBarCodeDetectorIfSupported: true },
+                rememberLastUsedCamera: true,
+                supportedScanTypes: [Html5QrcodeScanType.SCAN_TYPE_CAMERA]
+            };
+
             html5QrcodeScanner = new Html5QrcodeScanner(
                 "qr-reader",
-                { 
-                    fps: 10,
-                    qrbox: { width: 250, height: 250 },
-                    aspectRatio: 1.0
-                },
+                config,
                 false
             );
 
-            html5QrcodeScanner.render(onScanSuccess, onScanError);
+            html5QrcodeScanner.render(onScanSuccess, function(error) {
+                // Show error if camera permission denied
+                const errorDiv = document.getElementById('qr-error');
+                const errorText = document.getElementById('qr-error-text');
+                if (error && error.name === 'NotAllowedError') {
+                    errorText.textContent = 'Camera access denied. Please allow camera permissions to scan QR codes.';
+                    errorDiv.classList.remove('hidden');
+                } else {
+                    errorDiv.classList.add('hidden');
+                }
+                onScanError(error);
+            });
             scannerActive = true;
         }
 
@@ -121,9 +138,8 @@
             stopScanner();
             document.getElementById('scanner-container').classList.add('hidden');
 
-            // You can add logic here to process the QR code
-            // For example, redirect to a coupon view or submit a form
-            // Example: window.location.href = `/coupons/${decodedText}/view`;
+            // Redirect to coupon info view
+            window.location.href = `/coupons/${decodedText}/view`;
         }
 
         function onScanError(error) {
