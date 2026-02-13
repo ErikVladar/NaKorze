@@ -11,12 +11,15 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-Route::middleware('guest')->group(function () {
+
+Route::middleware(['auth'])->group(function () {
     Route::get('auth/create-staff-5s8k2m9x', [RegisteredUserController::class, 'create'])
         ->name('register');
 
     Route::post('auth/create-staff-5s8k2m9x', [RegisteredUserController::class, 'store']);
+});
 
+Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 

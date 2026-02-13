@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="font-[Story] m-0 p-0">
+<body class="font-mono m-0 p-0">
 
     <style>
         @font-face {
@@ -322,35 +322,38 @@
     </button>
     <div class="min-h-full" x-data="{ showButtons: true, showModal: false }">
         <nav id="navbar"
-            class="fixed top-0 z-50 w-full transition-all duration-300 bg-stone-400 bg-opacity-80 backdrop-blur shadow-lg">
+            class=" fixed top-0 z-50 w-full transition-all duration-300 bg-stone-400 bg-opacity-80 backdrop-blur shadow-lg">
             <div class="mx-auto max-w-7xl px-1 sm:px-2 lg:px-3">
                 <div class="flex items-center justify-between h-20">
+
                         <a href="/" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                     d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
                             </svg>
                         </a>
-                    <div class="hidden md:flex items-center space-x-6">
-                        @auth
-
-                            <x-nav-link href="/home" :active="request()->is('')">{{ __('formular.nav_home') }}</x-nav-link>
-                            {{-- <x-nav-link href="/dashboard" :active="request()->is('')">Dashboard</x-nav-link> --}}
-                        @else
-                        @endauth
-                        @auth
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit"
-                                    class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
-                            </form>
-                        @else
-                            <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('Log in') }}</a>
-                        @endauth
-
-                        <span class="inline-block h-6 border-l border-white"></span>
-                        <div id="locale-dropdown" class="relative w-32">
-                            <label for="locale-select" class="sr-only">Language</label>
+                        <div class="hidden md:flex items-center space-x-6">
+                            @auth
+                                <x-nav-link href="/home" :active="request()->is('')">{{ __('formular.nav_home') }}</x-nav-link>
+                                {{-- <x-nav-link href="/dashboard" :active="request()->is('')">Dashboard</x-nav-link> --}}
+                                @if(auth()->user() && auth()->user()->isAdmin())
+                                    <x-nav-link href="{{ route('register') }}" :active="request()->is('auth/create-staff-5s8k2m9x')">
+                                        {{ __('auth.Create Staff') }}
+                                    </x-nav-link>
+                                @endif
+                            @endauth
+                            @auth
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit"
+                                        class="w-full text-left block py-3 px-2 text-white">{{ __('auth.Log Out') }}</button>
+                                </form>
+                            @else
+                                <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('auth.Log in') }}</a>
+                            @endauth
+                            <span class="inline-block h-6 border-l border-white"></span>
+                            <div id="locale-dropdown" class="relative w-32">
+                                <label for="locale-select" class="sr-only">Language</label>
 
                             <!-- Keep your original select (hidden for A11y/progressive enhancement) -->
                             <select id="locale-select" class="hidden" onchange="window.location.href=this.value">
@@ -452,10 +455,10 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <button type="submit"
-                                    class="w-full text-left block py-3 px-2 text-white">{{ __('Log Out') }}</button>
+                                    class="w-full text-left block py-3 px-2 text-white">{{ __('auth.Log Out') }}</button>
                             </form>
                         @else
-                            <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('Log in') }}</a>
+                            <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('auth.Log in') }}</a>
                         @endauth
                     </div>
                 </div>

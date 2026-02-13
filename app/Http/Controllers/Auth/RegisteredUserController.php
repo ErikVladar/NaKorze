@@ -39,12 +39,12 @@ class RegisteredUserController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'role' => 'staff',
         ]);
 
         event(new Registered($user));
 
-        Auth::login($user);
-
-        return redirect(route('dashboard', absolute: false));
+        // Do not log in as the new user, keep admin session
+        return redirect()->route('dashboard')->with('success', __('Staff member created successfully.'));
     }
 }
