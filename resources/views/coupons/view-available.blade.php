@@ -24,6 +24,11 @@
                 <!-- Coupon Details -->
                 <div class="bg-gray-50 rounded-lg p-6 mb-6">
                     <div class="space-y-4">
+                        <!-- Recipient Name -->
+                        <div>
+                            <p class="text-sm text-gray-600">{{ __('dashboard.name') ?? 'Name' }}</p>
+                            <p class="text-lg font-semibold text-gray-800">{{ $coupon->name }}</p>
+                        </div>
                         <!-- Code -->
                         <div>
                             <p class="text-sm text-gray-600">{{ __('dashboard.code') }}</p>
