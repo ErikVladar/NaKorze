@@ -110,7 +110,9 @@
 
             <div class="coupon-box">
                 <div class="coupon-benefit">{{ __('formular.free_drink') }}</div>
-                <div class="coupon-code">{{ $coupon->code }}</div>
+                <a href="{{ url('/coupon/' . $coupon->code) }}" class="coupon-code" style="text-decoration: underline; color: #38f9a6 !important;">
+                    {{ $coupon->code }}
+                </a>
             </div>
 
             <div class="details">
