@@ -1,0 +1,38 @@
+Uživateľské rozhranie Kaviareň Na Korze
+
+1. Prihlásenie a registrácia
+_________________________
+- Pre prístup k funkciám aplikácie sa prihláste na https://kaviarennakorze.sk/login .
+- Admin meno: info@kaviarennakorze.sk
+- Admin heslo: Kavicka123$
+- Registráciu zamestnanca môže vykonať len admin v ponuke Vytvoriť zamestnanca.
+
+2. Hlavná stránka
+_________________________
+- Po prihlásení sa zobrazí hlavná stránka s možnosťou:
+- Zobraziť históriu kupónov (tlačidlo „Dashboard“)
+
+3. Vygenerovanie kupónu
+_________________________
+- Vyplnenie formuláru s osobnými údajmi, ktorý je dostupný cez linktree alebo na hlavnej stránke. ( https://kaviarennakorze.sk/formular )
+- Po odoslaní formulára získate kupón na 1 nápoj alebo dezert zdarma.
+- Kupón príde aj na zadaný e-mail kde príde v prílohe QR kód.
+
+4. Použitie kupónu
+_________________________
+- Kupón ukážte obsluhe v kaviarni alebo naskenujte QR kód.
+- Kupón je možné zobraziť cez e-mail alebo v aplikácii v sekcii „Prehľad“.
+- Po uplatnení sa kupón označí ako použitý.
+- Kupón môže potvrdiť len admin alebo adminom vytvorený účet.
+
+5. Skenovanie QR kódu
+_________________________
+- Nasmerujte kameru telefónu na QR kód kupónu.
+- Po načítaní sa zobrazia informácie o kupóne.
+- Prihlásený uživateľ má právo kupón potvrdiť alebo vidieť či je neplatný.
+
+6. Správa zamestnancov (iba pre adminov)
+_________________________
+- V menu je dostupná sekcia pre správu zamestnancov a prístup k údajom pre admina.
+- Osobné údaje sa dajú rozkliknúť a dá sa aj skontrolovať či je k menu platný kupón.
+- Tabuľku používateľov kde sa môžu prípadne deaktivovať účty zamestnancov.
