@@ -32,6 +32,12 @@ class CitySeeder extends Seeder
         while (($data = fgetcsv($handle, 0, ';')) !== false) {
             if (count($data) >= 2) {
                 $cityName = trim($data[0]);
+                $postalCode = trim($data[1]);
+                
+                // Skip if postal code is empty
+                if (empty($postalCode)) {
+                    continue;
+                }
                 
                 if (in_array($cityName, $seenNames)) {
                     continue;
@@ -39,7 +45,7 @@ class CitySeeder extends Seeder
                 
                 $cities[] = [
                     'name' => $cityName,
-                    'postal_code' => trim($data[1]),
+                    'postal_code' => $postalCode,
                     'created_at' => now(),
                     'updated_at' => now(),
                 ];

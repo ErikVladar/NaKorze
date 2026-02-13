@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="font-mono m-0 p-0">
+<body class="font-serif m-0 p-0">
 
     <style>
         @font-face {

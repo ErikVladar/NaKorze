@@ -1,10 +1,9 @@
 <x-app-layout>
-    <div class="min-h-screen bg-gradient-to-br from-stone-900 to-stone-800 py-12 px-4 sm:px-6 lg:px-8">
+    <div class="min-h-screen rounded-2xl bg-gradient-to-br from-stone-900 to-stone-800 py-12 px-4 sm:px-6 lg:px-8">
         <div class="max-w-2xl mx-auto">
             <!-- Welcome Section -->
             <div class="bg-stone-800 rounded-lg shadow-xl p-8 mb-6">
                 <h1 class="text-3xl font-bold text-white mb-2">{{ __('home.welcome', ['name' => auth()->user()->name]) }}</h1>
-                <p class="text-gray-300">{{ __('home.choose_option') }}</p>
             </div>
 
             <!-- Action Buttons -->
