@@ -34,5 +34,14 @@ return [
     'contact_us' => 'Contact Us',
     'name' => 'Name',
     'message' => 'Message',
+    'welcome' => 'Welcome, :name!',
+    'choose_option' => 'Please choose one of the options below.',
+    'dashboard' => 'Dashboard',
+    'view_coupons_history' => 'View coupons and history',
+    'scan_codes' => 'Scan Codes',
+    'scan_qr_code' => 'Scan QR code',
+    'qr_code_scanner' => 'QR Code Scanner',
+    'scanned_code' => 'Scanned code:',
+    'qr_instructions' => 'Point the camera at a QR code. The scanner will start automatically.',
 ];
 

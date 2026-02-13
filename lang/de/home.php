@@ -34,5 +34,14 @@ return [
     'contact_us' => 'Kontaktieren Sie uns',
     'name' => 'Name',
     'message' => 'Nachricht',
+    'welcome' => 'Willkommen, :name!',
+    'choose_option' => 'Bitte wählen Sie eine der folgenden Optionen.',
+    'dashboard' => 'Übersicht',
+    'view_coupons_history' => 'Coupons und Verlauf anzeigen',
+    'scan_codes' => 'Codes scannen',
+    'scan_qr_code' => 'QR-Code scannen',
+    'qr_code_scanner' => 'QR-Code-Scanner',
+    'scanned_code' => 'Gescannten Code:',
+    'qr_instructions' => 'Richten Sie die Kamera auf einen QR-Code. Der Scanner startet automatisch.',
 ];
 

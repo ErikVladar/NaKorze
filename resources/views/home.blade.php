@@ -3,8 +3,8 @@
         <div class="max-w-2xl mx-auto">
             <!-- Welcome Section -->
             <div class="bg-stone-800 rounded-lg shadow-xl p-8 mb-6">
-                <h1 class="text-3xl font-bold text-white mb-2">{{ __('Vitaj, :name!', ['name' => auth()->user()->name]) }}</h1>
-                <p class="text-gray-300">{{ __('Vyberte si niektorú z možností nižšie.') }}</p>
+                <h1 class="text-3xl font-bold text-white mb-2">{{ __('home.welcome', ['name' => auth()->user()->name]) }}</h1>
+                <p class="text-gray-300">{{ __('home.choose_option') }}</p>
             </div>
 
             <!-- Action Buttons -->
@@ -14,8 +14,8 @@
                     <svg class="w-12 h-12 mx-auto mb-3 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
                     </svg>
-                    <h2 class="text-xl font-semibold text-white mb-2">Dashboard</h2>
-                    <p class="text-blue-100 text-sm">Zobraziť kuóny a históriu</p>
+                    <h2 class="text-xl font-semibold text-white mb-2">{{ __('home.dashboard') }}</h2>
+                    <p class="text-blue-100 text-sm">{{ __('home.view_coupons_history') }}</p>
                 </a>
 
                 <!-- QR Scanner Button -->
@@ -23,15 +23,15 @@
                     <svg class="w-12 h-12 mx-auto mb-3 text-green-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    <h2 class="text-xl font-semibold text-white mb-2">Skenovanie kódov</h2>
-                    <p class="text-green-100 text-sm">Skenovať QR kód</p>
+                    <h2 class="text-xl font-semibold text-white mb-2">{{ __('home.scan_codes') }}</h2>
+                    <p class="text-green-100 text-sm">{{ __('home.scan_qr_code') }}</p>
                 </button>
             </div>
 
             <!-- QR Scanner Container (Hidden by default) -->
             <div id="scanner-container" class="hidden bg-stone-800 rounded-lg shadow-xl p-8">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-xl font-semibold text-white">QR Kód Skener</h3>
+                    <h3 class="text-xl font-semibold text-white">{{ __('home.qr_code_scanner') }}</h3>
                     <button onclick="toggleScanner()" class="text-gray-400 hover:text-white">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
@@ -44,7 +44,7 @@
 
                 <!-- Result Display -->
                 <div id="qr-result" class="hidden bg-green-900 bg-opacity-50 border border-green-500 rounded-lg p-4 mb-4">
-                    <p class="text-green-100 text-sm mb-2">Skenu detekovaný kód:</p>
+                    <p class="text-green-100 text-sm mb-2">{{ __('home.scanned_code') }}</p>
                     <p id="qr-result-text" class="text-white font-mono break-all text-lg"></p>
                 </div>
 
@@ -55,7 +55,7 @@
 
                 <!-- Info -->
                 <p class="text-gray-400 text-center text-sm mt-4">
-                    Namierte kameru na QR kód. Skener sa spustí automaticky.
+                    {{ __('home.qr_instructions') }}
                 </p>
             </div>
         </div>
