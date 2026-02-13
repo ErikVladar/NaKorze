@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div id="form" class="font-mono bg-stone-900 relative z-30 overflow-hidden group min-h-auto bg-opacity-95 p-8">
+    <div id="form" class="font-mono rounded-2xl bg-stone-900 relative z-30 overflow-hidden group min-h-auto bg-opacity-95 p-8">
         <div class="w-full mx-auto">
 
             {{-- Flash messages --}}
@@ -171,7 +171,11 @@
                 @endif
             </div>
 
+
             @if (auth()->user()->isAdmin())
+
+
+                <br>
 
                 <!-- Personal Information Section -->
                 <div class="mb-8">
@@ -261,6 +265,7 @@
                         </div>
                     @endif
                 </div>
+                <br>
 
                 <!-- Users Section -->
                 <div class="mb-8">

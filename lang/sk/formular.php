@@ -16,7 +16,7 @@ return [
     'form_sex_female' => 'Žena',
     'form_sex_other' => 'Iné',
     'form_city' => 'Mesto/Obec',
-    'form_city_placeholder' => 'Vyhľadajte a vyberte vaše mesto',
+    'form_city_placeholder' => 'Zadajte mesto/obec',
     'form_city_no_results' => 'Mestá nenájdené',
     'form_city_selected' => 'Vybrané',
     'form_postal_code' => 'PSČ',
