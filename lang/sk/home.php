@@ -34,4 +34,13 @@ return [
     'contact_us' => 'Kontaktujte nás',
     'name' => 'Meno',
     'message' => 'Správa',
+    'welcome' => 'Vitaj, :name!',
+    'choose_option' => 'Vyberte si niektorú z možností nižšie.',
+    'dashboard' => 'Prehľad',
+    'view_coupons_history' => 'Zobraziť kupóny a históriu',
+    'scan_codes' => 'Skenovanie kódov',
+    'scan_qr_code' => 'Skenovať QR kód',
+    'qr_code_scanner' => 'QR Kód Skener',
+    'scanned_code' => 'Skenu detekovaný kód:',
+    'qr_instructions' => 'Namierte kameru na QR kód. Skener sa spustí automaticky.',
 ];
