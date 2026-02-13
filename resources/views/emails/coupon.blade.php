@@ -18,12 +18,12 @@
         }
         .header {
             text-align: center;
-            border-bottom: 2px solid #ecba14;
+            border-bottom: 2px solid #78716C;
             padding-bottom: 20px;
             margin-bottom: 20px;
         }
         .header h1 {
-            color: #ecba14 !important;
+            color: #78716C !important;
             margin: 0;
         }
         .content {
@@ -32,7 +32,7 @@
         }
         .coupon-box {
             background-color: #23232b !important;
-            border: 2px solid #ecba14;
+            border: 2px solid #78716C;
             border-radius: 8px;
             padding: 20px;
             margin: 20px 0;
