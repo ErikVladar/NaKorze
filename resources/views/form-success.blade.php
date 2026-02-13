@@ -13,7 +13,7 @@
             <!-- Coupon Code Section -->
             <div class="mb-8 p-6 bg-gray-700 rounded-lg border-2 border-dashed border-gray-500">
                 <p class="text-sm text-gray-400 mb-2">{{ __('formular.your_coupon_code') }}</p>
-                <p class="text-4xl font-bold text-yellow-600 font-mono tracking-wider">
+                <p class="text-4xl font-bold text-green-100 font-mono tracking-wider">
                     {{ $coupon->code }}
                 </p>
                 <p class="mt-4 text-lg font-semibold text-green-400">
