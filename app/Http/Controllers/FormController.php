@@ -33,6 +33,8 @@ class FormController extends Controller
             'phone' => 'nullable|string|max:20',
             'sex' => 'nullable|string|in:M,F,O',
             'city_id' => 'nullable|exists:cities,id',
+            'postal_code' => 'nullable|string|max:20',
+            'address' => 'nullable|string|max:255',
             'message' => 'nullable|string|max:5000',
             'gdpr_consent' => 'required|accepted',
         ]);

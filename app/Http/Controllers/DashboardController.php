@@ -90,21 +90,36 @@ class DashboardController extends Controller
             return back()->with('error', __('dashboard.coupon_not_found'));
         }
 
+        // Just redirect to the coupon view - actual redemption happens in view-available
+        return redirect()->route('coupons.view', $coupon->code);
+    }
+
+    /**
+     * Confirm and actually redeem a coupon.
+     */
+    public function confirmRedeem(string $code): RedirectResponse
+    {
+        $coupon = Coupon::where('code', $code)->first();
+
+        if (! $coupon) {
+            return back()->with('error', __('dashboard.coupon_not_found'));
+        }
+
         if ($coupon->is_redeemed) {
             // Already redeemed - just redirect to show red view
             return redirect()->route('coupons.view', $coupon->code);
         }
 
-            // Not yet redeemed - mark as redeemed and redirect to show green view once
-            $coupon->is_redeemed = true;
-            $coupon->redeemed_at = Carbon::now();
-            $coupon->save();
+        // Mark as redeemed
+        $coupon->is_redeemed = true;
+        $coupon->redeemed_at = Carbon::now();
+        $coupon->save();
 
-            // Redirect with a one-time flag so the view can show the "just redeemed" green screen
-            return redirect()->route('coupons.view', $coupon->code)
-                ->with([
-                    'just_redeemed' => true,
-                    'success' => __('dashboard.coupon_redeemed_success', ['code' => $coupon->code]),
-                ]);
+        // Redirect with success message
+        return redirect()->route('coupons.view', $coupon->code)
+            ->with([
+                'just_redeemed' => true,
+                'success' => __('dashboard.coupon_redeemed_success', ['code' => $coupon->code]),
+            ]);
     }
 }
