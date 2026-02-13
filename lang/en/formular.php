@@ -62,4 +62,5 @@ return [
     'email_regards' => 'Best regards,',
     'email_signature' => 'Na Korze Team',
     'email_copyright' => '© :year Na Korze. Cukráreň & Kaviareň. All rights reserved.',
+    'create_staff' => 'Create staff',
 ];

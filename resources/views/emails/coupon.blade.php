@@ -4,17 +4,17 @@
     <meta charset="UTF-8">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
-            color: #333;
+            font-family: Arial, sans-serif !important;
+            background-color: #18181b !important;
+            color: #f3f3f3 !important;
         }
         .container {
             max-width: 600px;
             margin: 0 auto;
-            background-color: #fff;
+            background-color: #23232b !important;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.5);
         }
         .header {
             text-align: center;
@@ -23,14 +23,15 @@
             margin-bottom: 20px;
         }
         .header h1 {
-            color: #ecba14;
+            color: #ecba14 !important;
             margin: 0;
         }
         .content {
             line-height: 1.6;
+            color: #f3f3f3 !important;
         }
         .coupon-box {
-            background-color: #f9f9f9;
+            background-color: #23232b !important;
             border: 2px solid #ecba14;
             border-radius: 8px;
             padding: 20px;
@@ -40,17 +41,21 @@
         .coupon-code {
             font-size: 24px;
             font-weight: bold;
-            color: #28a745;
+            color: #38f9a6 !important;
             font-family: monospace;
             letter-spacing: 2px;
+            background: #18181b !important;
+            padding: 8px 16px;
+            border-radius: 6px;
+            display: inline-block;
         }
         .coupon-benefit {
             font-size: 18px;
-            color: #333;
+            color: #ffe066 !important;
             margin-top: 10px;
         }
         .details {
-            background-color: #f0f0f0;
+            background-color: #18181b !important;
             padding: 15px;
             border-radius: 5px;
             margin: 15px 0;
@@ -62,23 +67,24 @@
         }
         .detail-label {
             font-weight: bold;
-            color: #555;
+            color: #ffe066 !important;
         }
         .detail-value {
-            color: #333;
+            color: #f3f3f3 !important;
+            font-weight: 500;
         }
         .footer {
             text-align: center;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid #3f3f46;
             padding-top: 20px;
             margin-top: 30px;
             font-size: 12px;
-            color: #999;
+            color: #bdbdbd !important;
         }
         .button {
             display: inline-block;
-            background-color: #ecba14;
-            color: white;
+            background-color: #ecba14 !important;
+            color: #18181b !important;
             padding: 12px 24px;
             border-radius: 5px;
             text-decoration: none;
@@ -110,15 +116,15 @@
             <div class="details">
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.valid_from') }}:</span>
-                    <span class="detail-value">{{ $coupon->valid_from->format('d.m.Y') }}</span>
+                    <span class="detail-value"> {{ $coupon->valid_from->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.valid_until') }}:</span>
-                    <span class="detail-value">{{ $coupon->valid_until->format('d.m.Y') }}</span>
+                    <span class="detail-value"> {{ $coupon->valid_until->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.coupon_details') }}:</span>
-                    <span class="detail-value">{{ $coupon->is_redeemed ? __('formular.coupon_redeemed') : __('formular.coupon_available') }}</span>
+                    <span class="detail-value"> {{ $coupon->is_redeemed ? __('formular.coupon_redeemed') : __('formular.coupon_available') }}</span>
                 </div>
             </div>
 
