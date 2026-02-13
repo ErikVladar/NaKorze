@@ -5,10 +5,13 @@ namespace Tests\Feature;
 use App\Models\City;
 use App\Models\Coupon;
 use App\Models\PersonalInformation;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
 class FormTest extends TestCase
 {
+    use RefreshDatabase;
+
     /**
      * Test that the form page displays with cities.
      */
