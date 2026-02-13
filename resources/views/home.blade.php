@@ -69,11 +69,15 @@
 
         function toggleScanner() {
             const container = document.getElementById('scanner-container');
+            const willShow = container.classList.contains('hidden');
             container.classList.toggle('hidden');
 
-            if (!scannerActive) {
-                startScanner();
-            } else {
+            if (willShow && !scannerActive) {
+                // Wait for DOM to update and element to be visible
+                setTimeout(() => {
+                    startScanner();
+                }, 200);
+            } else if (!willShow && scannerActive) {
                 stopScanner();
             }
         }
