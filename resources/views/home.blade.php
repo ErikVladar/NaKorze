@@ -7,7 +7,7 @@
             </div>
 
             <!-- Action Buttons -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-1 gap-6 mb-6">
                 <!-- Dashboard Button -->
                 <a href="{{ route('dashboard') }}" class="bg-blue-600 hover:bg-blue-700 transition-colors rounded-lg shadow-lg p-6 text-center group">
                     <svg class="w-12 h-12 mx-auto mb-3 text-blue-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -18,7 +18,7 @@
                 </a>
 
                 <!-- QR Scanner Button -->
-                <button onclick="toggleScanner()" class="bg-green-600 hover:bg-green-700 transition-colors rounded-lg shadow-lg p-6 text-center group">
+                <button onclick="toggleScanner()" class="block md:hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg shadow-lg p-6 text-center group">
                     <svg class="w-12 h-12 mx-auto mb-3 text-green-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
@@ -69,15 +69,11 @@
 
         function toggleScanner() {
             const container = document.getElementById('scanner-container');
-            const willShow = container.classList.contains('hidden');
             container.classList.toggle('hidden');
 
-            if (willShow && !scannerActive) {
-                // Wait for DOM to update and element to be visible
-                setTimeout(() => {
-                    startScanner();
-                }, 200);
-            } else if (!willShow && scannerActive) {
+            if (!scannerActive) {
+                startScanner();
+            } else {
                 stopScanner();
             }
         }
