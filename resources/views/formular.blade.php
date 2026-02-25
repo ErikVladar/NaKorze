@@ -194,7 +194,14 @@
                                     initialCountry: 'sk',
                                     preferredCountries: ['sk', 'cz', 'at', 'hu', 'pl', 'de'],
                                     separateDialCode: true,
-                                    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js'
+                                    utilsScript: 'https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/js/utils.js',
+                                    customPlaceholder: function(selectedCountryPlaceholder, selectedCountryData) {
+                                        // Only remove leading 0 for Slovakia
+                                        if (selectedCountryData.iso2 === 'sk') {
+                                            return selectedCountryPlaceholder.replace(/^0/, '');
+                                        }
+                                        return selectedCountryPlaceholder;
+                                    }
                                 });
                             }
                             var form = input.closest('form');
