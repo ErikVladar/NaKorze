@@ -67,7 +67,7 @@
         }
         .detail-label {
             font-weight: bold;
-            color: #D6D3D1 !important;
+            color: #a99e87 !important;
         }
         .detail-value {
             color: #f3f3f3 !important;
