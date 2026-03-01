@@ -54,4 +54,12 @@ return [
     'active_status' => 'Active',
     'back_to_dashboard' => 'Back to Dashboard',
     'personal_info_details' => 'Personal Information Details',
+    'filter_by_code' => 'Filter',
+    'all_statuses' => 'All statuses',
+    'not_redeemed' => 'Not redeemed',
+    'filter_personal' => 'Find',
+    'filter_user' => 'Find',
+    'all_roles' => 'All roles',
+    'admin' => 'Admin',
+    'user' => 'User',
 ];

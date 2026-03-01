@@ -54,4 +54,12 @@ return [
     'active_status' => 'Aktiv',
     'back_to_dashboard' => 'Zurück zum Dashboard',
     'personal_info_details' => 'Persönliche Informationen – Details',
+    'filter_by_code' => 'Nach Code filtern',
+    'all_statuses' => 'Alle Status',
+    'not_redeemed' => 'Nicht eingelöst',
+    'filter_personal' => 'Nach',
+    'filter_user' => 'Nach',
+    'all_roles' => 'Alle Rollen',
+    'admin' => 'Admin',
+    'user' => 'Benutzer',
 ];
