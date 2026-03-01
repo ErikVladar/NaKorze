@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="font-serif m-0 p-0">
+<body class="font-[Inter] m-0 p-0">
 
     <style>
         @font-face {
@@ -58,6 +58,14 @@
             src: url('/Pacifico/Pacifico-Regular.ttf') format('truetype');
             font-weight: 100;
             font-style: thin;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Inter';
+            src: url('/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+            font-weight: 800;
+            font-style: normal;
             font-display: swap;
         }
 

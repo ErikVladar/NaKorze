@@ -54,4 +54,12 @@ return [
     'active_status' => 'Aktívne',
     'back_to_dashboard' => 'Späť na nástrojový panel',
     'personal_info_details' => 'Detaily osobných informácií',
+    'filter_by_code' => 'Vyhľadať',
+    'all_statuses' => 'Všetky stavy',
+    'not_redeemed' => 'Neuplatnené',
+    'filter_personal' => 'Vyhľadať',
+    'filter_user' => 'Vyhľadať',
+    'all_roles' => 'Všetky roly',
+    'admin' => 'Admin',
+    'user' => 'Používateľ',
 ];
