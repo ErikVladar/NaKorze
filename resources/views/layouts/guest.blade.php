@@ -40,7 +40,7 @@
         </div>
 
         <div class="w-full sm:max-w-md mt-6 px-6 py-4 bg-stone-700 text-white shadow-md overflow-hidden sm:rounded-lg"
-                    style="border-radius: 0 0 2.5rem 2.5rem;">
+                    style="border-radius: 0 2.5rem 0 2.5rem;">
             {{ $slot }}
         </div>
     </div>
