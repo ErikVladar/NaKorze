@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="font-[Inter] m-0 p-0">
+<body class="font-[Balleza] m-0 p-0">
 
     <style>
         @font-face {
@@ -64,6 +64,14 @@
         @font-face {
             font-family: 'Inter';
             src: url('/Inter/Inter-VariableFont_opsz,wght.ttf') format('truetype');
+            font-weight: 800;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: 'Balleza';
+            src: url('/Belleza/Belleza-Regular.ttf') format('truetype');
             font-weight: 800;
             font-style: normal;
             font-display: swap;

@@ -2,7 +2,7 @@
     <div class="w-full mx-auto">
         <div class="flex items-center justify-center min-h-screen">
             <div id="form"
-                class="font-mono bg-stone-900 rounded-2xl relative z-10 overflow-visible group w-full max-w-2xl bg-opacity-95 p-8 m-4">
+                class="bg-stone-900 rounded-2xl relative z-10 overflow-visible group w-full max-w-2xl bg-opacity-95 p-8 m-4">
                 <div class="w-full mx-auto"></div>
                 {{-- <h2 class="text-3xl font-bold text-white mb-4">
                     {{ __('formular.form_title') }}
@@ -105,10 +105,10 @@
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                         <!-- City -->
-                        <div x-data="cityDropdown()" class="relative w-full">
+                        <div x-data="cityDropdown()" class="w-full relative">
                             <x-input-label for="city_id" class="mb-1" :value="__('formular.form_city')" />
                             <x-text-input type="text" x-model="search" @focus="open = true" @input="open = true"
-                                @keydown.escape="open = false" @click.away="open = false" autocomplete="off" />
+                                @keydown.escape="open = false" @click.away="open = false" autocomplete="off" class="w-full" />
                             <input type="hidden" name="city_id" :value="selected">
 
                             <!-- Dropdown -->
@@ -141,7 +141,7 @@
                         </div>
 
                         <!-- Postal Code (PSČ) -->
-                        <div>
+                        <div class="w-full">
                             <x-input-label for="postal_code" class="mb-1" :value="__('formular.form_postal_code')" />
                             <x-text-input id="postal_code" class="block w-full" type="text" name="postal_code"
                                 :value="old('postal_code')" />
