@@ -18,13 +18,13 @@
                 </a>
 
                 <!-- QR Scanner Button -->
-                <button onclick="toggleScanner()" class="block md:hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg shadow-lg p-6 text-center group">
+                {{-- <button onclick="toggleScanner()" class="block md:hidden bg-green-600 hover:bg-green-700 transition-colors rounded-lg shadow-lg p-6 text-center group">
                     <svg class="w-12 h-12 mx-auto mb-3 text-green-100" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
                     <h2 class="text-xl font-semibold text-white mb-2">{{ __('home.scan_codes') }}</h2>
                     <p class="text-green-100 text-sm">{{ __('home.scan_qr_code') }}</p>
-                </button>
+                </button> --}}
             </div>
 
             <!-- QR Scanner Container (Hidden by default) -->

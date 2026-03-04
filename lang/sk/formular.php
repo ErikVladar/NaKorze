@@ -3,7 +3,7 @@
 return [
     'nav_home' => 'Domovská stránka',
     'form_title' => 'Osobné informácie',
-    'form_description' => 'Zadajte prosím svoje osobné údaje. Tieto údaje zbierame v súlade s GDPR.',
+    'form_description' => 'Zadajte prosím svoje osobné údaje pre možnosť získať kupón pre 1 bezplatný nápoj alebo dezert. Tieto údaje zbierame v súlade s GDPR.',
     'form_name' => 'Celé meno',
     'form_name_placeholder' => 'Zadajte svoje celé meno',
     'form_email' => 'E-mailová adresa',
