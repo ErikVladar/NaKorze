@@ -35,4 +35,12 @@ return [
         ],
     ],
 
+    'instagram' => [
+        'profile_url' => env('INSTAGRAM_PROFILE_URL', 'https://instagram.com'),
+        'webhook_verify_token' => env('INSTAGRAM_WEBHOOK_VERIFY_TOKEN'),
+        'access_token' => env('INSTAGRAM_ACCESS_TOKEN'),
+        'graph_version' => env('INSTAGRAM_GRAPH_VERSION', 'v25.0'),
+        'dm_unlock_keyword' => env('INSTAGRAM_DM_UNLOCK_KEYWORD', 'UNLOCK'),
+    ],
+
 ];
