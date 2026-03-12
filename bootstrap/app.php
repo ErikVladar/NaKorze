@@ -15,6 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web([
             SetLocale::class,
         ])
+            ->validateCsrfTokens(except: [
+                'webhooks/instagram',
+            ])
         ;
     })
     ->withExceptions(function (Exceptions $exceptions) {
