@@ -118,7 +118,7 @@
             <div class="details">
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.valid_from') }}: </span>
-                    <span class="detail-value"> {{ $coupon->valid_from->format('d.m.Y') }}</span>
+                    <span class="detail-value">" " . {{ $coupon->valid_from->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.valid_until') }}: </span>

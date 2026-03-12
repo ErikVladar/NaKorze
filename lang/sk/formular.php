@@ -63,4 +63,13 @@ return [
     'email_signature' => 'Tím Na Korze',
     'email_copyright' => '© :year Na Korze. Cukráreň & Kaviareň. Všetky práva vyhradené.',
     'create_staff' => 'Vytvoriť zamestnanca',
+    'dm_unlock_title' => 'Sleduj Instagram pre odomknutie',
+    'dm_unlock_description' => 'Sledujte nás na Instagrame a pošlite nám DM správu, aby ste odomkli odoslanie formulára.',
+    'dm_unlock_step_follow' => 'Krok 1: Sledujte náš Instagram profil.',
+    'dm_unlock_open_instagram' => 'Otvoriť Instagram profil',
+    'dm_unlock_step_dm' => 'Krok 2: Pošlite presne túto DM správu na náš Instagram účet:',
+    'dm_unlock_status_pending' => 'Odomknutie čaká. Po odoslaní DM obnovte stránku a odošlite formulár.',
+    'dm_unlock_status_unlocked' => 'Odomknutie úspešné. Teraz môžete formulár odoslať.',
+    'dm_unlock_required' => 'Na odomknutie formulára nás sledujte na Instagrame a pošlite DM kľúčové slovo s vaším tokenom.',
+    'dm_unlock_invalid' => 'Token odomknutia je neplatný. Obnovte formulár a skúste to znova.',
 ];

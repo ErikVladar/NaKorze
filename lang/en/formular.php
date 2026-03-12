@@ -63,4 +63,13 @@ return [
     'email_signature' => 'Na Korze Team',
     'email_copyright' => '© :year Na Korze. Cukráreň & Kaviareň. All rights reserved.',
     'create_staff' => 'Create staff',
+    'dm_unlock_title' => 'Instagram Follow to Unlock',
+    'dm_unlock_description' => 'Follow us on Instagram and send us a DM to unlock this form submission.',
+    'dm_unlock_step_follow' => 'Step 1: Follow our Instagram profile.',
+    'dm_unlock_open_instagram' => 'Open Instagram profile',
+    'dm_unlock_step_dm' => 'Step 2: Send this exact DM message to our Instagram account:',
+    'dm_unlock_status_pending' => 'Unlock pending. After sending the DM, refresh this page and submit the form.',
+    'dm_unlock_status_unlocked' => 'Unlock successful. You can submit the form now.',
+    'dm_unlock_required' => 'To unlock this form, follow us on Instagram and send the unlock DM keyword with your token.',
+    'dm_unlock_invalid' => 'Unlock token is invalid. Please refresh the form and try again.',
 ];

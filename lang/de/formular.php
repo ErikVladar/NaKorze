@@ -63,4 +63,13 @@ return [
     'email_signature' => 'Na Korze Team',
     'email_copyright' => '© :year Na Korze. Cukráreň & Kaviareň. All rights reserved.',
     'create_staff' => 'Mitarbeiter erstellen',
+    'dm_unlock_title' => 'Instagram-Follow zum Freischalten',
+    'dm_unlock_description' => 'Folgen Sie uns auf Instagram und senden Sie uns eine DM, um das Absenden dieses Formulars freizuschalten.',
+    'dm_unlock_step_follow' => 'Schritt 1: Folgen Sie unserem Instagram-Profil.',
+    'dm_unlock_open_instagram' => 'Instagram-Profil öffnen',
+    'dm_unlock_step_dm' => 'Schritt 2: Senden Sie genau diese DM-Nachricht an unser Instagram-Konto:',
+    'dm_unlock_status_pending' => 'Freischaltung ausstehend. Nach dem Senden der DM aktualisieren Sie die Seite und senden das Formular ab.',
+    'dm_unlock_status_unlocked' => 'Freischaltung erfolgreich. Sie können das Formular jetzt absenden.',
+    'dm_unlock_required' => 'Um dieses Formular freizuschalten, folgen Sie uns auf Instagram und senden Sie das DM-Schlüsselwort mit Ihrem Token.',
+    'dm_unlock_invalid' => 'Der Freischalt-Token ist ungültig. Bitte aktualisieren Sie das Formular und versuchen Sie es erneut.',
 ];

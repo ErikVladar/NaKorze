@@ -39,6 +39,42 @@
                 <form method="POST" action="{{ route('form.store') }}" class="space-y-6">
                     @csrf
 
+                    <input type="hidden" name="unlock_token" value="{{ $unlockToken ?? '' }}">
+
+                    <div class="rounded-lg border border-stone-600 bg-stone-800/60 p-4 space-y-3">
+                        <h3 class="text-base font-semibold text-white">{{ __('formular.dm_unlock_title') }}</h3>
+                        <p class="text-sm text-gray-300">{{ __('formular.dm_unlock_description') }}</p>
+
+                        <div class="text-sm text-gray-200">
+                            <p>{{ __('formular.dm_unlock_step_follow') }}</p>
+                            <a href="{{ config('services.instagram.profile_url', 'https://instagram.com') }}" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center mt-2 px-3 py-1.5 bg-pink-600 text-white rounded-md hover:bg-pink-500 transition">
+                                {{ __('formular.dm_unlock_open_instagram') }}
+                            </a>
+                        </div>
+
+                        <div class="text-sm text-gray-200">
+                            <p>{{ __('formular.dm_unlock_step_dm') }}</p>
+                            <p class="mt-2 px-3 py-2 rounded bg-stone-700 font-mono text-green-300 break-all">
+                                {{ strtoupper(config('services.instagram.dm_unlock_keyword', 'UNLOCK')) }} {{ $unlockToken ?? '' }}
+                            </p>
+                        </div>
+
+                        @if (($unlockRequest->status ?? null) === 'unlocked' && $unlockRequest->unlocked_at)
+                            <div class="p-3 rounded-md bg-green-900/40 border border-green-700 text-green-200 text-sm">
+                                {{ __('formular.dm_unlock_status_unlocked') }}
+                            </div>
+                        @else
+                            <div class="p-3 rounded-md bg-yellow-900/40 border border-yellow-700 text-yellow-200 text-sm">
+                                {{ __('formular.dm_unlock_status_pending') }}
+                            </div>
+                        @endif
+
+                        @error('unlock_token')
+                            <x-input-error :messages="$errors->get('unlock_token')" class="mt-2" />
+                        @enderror
+                    </div>
+
                     <!-- Name -->
                     <div>
                         <x-input-label for="name">

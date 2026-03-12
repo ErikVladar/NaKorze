@@ -5,11 +5,14 @@ namespace App\Http\Controllers;
 use App\Models\PersonalInformation;
 use App\Models\City;
 use App\Models\Coupon;
+use App\Models\InstagramUnlockRequest;
 use App\Mail\CouponMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 class FormController extends Controller
 {
@@ -18,8 +21,32 @@ class FormController extends Controller
      */
     public function show()
     {
+        $unlockToken = (string) session('dm_unlock_token', '');
+
+        if ($unlockToken === '') {
+            $unlockToken = strtoupper(Str::random(10));
+            session(['dm_unlock_token' => $unlockToken]);
+        }
+
+        InstagramUnlockRequest::firstOrCreate(
+            ['unlock_token' => $unlockToken],
+            ['status' => 'pending']
+        );
+
+        $unlockRequest = InstagramUnlockRequest::where('unlock_token', $unlockToken)->first();
+
+        if ($unlockRequest && $unlockRequest->status === 'consumed') {
+            $unlockToken = strtoupper(Str::random(10));
+            session(['dm_unlock_token' => $unlockToken]);
+
+            $unlockRequest = InstagramUnlockRequest::create([
+                'unlock_token' => $unlockToken,
+                'status' => 'pending',
+            ]);
+        }
+
         $cities = City::orderBy('name')->get();
-        return view('formular', compact('cities'));
+        return view('formular', compact('cities', 'unlockToken', 'unlockRequest'));
     }
 
     /**
@@ -37,7 +64,29 @@ class FormController extends Controller
             'address' => 'nullable|string|max:255',
             'message' => 'nullable|string|max:5000',
             'gdpr_consent' => 'required|accepted',
+            'unlock_token' => 'required|string|max:64',
         ]);
+
+        $submittedToken = strtoupper(trim((string) $validated['unlock_token']));
+        $sessionToken = strtoupper(trim((string) session('dm_unlock_token', '')));
+
+        if ($sessionToken === '' || $submittedToken !== $sessionToken) {
+            return back()
+                ->withErrors([
+                    'unlock_token' => __('formular.dm_unlock_invalid') ?? 'Unlock token is invalid. Please refresh the form and try again.',
+                ])
+                ->withInput();
+        }
+
+        $unlockRequest = InstagramUnlockRequest::where('unlock_token', $submittedToken)->first();
+
+        if (! $unlockRequest || ! $unlockRequest->unlocked_at || $unlockRequest->status !== 'unlocked') {
+            return back()
+                ->withErrors([
+                    'unlock_token' => __('formular.dm_unlock_required') ?? 'To unlock this form, follow us on Instagram and send the unlock DM keyword with your token.',
+                ])
+                ->withInput();
+        }
 
         // Check if this email already has an active (non-redeemed) coupon
         $existingCoupon = Coupon::where('email', $validated['email'])
@@ -48,7 +97,12 @@ class FormController extends Controller
             return back()->with('error', __('formular.email_already_has_coupon') ?? 'This email address already has an active coupon.');
         }
 
+        $unlockRequest->email = $validated['email'];
+        $unlockRequest->status = 'consumed';
+        $unlockRequest->save();
+
         $validated['consent_date'] = now();
+        unset($validated['unlock_token']);
 
         $personalInfo = PersonalInformation::create($validated);
 
@@ -94,7 +148,7 @@ class FormController extends Controller
 
         // If the requester is not authenticated, show an info-only screen
         // Guests are not allowed to redeem coupons — only authenticated users may.
-        if (! auth()->check()) {
+        if (! Auth::check()) {
             return view('coupons.view-info', compact('coupon'));
         }
 
