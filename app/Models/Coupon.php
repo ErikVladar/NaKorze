@@ -21,6 +21,7 @@ class Coupon extends Model
      */
     protected $fillable = [
         'code',
+        'qr_code_path',
         'name',
         'email',
         'phone',
@@ -128,23 +129,52 @@ class Coupon extends Model
      */
     public function getQrCodePath(): ?string
     {
-        $couponUrl = route('coupons.view', $this->code);
-        $qrCode = new QrCode($couponUrl);
-        $writer = new PngWriter();
-        $result = $writer->write($qrCode);
+        return $this->ensureQrCodeSaved();
+    }
 
-        $filename = "qr-code-{$this->code}.png";
-        $path = storage_path("app/qr-codes/{$filename}");
-        
-        // Create directory if it doesn't exist
-        if (!is_dir(dirname($path))) {
-            mkdir(dirname($path), 0755, true);
+    /**
+     * Ensure QR code image exists on disk and is linked to this coupon.
+     * Returns absolute file path when available.
+     */
+    public function ensureQrCodeSaved(): ?string
+    {
+        $relativePath = $this->qr_code_path ?: "qr-codes/qr-code-{$this->code}.png";
+        $absolutePath = public_path($relativePath);
+
+        if (!file_exists($absolutePath)) {
+            $couponUrl = route('coupons.view', $this->code);
+            $qrCode = new QrCode($couponUrl);
+            $writer = new PngWriter();
+            $result = $writer->write($qrCode);
+
+            if (!is_dir(dirname($absolutePath))) {
+                mkdir(dirname($absolutePath), 0755, true);
+            }
+
+            file_put_contents($absolutePath, $result->getString());
         }
 
-        // Save the QR code image
-        file_put_contents($path, $result->getString());
+        if (!file_exists($absolutePath)) {
+            return null;
+        }
 
-        return file_exists($path) ? $path : null;
+        if ($this->qr_code_path !== $relativePath) {
+            $this->forceFill(['qr_code_path' => $relativePath])->save();
+        }
+
+        return $absolutePath;
+    }
+
+    /**
+     * Get public URL for persisted QR code image.
+     */
+    public function getQrCodeUrl(): ?string
+    {
+        if (! $this->ensureQrCodeSaved()) {
+            return null;
+        }
+
+        return asset($this->qr_code_path);
     }
 
     /**

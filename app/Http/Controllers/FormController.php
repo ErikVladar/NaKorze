@@ -138,6 +138,8 @@ class FormController extends Controller
             'personal_information_id' => $personalInfo->id,
         ]);
 
+        $coupon->ensureQrCodeSaved();
+
         Log::info('ig_gate.form_store.coupon_created', [
             'coupon_id' => $coupon->id,
             'coupon_code' => $coupon->code,
@@ -172,6 +174,8 @@ class FormController extends Controller
      */
     public function success(Coupon $coupon)
     {
+        $coupon->ensureQrCodeSaved();
+
         return view('form-success', compact('coupon'));
     }
 
@@ -181,6 +185,7 @@ class FormController extends Controller
     public function viewCoupon(Request $request, $code)
     {
         $coupon = Coupon::where('code', $code)->firstOrFail();
+        $coupon->ensureQrCodeSaved();
 
         // If the requester is not authenticated, show an info-only screen
         // Guests are not allowed to redeem coupons — only authenticated users may.

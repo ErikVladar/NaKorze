@@ -30,6 +30,16 @@
                         <p class="text-lg font-mono font-semibold text-gray-800">{{ $coupon->code }}</p>
                     </div>
 
+                    <!-- QR Code -->
+                    <div class="pt-2">
+                        <p class="text-sm text-gray-600 mb-2">QR kód</p>
+                        @if ($coupon->getQrCodeUrl())
+                            <div class="flex justify-center">
+                                <img src="{{ $coupon->getQrCodeUrl() }}" alt="Coupon QR Code" class="w-48 h-48 rounded-md border border-gray-200" loading="lazy">
+                            </div>
+                        @endif
+                    </div>
+
                     <!-- Benefit -->
                     <div>
                         <p class="text-lg font-bold text-green-600">{{ __('formular.free_drink') ?? '1 Free Drink' }}
