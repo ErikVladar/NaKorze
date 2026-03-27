@@ -5,14 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\PersonalInformation;
 use App\Models\City;
 use App\Models\Coupon;
-use App\Models\InstagramUnlockRequest;
 use App\Mail\CouponMail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class FormController extends Controller
 {
@@ -21,61 +19,53 @@ class FormController extends Controller
      */
     public function show()
     {
-        $unlockToken = (string) session('dm_unlock_token', '');
+        $cities = City::orderBy('name')->get();
+        $isInstagramCodeUnlocked = (bool) session('instagram_coupon_unlocked', false);
 
-        Log::info('dm_unlock.form_show.start', [
-            'has_session_token' => $unlockToken !== '',
+        Log::info('ig_gate.form_show.ready', [
+            'steps_mode' => 'follow_dm_code',
+            'is_unlocked' => $isInstagramCodeUnlocked,
+        ]);
+
+        return view('formular', compact('cities', 'isInstagramCodeUnlocked'));
+    }
+
+    public function unlockInstagramGate(Request $request): RedirectResponse
+    {
+        $validated = $request->validate([
+            'instagram_coupon_code' => 'required|string|max:100',
+        ]);
+
+        $expectedCode = (string) config('services.instagram.coupon_code', 'na_korze_kupon_2000');
+        $submittedCode = mb_strtolower(trim((string) $validated['instagram_coupon_code']));
+        $normalizedExpected = mb_strtolower(trim($expectedCode));
+
+        Log::info('ig_gate.unlock_attempt', [
+            'submitted_code_length' => strlen($submittedCode),
+            'expected_code_length' => strlen($normalizedExpected),
             'session_id' => substr((string) session()->getId(), 0, 12),
         ]);
 
-        if ($unlockToken === '') {
-            $unlockToken = strtoupper(Str::random(10));
-            session(['dm_unlock_token' => $unlockToken]);
-
-            Log::info('dm_unlock.form_show.token_generated', [
-                'token_masked' => $this->maskToken($unlockToken),
+        if ($submittedCode === '' || $submittedCode !== $normalizedExpected) {
+            Log::warning('ig_gate.unlock_failed', [
+                'submitted_code_length' => strlen($submittedCode),
+                'expected_code_length' => strlen($normalizedExpected),
             ]);
+
+            return back()
+                ->withErrors([
+                    'instagram_coupon_code' => __('formular.instagram_code_invalid') ?? 'Nesprávny kód. Skontrolujte správu z Instagramu a skúste to znova.',
+                ])
+                ->withInput();
         }
 
-        InstagramUnlockRequest::firstOrCreate(
-            ['unlock_token' => $unlockToken],
-            ['status' => 'pending']
-        );
+        session(['instagram_coupon_unlocked' => true]);
 
-        $unlockRequest = InstagramUnlockRequest::where('unlock_token', $unlockToken)->first();
-
-        Log::info('dm_unlock.form_show.request_loaded', [
-            'token_masked' => $this->maskToken($unlockToken),
-            'request_exists' => $unlockRequest !== null,
-            'request_id' => $unlockRequest?->id,
-            'status' => $unlockRequest?->status,
+        Log::info('ig_gate.unlock_success', [
+            'session_id' => substr((string) session()->getId(), 0, 12),
         ]);
 
-        if ($unlockRequest && $unlockRequest->status === 'consumed') {
-            $oldToken = $unlockToken;
-            $unlockToken = strtoupper(Str::random(10));
-            session(['dm_unlock_token' => $unlockToken]);
-
-            $unlockRequest = InstagramUnlockRequest::create([
-                'unlock_token' => $unlockToken,
-                'status' => 'pending',
-            ]);
-
-            Log::info('dm_unlock.form_show.consumed_replaced', [
-                'old_token_masked' => $this->maskToken($oldToken),
-                'new_token_masked' => $this->maskToken($unlockToken),
-                'new_request_id' => $unlockRequest->id,
-            ]);
-        }
-
-        $cities = City::orderBy('name')->get();
-
-        Log::info('dm_unlock.form_show.ready', [
-            'token_masked' => $this->maskToken($unlockToken),
-            'status' => $unlockRequest?->status,
-        ]);
-
-        return view('formular', compact('cities', 'unlockToken', 'unlockRequest'));
+        return redirect()->route('form.show')->with('success', __('formular.instagram_unlocked_success'));
     }
 
     /**
@@ -93,55 +83,24 @@ class FormController extends Controller
             'address' => 'nullable|string|max:255',
             'message' => 'nullable|string|max:5000',
             'gdpr_consent' => 'required|accepted',
-            'unlock_token' => 'required|string|max:64',
         ]);
 
-        $submittedToken = strtoupper(trim((string) $validated['unlock_token']));
-        $sessionToken = strtoupper(trim((string) session('dm_unlock_token', '')));
+        $isInstagramCodeUnlocked = (bool) session('instagram_coupon_unlocked', false);
 
-        Log::info('dm_unlock.form_store.received', [
-            'submitted_token_masked' => $this->maskToken($submittedToken),
-            'session_token_masked' => $this->maskToken($sessionToken),
+        Log::info('ig_gate.form_store.received', [
+            'is_unlocked' => $isInstagramCodeUnlocked,
             'email_hash' => sha1((string) $validated['email']),
         ]);
 
-        if ($sessionToken === '' || $submittedToken !== $sessionToken) {
-            Log::warning('dm_unlock.form_store.token_mismatch', [
-                'submitted_token_masked' => $this->maskToken($submittedToken),
-                'session_token_masked' => $this->maskToken($sessionToken),
+        if (! $isInstagramCodeUnlocked) {
+            Log::warning('ig_gate.form_store.blocked_not_unlocked', [
                 'session_id' => substr((string) session()->getId(), 0, 12),
             ]);
 
-            return back()
+            return redirect()->route('form.show')
                 ->withErrors([
-                    'unlock_token' => __('formular.dm_unlock_invalid') ?? 'Unlock token is invalid. Please refresh the form and try again.',
-                ])
-                ->withInput();
-        }
-
-        $unlockRequest = InstagramUnlockRequest::where('unlock_token', $submittedToken)->first();
-
-        Log::info('dm_unlock.form_store.request_lookup', [
-            'token_masked' => $this->maskToken($submittedToken),
-            'request_exists' => $unlockRequest !== null,
-            'request_id' => $unlockRequest?->id,
-            'status' => $unlockRequest?->status,
-            'has_unlocked_at' => $unlockRequest?->unlocked_at !== null,
-        ]);
-
-        if (! $unlockRequest || ! $unlockRequest->unlocked_at || $unlockRequest->status !== 'unlocked') {
-            Log::warning('dm_unlock.form_store.not_unlocked', [
-                'token_masked' => $this->maskToken($submittedToken),
-                'request_exists' => $unlockRequest !== null,
-                'status' => $unlockRequest?->status,
-                'has_unlocked_at' => $unlockRequest?->unlocked_at !== null,
-            ]);
-
-            return back()
-                ->withErrors([
-                    'unlock_token' => __('formular.dm_unlock_required') ?? 'To unlock this form, follow us on Instagram and send the unlock DM keyword with your token.',
-                ])
-                ->withInput();
+                    'instagram_coupon_code' => __('formular.instagram_unlock_required') ?? 'Najprv zadajte správny kód z Instagram správy.',
+                ]);
         }
 
         // Check if this email already has an active (non-redeemed) coupon
@@ -149,7 +108,7 @@ class FormController extends Controller
             ->where('is_redeemed', false)
             ->first();
 
-        Log::info('dm_unlock.form_store.coupon_lookup', [
+        Log::info('ig_gate.form_store.coupon_lookup', [
             'email_hash' => sha1((string) $validated['email']),
             'has_active_coupon' => $existingCoupon !== null,
             'existing_coupon_id' => $existingCoupon?->id,
@@ -159,22 +118,11 @@ class FormController extends Controller
             return back()->with('error', __('formular.email_already_has_coupon') ?? 'This email address already has an active coupon.');
         }
 
-        $unlockRequest->email = $validated['email'];
-        $unlockRequest->status = 'consumed';
-        $unlockRequest->save();
-
-        Log::info('dm_unlock.form_store.request_consumed', [
-            'request_id' => $unlockRequest->id,
-            'token_masked' => $this->maskToken($submittedToken),
-            'email_hash' => sha1((string) $validated['email']),
-        ]);
-
         $validated['consent_date'] = now();
-        unset($validated['unlock_token']);
 
         $personalInfo = PersonalInformation::create($validated);
 
-        Log::info('dm_unlock.form_store.personal_info_created', [
+        Log::info('ig_gate.form_store.personal_info_created', [
             'personal_information_id' => $personalInfo->id,
             'email_hash' => sha1((string) $validated['email']),
         ]);
@@ -190,7 +138,7 @@ class FormController extends Controller
             'personal_information_id' => $personalInfo->id,
         ]);
 
-        Log::info('dm_unlock.form_store.coupon_created', [
+        Log::info('ig_gate.form_store.coupon_created', [
             'coupon_id' => $coupon->id,
             'coupon_code' => $coupon->code,
             'email_hash' => sha1((string) $validated['email']),
@@ -200,7 +148,7 @@ class FormController extends Controller
         try {
             Mail::to($validated['email'])->send(new CouponMail($coupon));
 
-            Log::info('dm_unlock.form_store.mail_sent', [
+            Log::info('ig_gate.form_store.mail_sent', [
                 'coupon_id' => $coupon->id,
                 'email_hash' => sha1((string) $validated['email']),
             ]);
@@ -212,24 +160,11 @@ class FormController extends Controller
             ]);
         }
 
-        Log::info('dm_unlock.form_store.success_redirect', [
+        Log::info('ig_gate.form_store.success_redirect', [
             'coupon_id' => $coupon->id,
         ]);
 
         return redirect()->route('form.success', $coupon->id);
-    }
-
-    private function maskToken(string $token): string
-    {
-        if ($token === '') {
-            return '';
-        }
-
-        if (strlen($token) <= 4) {
-            return Str::mask($token, '*', 0);
-        }
-
-        return substr($token, 0, 2) . '***' . substr($token, -2);
     }
 
     /**
