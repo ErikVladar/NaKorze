@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FormController;
-use App\Http\Controllers\InstagramWebhookController;
 
 Route::post('/contact/send', [ContactController::class, 'send'])->name('contact.send');
 
@@ -26,12 +25,10 @@ Route::get('/', function () {
 });
 
 Route::get('/formular', [FormController::class, 'show'])->name('form.show');
+Route::post('/formular/unlock', [FormController::class, 'unlockInstagramGate'])->name('form.unlock');
 Route::post('/formular', [FormController::class, 'store'])->name('form.store');
 Route::get('/coupon/{coupon}', [FormController::class, 'success'])->name('form.success');
 Route::get('/coupons/{code}/view', [FormController::class, 'viewCoupon'])->name('coupons.view');
-
-Route::get('/webhooks/instagram', [InstagramWebhookController::class, 'verify'])->name('instagram.webhook.verify');
-Route::post('/webhooks/instagram', [InstagramWebhookController::class, 'handle'])->name('instagram.webhook.handle');
 
 
 Route::get('/dashboard', [DashboardController::class, 'index'])
