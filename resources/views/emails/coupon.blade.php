@@ -63,15 +63,18 @@
         .detail-row {
             display: flex;
             justify-content: space-between;
+            gap: 12px;
             margin: 8px 0;
         }
         .detail-label {
             font-weight: bold;
             color: #a99e87 !important;
+            padding-right: 12px;
         }
         .detail-value {
             color: #f3f3f3 !important;
             font-weight: 500;
+            text-align: right;
         }
         .footer {
             text-align: center;
@@ -118,7 +121,7 @@
             <div class="details">
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.valid_from') }}: </span>
-                    <span class="detail-value">" " . {{ $coupon->valid_from->format('d.m.Y') }}</span>
+                    <span class="detail-value"> {{ $coupon->valid_from->format('d.m.Y') }}</span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">{{ __('formular.valid_until') }}: </span>
