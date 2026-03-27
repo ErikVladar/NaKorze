@@ -53,7 +53,14 @@
                     <!-- Validity Status -->
                     <div class="pt-4 border-t border-gray-200">
                         <p class="text-sm text-gray-600">{{ __('dashboard.status') }}</p>
-                        @if ($coupon->isValid())
+                        @if ($coupon->is_redeemed)
+                            <div class="mt-2">
+                                <span
+                                    class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                                    {{ __('dashboard.redeemed_status') }}
+                                </span>
+                            </div>
+                        @elseif ($coupon->isValid())
                             <div class="mt-2">
                                 <span
                                     class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">

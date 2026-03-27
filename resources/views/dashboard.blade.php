@@ -15,7 +15,7 @@
                 const byCode = this.matchText(code, this.couponFilter);
                 let byStatus = true;
                 if (this.couponStatus === 'valid') byStatus = isValid;
-                if (this.couponStatus === 'invalid') byStatus = !isValid;
+                if (this.couponStatus === 'invalid') byStatus = !isValid && !isRedeemed;
                 if (this.couponStatus === 'redeemed') byStatus = isRedeemed;
                 if (this.couponStatus === 'not_redeemed') byStatus = !isRedeemed;
                 return byCode && byStatus;
@@ -97,7 +97,7 @@
                     <select x-model="couponStatus" class="px-3 py-2 rounded bg-gray-800 text-gray-200 border border-gray-600">
                         <option value="all">{{ __('dashboard.all_statuses') }}</option>
                         <option value="valid">{{ __('dashboard.valid') }}</option>
-                        <option value="invalid">{{ __('dashboard.invalid') }}</option>
+                        <option value="invalid">{{ __('dashboard.invalid_not_redeemed') }}</option>
                         <option value="redeemed">{{ __('dashboard.redeemed') }}</option>
                         <option value="not_redeemed">{{ __('dashboard.not_redeemed') }}</option>
                     </select>
@@ -125,7 +125,12 @@
                                     <td class="px-4 py-3">{{ $c->valid_from->format('Y-m-d') }}</td>
                                     <td class="px-4 py-3">{{ $c->valid_until->format('Y-m-d') }}</td>
                                     <td class="px-4 py-3">
-                                        @if ($c->isValid())
+                                        @if ($c->is_redeemed)
+                                            <span
+                                                class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500 bg-opacity-20 text-blue-300">
+                                                ✓ {{ __('dashboard.redeemed_status') }}
+                                            </span>
+                                        @elseif ($c->isValid())
                                             <span
                                                 class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 bg-opacity-20 text-green-300">
                                                 ✓ {{ __('dashboard.valid') }}
@@ -170,9 +175,9 @@
                     </table>
                 </div>
 
-                <div class="md:hidden space-y-4">
+                <div class="md:hidden space-y-4 text-gray-100">
                     @forelse ($coupons as $c)
-                        <div class="bg-gray-700 p-4 rounded-lg space-y-2"
+                        <div class="bg-gray-700 text-gray-100 p-4 rounded-lg space-y-2"
                             x-show="couponVisible(@js(strtolower($c->code)), {{ $c->isValid() ? 'true' : 'false' }}, {{ $c->is_redeemed ? 'true' : 'false' }})">
                             <div class="flex justify-between items-start gap-2">
                                 <div>
@@ -181,22 +186,27 @@
                                 </div>
                                 <div class="text-right">
                                     <p class="text-xs text-gray-400">{{ __('dashboard.discount') }}</p>
-                                    <p class="text-sm font-semibold">{{ $c->discount_percent }}%</p>
+                                    <p class="text-sm font-semibold text-gray-100">{{ $c->discount_percent }}%</p>
                                 </div>
                             </div>
                             <div class="flex justify-between gap-2">
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.valid_from') }}</p>
-                                    <p class="text-sm">{{ $c->valid_from->format('Y-m-d') }}</p>
+                                    <p class="text-sm text-gray-100">{{ $c->valid_from->format('Y-m-d') }}</p>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.valid_until') }}</p>
-                                    <p class="text-sm">{{ $c->valid_until->format('Y-m-d') }}</p>
+                                    <p class="text-sm text-gray-100">{{ $c->valid_until->format('Y-m-d') }}</p>
                                 </div>
                             </div>
                             <div>
                                 <p class="text-xs text-gray-400 mb-1">{{ __('dashboard.status') }}</p>
-                                @if ($c->isValid())
+                                @if ($c->is_redeemed)
+                                    <span
+                                        class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-500 bg-opacity-20 text-blue-300">
+                                        ✓ {{ __('dashboard.redeemed_status') }}
+                                    </span>
+                                @elseif ($c->isValid())
                                     <span
                                         class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-500 bg-opacity-20 text-green-300">
                                         ✓ {{ __('dashboard.valid') }}
@@ -228,7 +238,7 @@
                             @endauth
                         </div>
                     @empty
-                        <div class="text-center text-gray-500 py-6">{{ __('dashboard.no_coupons_found') }}</div>
+                        <div class="text-center text-gray-300 py-6">{{ __('dashboard.no_coupons_found') }}</div>
                     @endforelse
                 </div>
 
@@ -288,29 +298,29 @@
                         </table>
                     </div>
 
-                    <div class="md:hidden space-y-4">
+                    <div class="md:hidden space-y-4 text-gray-100">
                         @forelse ($personalInfo as $info)
-                            <div class="bg-gray-700 p-4 rounded-lg space-y-2"
+                            <div class="bg-gray-700 text-gray-100 p-4 rounded-lg space-y-2"
                                 x-show="personalVisible(@js(strtolower($info->name)), @js(strtolower($info->email)), @js(strtolower($info->phone ?? '')), @js(strtolower($info->message ?? '')), @js(strtolower($info->city?->name ?? '')), @js(strtolower($info->postal_code ?? '')), @js(strtolower($info->address ?? '')))">
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.name') }}</p>
-                                    <p class="font-semibold">{{ $info->name }}</p>
+                                    <p class="font-semibold text-gray-100">{{ $info->name }}</p>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.email') }}</p>
-                                    <p class="text-sm break-all">{{ $info->email }}</p>
+                                    <p class="text-sm break-all text-gray-100">{{ $info->email }}</p>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.phone') ?? 'Phone' }}</p>
-                                    <p class="text-sm">{{ $info->phone ?? '—' }}</p>
+                                    <p class="text-sm text-gray-100">{{ $info->phone ?? '—' }}</p>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.message') ?? 'Message' }}</p>
-                                    <p class="text-sm break-words">{{ $info->message ?? '—' }}</p>
+                                    <p class="text-sm break-words text-gray-100">{{ $info->message ?? '—' }}</p>
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.submitted') ?? 'Submitted' }}</p>
-                                    <p class="text-sm">{{ $info->created_at->format('Y-m-d H:i') }}</p>
+                                    <p class="text-sm text-gray-100">{{ $info->created_at->format('Y-m-d H:i') }}</p>
                                 </div>
                                 <div class="pt-2">
                                     <a href="{{ route('personal-information.show', $info->id) }}"
@@ -320,7 +330,7 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="text-center text-gray-500 py-6">
+                            <div class="text-center text-gray-300 py-6">
                                 {{ __('dashboard.no_personal_information') ?? 'No personal information found' }}
                             </div>
                         @endforelse
@@ -392,14 +402,14 @@
                         </table>
                     </div>
 
-                    <div class="md:hidden space-y-4">
+                    <div class="md:hidden space-y-4 text-gray-100">
                         @forelse ($users as $u)
-                            <div class="bg-gray-700 p-4 rounded-lg space-y-2"
+                            <div class="bg-gray-700 text-gray-100 p-4 rounded-lg space-y-2"
                                 x-show="userVisible(@js((string) $u->id), @js(strtolower($u->name)), @js(strtolower($u->email)), @js($u->role ?? 'user'))">
                                 <div class="flex justify-between items-start gap-2">
                                     <div>
                                         <p class="text-xs text-gray-400">{{ __('dashboard.name') }}</p>
-                                        <p class="font-semibold">{{ $u->name }}</p>
+                                        <p class="font-semibold text-gray-100">{{ $u->name }}</p>
                                     </div>
                                     <div>
                                         <span
@@ -410,16 +420,16 @@
                                 </div>
                                 <div>
                                     <p class="text-xs text-gray-400">{{ __('dashboard.email') }}</p>
-                                    <p class="text-sm break-all">{{ $u->email }}</p>
+                                    <p class="text-sm break-all text-gray-100">{{ $u->email }}</p>
                                 </div>
                                 <div class="flex justify-between gap-4">
                                     <div>
                                         <p class="text-xs text-gray-400">{{ __('dashboard.id') }}</p>
-                                        <p class="text-sm">#{{ $u->id }}</p>
+                                        <p class="text-sm text-gray-100">#{{ $u->id }}</p>
                                     </div>
                                     <div>
                                         <p class="text-xs text-gray-400">{{ __('dashboard.joined') }}</p>
-                                        <p class="text-sm">{{ $u->created_at->format('Y-m-d') }}</p>
+                                        <p class="text-sm text-gray-100">{{ $u->created_at->format('Y-m-d') }}</p>
                                     </div>
                                 </div>
                                 <div class="pt-2">
@@ -437,7 +447,7 @@
                                 </div>
                             </div>
                         @empty
-                            <div class="text-center text-gray-500 py-6">{{ __('dashboard.no_users_found') }}</div>
+                            <div class="text-center text-gray-300 py-6">{{ __('dashboard.no_users_found') }}</div>
                         @endforelse
                     </div>
 
