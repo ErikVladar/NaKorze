@@ -36,6 +36,51 @@
                 <link rel="stylesheet"
                     href="https://cdn.jsdelivr.net/npm/intl-tel-input@18.2.1/build/css/intlTelInput.min.css">
 
+                <div class="rounded-lg border border-stone-600 bg-stone-800/60 p-4 space-y-3 mb-6">
+                        <h3 class="text-base font-semibold text-white">{{ __('formular.instagram_steps_title') }}</h3>
+                        <p class="text-sm text-gray-300">{{ __('formular.instagram_steps_description') }}</p>
+
+                        <div class="text-sm text-gray-200">
+                            <p><span class="font-semibold">1.</span> {{ __('formular.instagram_step_follow') }}</p>
+                            <a href="{{ config('services.instagram.profile_url', 'https://instagram.com') }}" target="_blank" rel="noopener noreferrer"
+                                class="inline-flex items-center mt-2 px-3 py-1.5 bg-pink-600 text-white rounded-md hover:bg-pink-500 transition">
+                                {{ __('formular.instagram_open_profile') }}
+                            </a>
+                        </div>
+
+                        <div class="text-sm text-gray-200">
+                            <p><span class="font-semibold">2.</span> {{ __('formular.instagram_step_dm') }}</p>
+                            <p class="mt-2 px-3 py-2 rounded bg-stone-700 font-mono text-green-300 break-all">
+                                Chcem kupón
+                            </p>
+                        </div>
+
+                        @if (!($isInstagramCodeUnlocked ?? false))
+                            <form method="POST" action="{{ route('form.unlock') }}" class="space-y-2">
+                                @csrf
+                                <div class="text-sm text-gray-200 space-y-2">
+                                    <p><span class="font-semibold">3.</span> {{ __('formular.instagram_step_code') }}</p>
+                                    <x-text-input id="instagram_coupon_code" class="block mt-1 w-full" type="text"
+                                        name="instagram_coupon_code" :value="old('instagram_coupon_code')" required
+                                        placeholder="{{ __('formular.instagram_code_placeholder') }}" />
+                                </div>
+
+                                @error('instagram_coupon_code')
+                                    <x-input-error :messages="$errors->get('instagram_coupon_code')" class="mt-2" />
+                                @enderror
+
+                                <x-primary-button class="w-full justify-center">
+                                    {{ __('formular.instagram_unlock_button') }}
+                                </x-primary-button>
+                            </form>
+                        @else
+                            <div class="p-3 rounded-md bg-green-900/40 border border-green-700 text-green-200 text-sm">
+                                {{ __('formular.instagram_unlocked_success') }}
+                            </div>
+                        @endif
+                </div>
+
+                @if ($isInstagramCodeUnlocked ?? false)
                 <form method="POST" action="{{ route('form.store') }}" class="space-y-6">
                     @csrf
 
@@ -233,6 +278,7 @@
                         </x-primary-button>
                     </div>
                 </form>
+                @endif
             </div>
         </div>
     </div>

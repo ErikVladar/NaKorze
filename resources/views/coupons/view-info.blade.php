@@ -30,6 +30,16 @@
                         <p class="text-lg font-mono font-semibold text-gray-800">{{ $coupon->code }}</p>
                     </div>
 
+                    <!-- QR Code -->
+                    <div class="pt-2">
+                        <p class="text-sm text-gray-600 mb-2">QR kód</p>
+                        @if ($coupon->getQrCodeUrl())
+                            <div class="flex justify-center">
+                                <img src="{{ $coupon->getQrCodeUrl() }}" alt="Coupon QR Code" class="w-48 h-48 rounded-md border border-gray-200" loading="lazy">
+                            </div>
+                        @endif
+                    </div>
+
                     <!-- Benefit -->
                     <div>
                         <p class="text-lg font-bold text-green-600">{{ __('formular.free_drink') ?? '1 Free Drink' }}
@@ -53,7 +63,14 @@
                     <!-- Validity Status -->
                     <div class="pt-4 border-t border-gray-200">
                         <p class="text-sm text-gray-600">{{ __('dashboard.status') }}</p>
-                        @if ($coupon->isValid())
+                        @if ($coupon->is_redeemed)
+                            <div class="mt-2">
+                                <span
+                                    class="inline-block px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-semibold">
+                                    {{ __('dashboard.redeemed_status') }}
+                                </span>
+                            </div>
+                        @elseif ($coupon->isValid())
                             <div class="mt-2">
                                 <span
                                     class="inline-block px-3 py-1 bg-green-100 text-green-800 rounded-full text-sm font-semibold">

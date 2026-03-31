@@ -38,7 +38,7 @@ class CouponMail extends Mailable
      */
     public function build()
     {
-        $qrCodePath = $this->coupon->getQrCodePath();
+        $qrCodePath = $this->coupon->ensureQrCodeSaved();
 
         $message = $this->view('emails.coupon')
             ->with([
