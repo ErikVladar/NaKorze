@@ -468,16 +468,30 @@
             <div class="absolute inset-0 bg-black bg-opacity-50" @click="showModal = false"></div>
 
             <!-- The modal content -->
-            <div class="relative z-10 overflow-y-auto rounded-lg w-full p-12">
+            <div class="relative z-10 overflow-y-auto rounded-lg w-full p-12 max-h-[90vh]">
 
                 <button @click="showModal = false"
-                    class="absolute right-2 text-5xl text-gray-200 hover:text-gray-600">&times;</button>
+                    class="fixed right-10 top-10 text-5xl text-gray-200 hover:text-gray-600">&times;</button>
 
-                <div class="flex justify-center">
-                    <img src="material/Napojak 2025/NaKorze_PonukovyList2025_140x255mm_2752025_nahlad1-page-00001.jpg"
-                        alt="Food 1" class="rounded-xl max-h-[90vh] shadow-md object-contain" />
+                <div class="flex flex-col justify-center gap-4">
+		    @foreach($images as $image)
+			<div class="flex justify-center">
+				<img
+				   src="{{ $image }}"
+				   alt="Menu"
+				   class="rounded-xl max-h-[100vh] shadow-md object-contain" />
+			</div>
+		    @endforeach 
                 </div>
+
             </div>
+<!-- Pulsing down arrow at bottom -->
+    <div class="absolute bottom-50 right-[30%] animate-bounce pointer-events-none">
+        <svg class="w-8 h-8 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+        </svg>
+    </div>
+         </div>
         </div>
     </div>
 
@@ -892,27 +906,27 @@
                                 class="flex flex-col w-full space-y-4 text-left text-lg [@media(min-width:1920px)]:text-2xl font-light">
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.monday') }}</p>
-                                    <p>09:00 – 22:00</p>
+                                    <p>09:00 – 21:00</p>
                                 </div>
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.tuesday') }}</p>
-                                    <p>09:00 – 22:00</p>
+                                    <p>09:00 – 21:00</p>
                                 </div>
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.wednesday') }}</p>
-                                    <p>09:00 – 22:00</p>
+                                    <p>09:00 – 21:00</p>
                                 </div>
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.thursday') }}</p>
-                                    <p>09:00 – 22:00</p>
+                                    <p>09:00 – 21:00</p>
                                 </div>
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.friday') }}</p>
-                                    <p>09:00 – 22:00</p>
+                                    <p>09:00 – 21:00</p>
                                 </div>
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.saturday') }}</p>
-                                    <p>09:00 – 22:00</p>
+                                    <p>09:00 – 21:00</p>
                                 </div>
                                 <div class="flex justify-between w-full">
                                     <p>{{ __('home.sunday') }}</p>

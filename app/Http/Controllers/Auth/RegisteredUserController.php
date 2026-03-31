@@ -45,6 +45,6 @@ class RegisteredUserController extends Controller
         event(new Registered($user));
 
         // Do not log in as the new user, keep admin session
-        return redirect()->route('dashboard')->with('success', __('Staff member created successfully.'));
+        return redirect()->route('dashboard')->with('success', __('Zamestnanec vytvoreny uspesne.'));
     }
 }
