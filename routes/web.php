@@ -21,7 +21,13 @@ Route::get('/set-locale', function (\Illuminate\Http\Request $request) {
 })->name('set-locale');
 
 Route::get('/', function () {
-    return view('welcome');
+
+    $images = collect(glob(public_path('material/Napojak 2025/*.jpg')))
+	    ->map(fn($path) => asset(str_replace(public_path(), '', $path)))
+    	    ->sort()
+    	    ->values();
+
+    return view('welcome', compact("images"));
 });
 
 Route::get('/formular', [FormController::class, 'show'])->name('form.show');
