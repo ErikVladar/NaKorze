@@ -42,7 +42,7 @@
 
 </head>
 
-<body class="font-[Balleza] m-0 p-0">
+<body class="m-0 p-0">
 
     <style>
         @font-face {
@@ -70,9 +70,9 @@
         }
 
         @font-face {
-            font-family: 'Balleza';
-            src: url('/Belleza/Belleza-Regular.ttf') format('truetype');
-            font-weight: 800;
+            font-family: 'Marcellus';
+            src: url('/Marcellus/Marcellus-Regular.ttf') format('truetype');
+            font-weight: 400;
             font-style: normal;
             font-display: swap;
         }
@@ -84,6 +84,10 @@
         html,
         body {
             overflow-x: hidden;
+        }
+
+        body {
+            font-family: 'Marcellus', serif;
         }
 
 

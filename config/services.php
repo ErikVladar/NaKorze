@@ -35,4 +35,9 @@ return [
         ],
     ],
 
+    'instagram' => [
+        'profile_url' => env('INSTAGRAM_PROFILE_URL', 'https://instagram.com'),
+        'coupon_code' => env('INSTAGRAM_COUPON_CODE', 'na_korze_kupon_2000'),
+    ],
+
 ];
