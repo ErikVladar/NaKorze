@@ -1,5 +1,7 @@
-@php $iconTrailing = $iconTrailing ??= $attributes->pluck('icon:trailing'); @endphp
-@php $iconVariant = $iconVariant ??= $attributes->pluck('icon:variant'); @endphp
+@blaze
+
+@php $iconTrailing ??= $attributes->pluck('icon:trailing'); @endphp
+@php $iconVariant ??= $attributes->pluck('icon:variant'); @endphp
 
 @aware([ 'variant' ])
 
@@ -75,7 +77,8 @@ $classes = Flux::classes()
         {{ $iconTrailing }}
     <?php endif; ?>
 
-    <?php if ($badge): ?>
-        <flux:navbar.badge :color="$badgeColor" class="ms-2">{{ $badge }}</flux:navbar.badge>
+    <?php if (isset($badge) && $badge !== ''): ?>
+        <?php $badgeAttributes = Flux::attributesAfter('badge:', $attributes, ['color' => $badgeColor, 'class' => 'ms-2']); ?>
+        <flux:navbar.badge :attributes="$badgeAttributes">{{ $badge }}</flux:navbar.badge>
     <?php endif; ?>
 </flux:button-or-link>

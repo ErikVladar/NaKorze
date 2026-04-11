@@ -41,6 +41,30 @@ Route::get('/dashboard', [DashboardController::class, 'index'])
     ->middleware(['auth'])
     ->name('dashboard');
 
+Route::get('/dashboard/export/coupons', [DashboardController::class, 'exportCoupons'])
+    ->middleware(['auth'])
+    ->name('dashboard.export.coupons');
+
+Route::get('/dashboard/export/personal-information', [DashboardController::class, 'exportPersonalInfo'])
+    ->middleware(['auth'])
+    ->name('dashboard.export.personal-information');
+
+Route::get('/dashboard/export/users', [DashboardController::class, 'exportUsers'])
+    ->middleware(['auth'])
+    ->name('dashboard.export.users');
+
+Route::post('/dashboard/personal-information/mass-email', [DashboardController::class, 'sendPersonalInfoMassEmail'])
+    ->middleware(['auth'])
+    ->name('dashboard.personal-information.mass-email');
+
+Route::post('/dashboard/users/{user}/password', [DashboardController::class, 'updateUserPassword'])
+    ->middleware(['auth'])
+    ->name('dashboard.users.password');
+
+Route::get('/dashboard/users/{user}/password/edit', [DashboardController::class, 'editUserPassword'])
+    ->middleware(['auth'])
+    ->name('dashboard.users.password.edit');
+
 Route::get('/personal-information/{personalInformation}', [DashboardController::class, 'showPersonalInfo'])
     ->middleware(['auth'])
     ->name('personal-information.show');
