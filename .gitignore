@@ -21,3 +21,4 @@ package.json
 /.nova
 /.vscode
 /.zed
+/node_modules

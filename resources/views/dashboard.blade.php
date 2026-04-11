@@ -1,7 +1,8 @@
 <x-app-layout>
-    <div id="form" class="font-mono rounded-2xl bg-stone-900 relative z-30 overflow-hidden group min-h-auto bg-opacity-95 p-8"
+    <div id="form" class="font-mono rounded-2xl bg-stone-900 relative overflow-hidden group min-h-auto bg-opacity-95 p-8"
         x-data="{
-            activeTab: 'coupons',
+            activeTab: '{{ $errors->has('subject') || $errors->has('message') ? 'personal' : 'coupons' }}',
+            showPersonalEmailModal: {{ $errors->has('subject') || $errors->has('message') ? 'true' : 'false' }},
             couponFilter: '',
             couponStatus: 'all',
             personalFilter: '',
@@ -29,6 +30,15 @@
                 const byText = this.matchText(id, this.userFilter) || this.matchText(name, this.userFilter) || this.matchText(email, this.userFilter);
                 const byRole = this.userRole === 'all' ? true : (role || 'user') === this.userRole;
                 return byText && byRole;
+            },
+            updateScrollLock() {
+                const isOpen = this.showPersonalEmailModal;
+                document.body.style.overflow = isOpen ? 'hidden' : '';
+                document.documentElement.style.overflow = isOpen ? 'hidden' : '';
+            },
+            init() {
+                this.$watch('showPersonalEmailModal', () => this.updateScrollLock());
+                this.updateScrollLock();
             }
         }">
         <div class="w-full mx-auto">
@@ -101,6 +111,17 @@
                         <option value="redeemed">{{ __('dashboard.redeemed') }}</option>
                         <option value="not_redeemed">{{ __('dashboard.not_redeemed') }}</option>
                     </select>
+                </div>
+
+                <div class="mb-4 flex flex-wrap gap-2">
+                    <form method="GET" action="{{ route('dashboard.export.coupons') }}">
+                        <input type="hidden" name="coupon_query" x-model="couponFilter">
+                        <input type="hidden" name="status" x-model="couponStatus">
+                        <button type="submit"
+                            class="px-4 py-2 bg-stone-800 text-gray-100 rounded border border-stone-500 hover:bg-stone-600 transition">
+                            {{ __('dashboard.export_excel') }}
+                        </button>
+                    </form>
                 </div>
 
                 <div class="hidden md:block overflow-x-auto">
@@ -261,6 +282,23 @@
                             class="w-full px-3 py-2 rounded bg-gray-800 text-gray-200 border border-gray-600" />
                     </div>
 
+                    <div class="mb-4 flex flex-wrap gap-2">
+                        <form method="GET" action="{{ route('dashboard.export.personal-information') }}">
+                            <input type="hidden" name="personal_query" x-model="personalFilter">
+                            <button type="submit"
+                                class="px-4 py-2 bg-stone-800 text-gray-100 rounded border border-stone-500 hover:bg-stone-600 transition">
+                                {{ __('dashboard.export_excel') }}
+                            </button>
+                        </form>
+
+                        <button type="button" @click="showPersonalEmailModal = true"
+                            class="px-4 py-2 bg-amber-500 text-stone-950 rounded font-semibold hover:bg-amber-400 transition">
+                            {{ __('dashboard.mass_email') }}
+                        </button>
+                    </div>
+
+                    <p class="mb-4 text-sm text-gray-300">{{ __('dashboard.mass_email_hint') }}</p>
+
                     <div class="hidden md:block overflow-x-auto">
                         <table class="w-full text-sm text-gray-200">
                             <thead>
@@ -351,6 +389,16 @@
                             class="px-3 py-2 rounded. w-full bg-gray-800 text-gray-200 border border-gray-600" />
                     </div>
 
+                    <div class="mb-4 flex flex-wrap gap-2">
+                        <form method="GET" action="{{ route('dashboard.export.users') }}">
+                            <input type="hidden" name="user_query" x-model="userFilter">
+                            <button type="submit"
+                                class="px-4 py-2 bg-stone-800 text-gray-100 rounded border border-stone-500 hover:bg-stone-600 transition">
+                                {{ __('dashboard.export_excel') }}
+                            </button>
+                        </form>
+                    </div>
+
                     <div class="hidden md:block overflow-x-auto">
                         <table class="w-full text-sm text-gray-200">
                             <thead>
@@ -378,7 +426,13 @@
                                         </td>
                                         <td class="px-4 py-3">{{ $u->created_at->format('Y-m-d') }}</td>
                                         <td class="px-4 py-3">
-                                            @if (auth()->user()->id !== $u->id)
+                                            <div class="flex items-center gap-2">
+                                                <a href="{{ route('dashboard.users.password.edit', $u) }}"
+                                                    class="inline-block px-2 py-1 bg-amber-500 text-stone-950 text-xs rounded hover:bg-amber-400 transition">
+                                                    {{ __('dashboard.change_password') }}
+                                                </a>
+
+                                                @if (auth()->user()->id !== $u->id)
                                                 <form method="POST" action="{{ route('users.destroy', $u) }}"
                                                     onsubmit="return confirm('Are you sure?');" style="display: inline;">
                                                     @csrf
@@ -386,9 +440,10 @@
                                                     <button type="submit"
                                                         class="px-2 py-1 bg-red-600 text-white text-xs rounded hover:bg-red-700 transition">{{ __('dashboard.delete') }}</button>
                                                 </form>
-                                            @else
-                                                <span class="text-gray-500 text-xs">—</span>
-                                            @endif
+                                                @else
+                                                    <span class="text-gray-500 text-xs">—</span>
+                                                @endif
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -433,6 +488,9 @@
                                     </div>
                                 </div>
                                 <div class="pt-2">
+                                    <a href="{{ route('dashboard.users.password.edit', $u) }}"
+                                        class="w-full mb-2 px-2 py-1 bg-amber-500 text-stone-950 text-xs rounded hover:bg-amber-400 transition text-center block">{{ __('dashboard.change_password') }}</a>
+
                                     @if (auth()->user()->id !== $u->id)
                                         <form method="POST" action="{{ route('users.destroy', $u) }}"
                                             onsubmit="return confirm('Are you sure?');" style="display: block;">
@@ -457,6 +515,72 @@
                         </div>
                     @endif
                 </div>
+            @endif
+
+            @if (auth()->user()->isAdmin())
+                <template x-teleport="body">
+                    <div x-cloak x-show="showPersonalEmailModal"
+                        class="fixed inset-0 z-[9999] flex items-center justify-center bg-black/90 backdrop-blur-sm p-4"
+                        style="z-index: 9999; background-color: rgba(0, 0, 0, 0.92);"
+                        @keydown.escape.window="showPersonalEmailModal = false">
+                        <div @click.outside="showPersonalEmailModal = false"
+                            class="w-full max-w-2xl rounded-2xl border border-stone-700 bg-stone-900 p-6 text-gray-100 shadow-2xl">
+                            <div class="mb-6 flex items-start justify-between gap-4">
+                                <div>
+                                    <h3 class="text-xl font-semibold text-white">{{ __('dashboard.mass_email') }}</h3>
+                                    <p class="mt-1 text-sm text-gray-300">{{ __('dashboard.mass_email_modal_description') }}</p>
+                                </div>
+                                <button type="button" @click="showPersonalEmailModal = false"
+                                    class="text-gray-400 hover:text-white text-2xl leading-none">&times;</button>
+                            </div>
+
+                            <form method="POST" action="{{ route('dashboard.personal-information.mass-email') }}" class="space-y-4">
+                                @csrf
+                                <input type="hidden" name="personal_query" x-model="personalFilter">
+
+                                <div>
+                                    <label for="mass-email-subject" class="mb-2 block text-sm font-medium text-gray-200">
+                                        {{ __('dashboard.email_subject') }}
+                                    </label>
+                                    <input id="mass-email-subject" name="subject" type="text" value="{{ old('subject') }}"
+                                        class="w-full rounded-lg border border-stone-600 bg-stone-800 px-4 py-3 text-gray-100 focus:border-amber-400 focus:outline-none"
+                                        required>
+                                    @error('subject')
+                                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div>
+                                    <label for="mass-email-message" class="mb-2 block text-sm font-medium text-gray-200">
+                                        {{ __('dashboard.email_message') }}
+                                    </label>
+                                    <textarea id="mass-email-message" name="message" rows="8"
+                                        class="w-full rounded-lg border border-stone-600 bg-stone-800 px-4 py-3 text-gray-100 focus:border-amber-400 focus:outline-none"
+                                        required>{{ old('message') }}</textarea>
+                                    @error('message')
+                                        <p class="mt-2 text-sm text-red-400">{{ $message }}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="rounded-lg border border-stone-700 bg-stone-800/60 px-4 py-3 text-sm text-gray-300">
+                                    {{ __('dashboard.mass_email_filtered_note') }}
+                                </div>
+
+                                <div class="flex flex-wrap justify-end gap-3">
+                                    <button type="button" @click="showPersonalEmailModal = false"
+                                        class="px-4 py-2 rounded border border-stone-600 text-gray-200 hover:bg-stone-800 transition">
+                                        {{ __('dashboard.cancel') }}
+                                    </button>
+                                    <button type="submit"
+                                        class="px-5 py-2 rounded bg-amber-500 font-semibold text-stone-950 hover:bg-amber-400 transition">
+                                        {{ __('dashboard.send_email') }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </template>
             @endif
         </div>
     </div>
