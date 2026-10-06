@@ -3,7 +3,9 @@
 /public/storage
 /storage/*.key
 /storage/pail
-node_modules/
+/bootstrap/cache
+/node_modules/
+!/bootstrap/cache/.gitignore
 vendor
 DEBUG_COUPON_VIEWS.md
 .env
