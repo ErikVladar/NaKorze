@@ -15,18 +15,12 @@ class AdminUserSeeder extends Seeder
     {
         // Create or update an admin user. Password will be hashed by the model cast.
         $user = User::updateOrCreate(
-            ['email' => 'admin@example.com'],
+            ['email' => env("ADMIN_EMAIL", "info@example.com")],
             [
-                'name' => 'Admin',
-                'password' => 'ZvkV1R4NduKVjpzL',
+                'name' => env("ADMIN_USER", "admin"),
+                'password' => env("ADMIN_PASSWORD", "password"),
                 'role' => 'admin',
             ]
         );
-
-        // Output the password to console during seeding
-        $this->command->info("Admin user created/updated.");
-        $this->command->info("Email: admin@example.com");
-        $this->command->info("Password: ZvkV1R4NduKVjpzL");
-        $this->command->warn('Save this password in a secure location!');
     }
 }
