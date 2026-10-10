@@ -6,17 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     @if (app()->getLocale() === 'sk')
-        <meta name="description"
-            content="Na Korze cukráreň & kaviareň v Trenčianskych Tepliciach. Koláče, zákusky, káva a viac. Otvorené denne 09:00–22:00.">
+    <meta name="description"
+        content="Na Korze cukráreň & kaviareň v Trenčianskych Tepliciach. Koláče, zákusky, káva a viac. Otvorené denne 09:00–22:00.">
     @elseif(app()->getLocale() === 'en')
-        <meta name="description"
-            content="Na Korze café & confectionery in Trenčianske Teplice. Enjoy cakes, pastries, coffee, and more. Open daily 09:00–22:00.">
+    <meta name="description"
+        content="Na Korze café & confectionery in Trenčianske Teplice. Enjoy cakes, pastries, coffee, and more. Open daily 09:00–22:00.">
     @endif
 
     @if (app()->getLocale() === 'sk')
-        <title>Na Korze | Cukráreň & kaviareň v Trenčianskych Tepliciach</title>
+    <title>Na Korze | Cukráreň & kaviareň v Trenčianskych Tepliciach</title>
     @elseif(app()->getLocale() === 'en')
-        <title>Na Korze | Café & Confectionery in Trenčianske Teplice</title>
+    <title>Na Korze | Café & Confectionery in Trenčianske Teplice</title>
     @endif
 
 
@@ -34,6 +34,17 @@
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2FEJMLP9W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Data());
+        gtag('config', 'G-B2FEJMLP9W');
+    </script>
 
     <!-- Lightbox2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" />
@@ -334,8 +345,8 @@
         }
     </style>
     <button id="scrollToTopBtn"
-        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gray-800 text-white text-xl rounded-full shadow-lg 
-         opacity-0 pointer-events-none hover:opacity-100 transition-opacity duration-300 
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gray-800 text-white text-xl rounded-full shadow-lg
+         opacity-0 pointer-events-none hover:opacity-100 transition-opacity duration-300
          flex items-center justify-center"
         aria-label="Scroll to top">
         ↑
@@ -346,37 +357,37 @@
             <div class="mx-auto max-w-7xl px-1 sm:px-2 lg:px-3">
                 <div class="flex items-center justify-between h-20">
 
-                        <a href="/" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                            </svg>
-                        </a>
-                        <div class="hidden md:flex items-center space-x-6">
-                            @auth
-                                <x-nav-link href="/home" :active="request()->is('')">{{ __('formular.nav_home') }}</x-nav-link>
-                                {{-- <x-nav-link href="/dashboard" :active="request()->is('')">Dashboard</x-nav-link> --}}
-                                @if(auth()->user() && auth()->user()->isAdmin())
-                                    <x-nav-link href="{{ route('register') }}" :active="request()->is('auth/create-staff-5s8k2m9x')">
-                                        {{ __('auth.Create Staff') }}
-                                    </x-nav-link>
-                                @endif
-                            @endauth
-                            @auth
-                                <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
-                                    @csrf
-                                    <x-nav-link as="button" type="submit" class="w-full text-left block py-3 px-2 text-white bg-transparent border-0 cursor-pointer">
-                                        {{ __('auth.Log Out') }}
-                                    </x-nav-link>
-                                </form>
-                            @else
-                                <x-nav-link href="{{ route('login') }}" class="block py-3 px-2 text-white">
-                                    {{ __('auth.Log in') }}
-                                </x-nav-link>
-                            @endauth
-                            <span class="inline-block h-6 border-l border-white"></span>
-                            <div id="locale-dropdown" class="relative w-32">
-                                <label for="locale-select" class="sr-only">Language</label>
+                    <a href="/" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
+                    <div class="hidden md:flex items-center space-x-6">
+                        @auth
+                        <x-nav-link href="/home" :active="request()->is('')">{{ __('formular.nav_home') }}</x-nav-link>
+                        {{-- <x-nav-link href="/dashboard" :active="request()->is('')">Dashboard</x-nav-link> --}}
+                        @if(auth()->user() && auth()->user()->isAdmin())
+                        <x-nav-link href="{{ route('register') }}" :active="request()->is('auth/create-staff-5s8k2m9x')">
+                            {{ __('auth.Create Staff') }}
+                        </x-nav-link>
+                        @endif
+                        @endauth
+                        @auth
+                        <form method="POST" action="{{ route('logout') }}" class="m-0 p-0">
+                            @csrf
+                            <x-nav-link as="button" type="submit" class="w-full text-left block py-3 px-2 text-white bg-transparent border-0 cursor-pointer">
+                                {{ __('auth.Log Out') }}
+                            </x-nav-link>
+                        </form>
+                        @else
+                        <x-nav-link href="{{ route('login') }}" class="block py-3 px-2 text-white">
+                            {{ __('auth.Log in') }}
+                        </x-nav-link>
+                        @endauth
+                        <span class="inline-block h-6 border-l border-white"></span>
+                        <div id="locale-dropdown" class="relative w-32">
+                            <label for="locale-select" class="sr-only">Language</label>
 
                             <!-- Keep your original select (hidden for A11y/progressive enhancement) -->
                             <select id="locale-select" class="hidden" onchange="window.location.href=this.value">
@@ -434,8 +445,8 @@
                 <!-- Mobile menu section -->
                 <div class="px-4 py-3 divide-y divide-gray-700 space-y-0" x-data="{ langOpen: false }">
                     @auth
-                        <a href="/home"
-                            class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('formular.nav_home') }}</a>
+                    <a href="/home"
+                        class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('formular.nav_home') }}</a>
                     @endauth
 
                     <!-- Language Switcher (mobile) -->
@@ -475,13 +486,13 @@
                     <!-- Auth / Logout (mobile) -->
                     <div class="px-4 pt-4">
                         @auth
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit"
-                                    class="w-full text-left block py-3 px-2 text-white">{{ __('auth.Log Out') }}</button>
-                            </form>
+                        <form method="POST" action="{{ route('logout') }}">
+                            @csrf
+                            <button type="submit"
+                                class="w-full text-left block py-3 px-2 text-white">{{ __('auth.Log Out') }}</button>
+                        </form>
                         @else
-                            <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('auth.Log in') }}</a>
+                        <a href="{{ route('login') }}" class="block py-3 px-2 text-white">{{ __('auth.Log in') }}</a>
                         @endauth
                     </div>
                 </div>

@@ -23,6 +23,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2FEJMLP9W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Data());
+        gtag('config', 'G-B2FEJMLP9W');
+    </script>
 
     <!-- Lightbox2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" />
@@ -303,8 +314,8 @@
         }
     </style>
     <button id="scrollToTopBtn"
-        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gray-800 text-white text-xl rounded-full shadow-lg 
-         opacity-0 pointer-events-none hover:opacity-100 transition-opacity duration-300 
+        class="fixed bottom-6 right-6 z-50 w-12 h-12 bg-gray-800 text-white text-xl rounded-full shadow-lg
+         opacity-0 pointer-events-none hover:opacity-100 transition-opacity duration-300
          flex items-center justify-center"
         aria-label="Scroll to top">
         ↑
@@ -314,14 +325,14 @@
             <div class="mx-auto max-w-7xl px-1 sm:px-2 lg:px-3">
                 <div class="flex items-center justify-between h-20">
                     @auth
-                        <a href="/home" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
-                            </svg>
-                        </a>
+                    <a href="/home" class="mx-4 text-white hover:text-gray-300 transition" title="Go back">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                    </a>
                     @else
-                        <a></a>
+                    <a></a>
                     @endauth
                     <div class="hidden md:flex items-center space-x-6">
                         <x-nav-link href="#coffee" :active="request()->is('home')">{{ __('home.nav_home') }}</x-nav-link>
@@ -329,15 +340,16 @@
                         <x-nav-link href="#ice" :active="request()->is('ice')">{{ __('home.nav_ice') }}</x-nav-link>
                         <x-nav-link href="#bar_nav" :active="request()->is('bar')">{{ __('home.nav_bar') }}</x-nav-link>
                         <x-nav-link href="#location" :active="request()->is('location')">{{ __('home.nav_location') }}</x-nav-link>
+                        @if(config('services.qr_system.active'))
                         <x-nav-link href="/formular" :active="request()->is('formular')">{{ __('home.nav_formular') }}</x-nav-link>
+                        @endif
                         {{-- <x-nav-link href="#events" :active="request()->is('events')">{{ __('home.nav_events') }}</x-nav-link>
                         <x-nav-link href="/archived" :active="request()->is('archived_events')">{{ __('home.nav_arch_events') }}</x-nav-link> --}}
                         <x-nav-link href="#contact" :active="request()->is('contact')">{{ __('home.nav_contact') }}</x-nav-link>
                         <x-nav-link
                             @click="
                                     showModal = true
-                            "
-                            class="cta-button bg-blue-500 text-white px-4 py-2 rounded cursor-pointer  hover:bg-blue-600 transition">
+                            ">
                             {{ __('home.offer') }}
                         </x-nav-link>
                         <span class="inline-block h-6 border-l border-white"></span>
@@ -408,8 +420,10 @@
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_bar') }}</a>
                     <a href="#location"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_location') }}</a>
+                    @if(config('services.qr_system.active'))
                     <a href="/formular"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_formular') }}</a>
+                    @endif
                     {{-- <a href="#events"
                         class="block py-4 px-3 text-base font-medium text-white hover:bg-gray-700">{{ __('home.nav_events') }}</a>
                     <a href="/archived"
@@ -476,25 +490,25 @@
                     class="fixed right-10 top-10 text-5xl text-gray-200 hover:text-gray-600">&times;</button>
 
                 <div class="flex flex-col justify-center gap-4">
-		    @foreach($images as $image)
-			<div class="flex justify-center">
-				<img
-				   src="{{ $image }}"
-				   alt="Menu"
-				   class="rounded-xl max-h-[100vh] shadow-md object-contain" />
-			</div>
-		    @endforeach 
+                    @foreach($images as $image)
+                    <div class="flex justify-center">
+                        <img
+                            src="{{ $image }}"
+                            alt="Menu"
+                            class="rounded-xl max-h-[100vh] shadow-md object-contain" />
+                    </div>
+                    @endforeach
                 </div>
 
             </div>
-<!-- Pulsing down arrow at bottom -->
-    <div class="absolute bottom-50 right-[30%] animate-bounce pointer-events-none">
-        <svg class="w-8 h-8 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
-        </svg>
-    </div>
-         </div>
+            <!-- Pulsing down arrow at bottom -->
+            <div class="absolute bottom-50 right-[30%] animate-bounce pointer-events-none">
+                <svg class="w-8 h-8 text-stone-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                </svg>
+            </div>
         </div>
+    </div>
     </div>
 
     <div
@@ -790,10 +804,10 @@
             <!-- Content -->
             <div class="relative z-30 p-32 text-center flex items-center justify-center">
                 <h1 class="text-6xl xl:text-7xl font-bold">{{ __('home.nav_events') }}</h1>
-            </div>
-        </div> --}}
+    </div>
+    </div> --}}
 
-        {{-- <section id="events">
+    {{-- <section id="events">
             <div class="w-full flex items-center justify-center bg-stone-700 text-gray-800 font-bold mb-8">
                 <div class="w-full">
                     <div>
@@ -809,40 +823,40 @@
 
                                         <div class="w-full h-auto overflow-hidden">
                                             <img src="{{ asset('plagaty/' . basename($file)) }}"
-                                                class="w-full h-auto md:h-full object-contain md:object-cover block">
-                                        </div>
-                                    </div>
-                                @endforeach
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
+    class="w-full h-auto md:h-full object-contain md:object-cover block">
+    </div>
+    </div>
+    @endforeach
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section> --}}
 
-        <div class="relative w-full max-w-7xl mx-auto -mt-16 -mb-8">
-            <!-- Brush border layer -->
-            <img src="material/paper.png" class="absolute inset-0 w-full h-full pointer-events-none z-20"
-                alt="Brush border" />
+    <div class="relative w-full max-w-7xl mx-auto -mt-16 -mb-8">
+        <!-- Brush border layer -->
+        <img src="material/paper.png" class="absolute inset-0 w-full h-full pointer-events-none z-20"
+            alt="Brush border" />
 
-            <!-- Content -->
-            <div class="relative z-30 p-32 flex items-center text-center justify-center">
-                <h1 class="text-5xl xl:text-6xl font-bold">{{ __('home.location_t') }}</h1>
+        <!-- Content -->
+        <div class="relative z-30 p-32 flex items-center text-center justify-center">
+            <h1 class="text-5xl xl:text-6xl font-bold">{{ __('home.location_t') }}</h1>
+        </div>
+    </div>
+
+    <section id="location">
+        <div class="h-screen w-full flex items-center justify-center bg-gray-700 text-gray-800 text-3xl font-bold">
+            <div class="h-screen w-full">
+                <iframe class="w-full h-full"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.3350374173847!2d18.1712462!3d48.90900870000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47149803901bc2bb%3A0xe8cd9179b092c7ec!2zUGFuYWvigJlzIEthdmlhcmXFiCBDdWtyw6FyZcWIIE5hIEtvcnpl!5e0!3m2!1sen!2ssk!4v1753391753390!5m2!1sen!2ssk"
+                    style="border:0;" allowfullscreen="" loading="lazy">
+                </iframe>
             </div>
         </div>
+    </section>
 
-        <section id="location">
-            <div class="h-screen w-full flex items-center justify-center bg-gray-700 text-gray-800 text-3xl font-bold">
-                <div class="h-screen w-full">
-                    <iframe class="w-full h-full"
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.3350374173847!2d18.1712462!3d48.90900870000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47149803901bc2bb%3A0xe8cd9179b092c7ec!2zUGFuYWvigJlzIEthdmlhcmXFiCBDdWtyw6FyZcWIIE5hIEtvcnpl!5e0!3m2!1sen!2ssk!4v1753391753390!5m2!1sen!2ssk"
-                        style="border:0;" allowfullscreen="" loading="lazy">
-                    </iframe>
-                </div>
-            </div>
-        </section>
-
-        {{-- <section id="events">
+    {{-- <section id="events">
             <div class="w-full flex items-center justify-center bg-stone-700 text-gray-800 text-3xl font-bold">
                 <div class="w-full">
                     <div>
@@ -869,173 +883,176 @@
                                         <div class="relative flex flex-col items-center">
                                             <a>
                                                 <img src="{{ asset('plagaty/' . basename($file)) }}" class="w-80">
-                                            </a>
-                                            <p class="mt-2 text-base text-gray-100">{{ $time }}</p>
-                                        </div>
-                                    @endif
-                                @endforeach
+    </a>
+    <p class="mt-2 text-base text-gray-100">{{ $time }}</p>
+    </div>
+    @endif
+    @endforeach
 
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section> --}}
+    </div>
+    </div>
+    </div>
+    </div>
+    </div>
+    </section> --}}
 
-        <section class="relative w-full overflow-hidden">
+    <section class="relative w-full overflow-hidden">
 
-            <!-- Background Image -->
-            <div class="absolute inset-0 bg-cover bg-center z-0"
-                style="background-image: url('{{ asset('material/e.png') }}');">
-            </div>
+        <!-- Background Image -->
+        <div class="absolute inset-0 bg-cover bg-center z-0"
+            style="background-image: url('{{ asset('material/e.png') }}');">
+        </div>
 
-            <!-- Dark Overlay -->
-            <div class="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
+        <!-- Dark Overlay -->
+        <div class="absolute inset-0 bg-black bg-opacity-60 z-10"></div>
+
+        <!-- Content -->
+        <div class="relative z-30 font-poppins text-white flex flex-col items-center justify-center">
 
             <!-- Content -->
-            <div class="relative z-30 font-poppins text-white flex flex-col items-center justify-center">
-
-                <!-- Content -->
-                <div class="grid grid-cols-1 xl:grid-cols-3 gap-12 mt-12 mb-20 px-20">
-                    <!-- OPENING Section -->
-                    <div id="opening" class="relative flex flex-col items-center">
-                        <!-- Content with higher z-index -->
-                        <div class="flex flex-col items-center">
-                            <h1 class="text-4xl [@media(min-width:1920px)]:text-5xl font-extrabold">
-                                {{ __('home.opening_hours') }}</h1>
-                            <hr class="border-t border-gray-300 w-full my-4" />
-                            <div
-                                class="flex flex-col w-full space-y-4 text-left text-lg [@media(min-width:1920px)]:text-2xl font-light">
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.monday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.tuesday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.wednesday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.thursday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.friday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.saturday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
-                                <div class="flex justify-between w-full">
-                                    <p>{{ __('home.sunday') }}</p>
-                                    <p>09:00 – 21:00</p>
-                                </div>
+            <div class="grid grid-cols-1 xl:grid-cols-3 gap-12 mt-12 mb-20 px-20">
+                <!-- OPENING Section -->
+                <div id="opening" class="relative flex flex-col items-center">
+                    <!-- Content with higher z-index -->
+                    <div class="flex flex-col items-center">
+                        <h1 class="text-4xl [@media(min-width:1920px)]:text-5xl font-extrabold">
+                            {{ __('home.opening_hours') }}
+                        </h1>
+                        <hr class="border-t border-gray-300 w-full my-4" />
+                        <div
+                            class="flex flex-col w-full space-y-4 text-left text-lg [@media(min-width:1920px)]:text-2xl font-light">
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.monday') }}</p>
+                                <p>09:00 – 22:00</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.tuesday') }}</p>
+                                <p>09:00 – 22:00</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.wednesday') }}</p>
+                                <p>09:00 – 22:00</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.thursday') }}</p>
+                                <p>09:00 – 22:00</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.friday') }}</p>
+                                <p>09:00 – 22:00</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.saturday') }}</p>
+                                <p>09:00 – 22:00</p>
+                            </div>
+                            <div class="flex justify-between w-full">
+                                <p>{{ __('home.sunday') }}</p>
+                                <p>09:00 – 22:00</p>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <!-- CONTACT Section -->
-                    <div id="contact" class="relative flex flex-col items-center">
-                        <div class="flex flex-col items-center">
-                            <h1 class="text-4xl [@media(min-width:1920px)]:text-5xl font-extrabold">
-                                {{ __('home.contact') }}</h1>
-                            <hr class="border-t border-gray-300 w-full my-4" />
-                            <div class="pl-0 md:pl-10 flex flex-col space-y-6 mt-4">
-                                <div class="flex">
-                                    <div class="w-8 flex justify-center">
-                                        <i
-                                            class="material-icons text-2xl [@media(min-width:1920px)]:text-3xl ">location_on</i>
-                                    </div>
-                                    <div
-                                        class="ml-4 text-left text-white text-lg [@media(min-width:1920px)]:text-xl font-light leading-snug">
-                                        Ul. Poštová<br>914 51 Trenčianské Teplice<br>Slovensko
-                                    </div>
+                <!-- CONTACT Section -->
+                <div id="contact" class="relative flex flex-col items-center">
+                    <div class="flex flex-col items-center">
+                        <h1 class="text-4xl [@media(min-width:1920px)]:text-5xl font-extrabold">
+                            {{ __('home.contact') }}
+                        </h1>
+                        <hr class="border-t border-gray-300 w-full my-4" />
+                        <div class="pl-0 md:pl-10 flex flex-col space-y-6 mt-4">
+                            <div class="flex">
+                                <div class="w-8 flex justify-center">
+                                    <i
+                                        class="material-icons text-2xl [@media(min-width:1920px)]:text-3xl ">location_on</i>
                                 </div>
-                                <div class="flex">
-                                    <div class="w-8 flex justify-center">
-                                        <i
-                                            class="material-icons text-2xl [@media(min-width:1920px)]:text-3xl">email</i>
-                                    </div>
-                                    <a href="mailto:veron.micietova@gmail.com"
-                                        class="ml-4 text-white text-lg [@media(min-width:1920px)]:text-xl   font-light hover:text-gray-700">
-                                        info@kaviarennakorze.sk
-                                    </a>
-                                </div>
-                                <div class="flex">
-                                    <div class="w-8 flex justify-center">
-                                        <i class="material-icons text-2xl [@media(min-width:1920px)]:text-3xl">call</i>
-                                    </div>
-                                    <a href="tel:0949464033"
-                                        class="ml-4 text-white text-lg [@media(min-width:1920px)]:text-xl  font-light hover:text-gray-700">
-                                        +421 950 860 552
-                                    </a>
+                                <div
+                                    class="ml-4 text-left text-white text-lg [@media(min-width:1920px)]:text-xl font-light leading-snug">
+                                    Ul. Poštová<br>914 51 Trenčianské Teplice<br>Slovensko
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <!-- SOCIAL Section -->
-                    <div id="socials" class="relative flex flex-col items-center">
-                        <div class="flex flex-col items-center">
-                            <h1 class="text-4xl [@media(min-width:1920px)]:text-5xl font-extrabold">
-                                {{ __('home.socials') }}</h1>
-                            <hr class="border-t border-gray-300 w-full my-4" />
-                            <div class="flex gap-8">
-                                <a href="https://www.instagram.com/kaviarencukraren_na_korze/" target="_blank">
-                                    <img src="{{ asset('material/instagram_icon_white.png') }}" alt="Instagram"
-                                        class="w-14 h-14 [@media(min-width:1920px)]:w-20 [@media(min-width:1920px)]:h-20">
+                            <div class="flex">
+                                <div class="w-8 flex justify-center">
+                                    <i
+                                        class="material-icons text-2xl [@media(min-width:1920px)]:text-3xl">email</i>
+                                </div>
+                                <a href="mailto:veron.micietova@gmail.com"
+                                    class="ml-4 text-white text-lg [@media(min-width:1920px)]:text-xl   font-light hover:text-gray-700">
+                                    info@kaviarennakorze.sk
                                 </a>
-                                <a href="https://www.facebook.com/p/Cukráreň-kaviareň-Na-Korze-100057177771894/"
-                                    target="_blank">
-                                    <img src="{{ asset('material/facebook_icon_white.png') }}" alt="Facebook"
-                                        class="w-14 h-14 [@media(min-width:1920px)]:w-20 [@media(min-width:1920px)]:h-20">
+                            </div>
+                            <div class="flex">
+                                <div class="w-8 flex justify-center">
+                                    <i class="material-icons text-2xl [@media(min-width:1920px)]:text-3xl">call</i>
+                                </div>
+                                <a href="tel:0949464033"
+                                    class="ml-4 text-white text-lg [@media(min-width:1920px)]:text-xl  font-light hover:text-gray-700">
+                                    +421 950 860 552
                                 </a>
                             </div>
                         </div>
                     </div>
                 </div>
-        </section>
 
-        {{-- <section id="mail">
+                <!-- SOCIAL Section -->
+                <div id="socials" class="relative flex flex-col items-center">
+                    <div class="flex flex-col items-center">
+                        <h1 class="text-4xl [@media(min-width:1920px)]:text-5xl font-extrabold">
+                            {{ __('home.socials') }}
+                        </h1>
+                        <hr class="border-t border-gray-300 w-full my-4" />
+                        <div class="flex gap-8">
+                            <a href="https://www.instagram.com/kaviarencukraren_na_korze/" target="_blank">
+                                <img src="{{ asset('material/instagram_icon_white.png') }}" alt="Instagram"
+                                    class="w-14 h-14 [@media(min-width:1920px)]:w-20 [@media(min-width:1920px)]:h-20">
+                            </a>
+                            <a href="https://www.facebook.com/p/Cukráreň-kaviareň-Na-Korze-100057177771894/"
+                                target="_blank">
+                                <img src="{{ asset('material/facebook_icon_white.png') }}" alt="Facebook"
+                                    class="w-14 h-14 [@media(min-width:1920px)]:w-20 [@media(min-width:1920px)]:h-20">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </section>
+
+    {{-- <section id="mail">
             <div class="w-full flex items-center justify-center bg-stone-800 text-gray-100">
                 <div class="w-full m-12 bg-stone-100 rounded-2xl shadow-lg p-8 text-gray-900"
                     style="max-height: 700px">
                     <h2 class="text-2xl font-bold mb-6 text-center">{{ __('home.contact_us') }}</h2>
-                    <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
-                        @csrf
+    <form action="{{ route('contact.send') }}" method="POST" class="space-y-4">
+        @csrf
 
-                        <div>
-                            <label for="name" class="block text-sm font-medium">{{ __('home.name') }}</label>
-                            <input type="text" name="name" id="name" required
-                                class="w-full bg-white p-3 border rounded-lg focus:ring-2 focus:ring-stone-600">
-                        </div>
+        <div>
+            <label for="name" class="block text-sm font-medium">{{ __('home.name') }}</label>
+            <input type="text" name="name" id="name" required
+                class="w-full bg-white p-3 border rounded-lg focus:ring-2 focus:ring-stone-600">
+        </div>
 
-                        <div>
-                            <label for="email" class="block text-sm font-medium">Email</label>
-                            <input type="email" name="email" id="email" required
-                                class="w-full bg-white p-3 border rounded-lg focus:ring-2 focus:ring-stone-600">
-                        </div>
+        <div>
+            <label for="email" class="block text-sm font-medium">Email</label>
+            <input type="email" name="email" id="email" required
+                class="w-full bg-white p-3 border rounded-lg focus:ring-2 focus:ring-stone-600">
+        </div>
 
-                        <div>
-                            <label for="message" class="block text-sm font-medium">{{ __('home.message') }}</label>
-                            <textarea name="message" id="message" rows="4" required
-                                class="w-full bg-white p-3 border rounded-lg focus:ring-2 focus:ring-stone-600"></textarea>
-                        </div>
+        <div>
+            <label for="message" class="block text-sm font-medium">{{ __('home.message') }}</label>
+            <textarea name="message" id="message" rows="4" required
+                class="w-full bg-white p-3 border rounded-lg focus:ring-2 focus:ring-stone-600"></textarea>
+        </div>
 
-                        <div class="flex justify-center">
-                            <button type="submit"
-                                class="w-80 bg-stone-700 text-white py-3 rounded-lg font-semibold hover:bg-stone-800">
-                                Odoslať
-                            </button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </section> --}}
+        <div class="flex justify-center">
+            <button type="submit"
+                class="w-80 bg-stone-700 text-white py-3 rounded-lg font-semibold hover:bg-stone-800">
+                Odoslať
+            </button>
+        </div>
+    </form>
+    </div>
+    </div>
+    </section> --}}
 
 
     </div>

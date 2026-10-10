@@ -40,4 +40,8 @@ return [
         'coupon_code' => env('INSTAGRAM_COUPON_CODE', 'na_korze_kupon_2000'),
     ],
 
+    'qr_system' => [
+        'active' env("QR_COUPON_SYSTEM_ACTIVE", false)
+    ]
+
 ];

@@ -23,14 +23,18 @@ Route::get('/set-locale', function (\Illuminate\Http\Request $request) {
 Route::get('/', function () {
 
     $images = collect(glob(public_path('material/Napojak 2025/*.jpg')))
-	    ->map(fn($path) => asset(str_replace(public_path(), '', $path)))
-    	    ->sort()
-    	    ->values();
+        ->map(fn($path) => asset(str_replace(public_path(), '', $path)))
+        ->sort()
+        ->values();
 
     return view('welcome', compact("images"));
 });
 
-Route::get('/formular', [FormController::class, 'show'])->name('form.show');
+if (config('services.qr_system.active')) {
+    Route::get('/formular', [FormController::class, 'show'])->name('form.show');
+} else {
+    Route::redirect("/formular", "/");
+}
 Route::post('/formular/unlock', [FormController::class, 'unlockInstagramGate'])->name('form.unlock');
 Route::post('/formular', [FormController::class, 'store'])->name('form.store');
 Route::get('/coupon/{coupon}', [FormController::class, 'success'])->name('form.success');
@@ -115,4 +119,4 @@ Route::middleware('auth')->group(function () {
     })->name('settings.appearance');
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
