@@ -1,3 +1,4 @@
+import './cookieconsent';
 import './bootstrap';
 
 import Alpine from 'alpinejs';

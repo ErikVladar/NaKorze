@@ -23,18 +23,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2FEJMLP9W"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-B2FEJMLP9W');
-    </script>
+    @include('partials.google-analytics')
 
     <!-- Lightbox2 CSS -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css" rel="stylesheet" />
@@ -782,9 +771,12 @@
                         class="hidden xl:flex flex-1 max-w-[calc(33.33%-1rem)] rounded-md shadow-md"></iframe>
 
                     <!-- Middle iframe: full width on mobile, one-third on md+ -->
-                    <iframe src="https://www.instagram.com/p/CsdvsoqtdZR/embed" width="100%" height="480"
-                        frameborder="0" scrolling="no" allowtransparency="true"
-                        class="w-full xl:flex-1 xl:max-w-[calc(33.33%-1rem)] rounded-md shadow-md"></iframe>
+                    <div class="relative w-full h-[480px] xl:flex-1 xl:max-w-[calc(33.33%-1rem)] rounded-md shadow-md overflow-hidden">
+                        <iframe data-consent-src="https://www.instagram.com/p/CsdvsoqtdZR/embed" width="100%"
+                            height="480" frameborder="0" scrolling="no" allowtransparency="true"
+                            class="w-full h-full"></iframe>
+                        @include('partials.consent-placeholder', ['message' => __('home.embed_blocked_instagram')])
+                    </div>
 
                     <!-- Right iframe: hidden on mobile -->
                     <iframe src="" width="100%" height="480" frameborder="0" scrolling="no"
@@ -848,9 +840,10 @@
 
     <section id="location">
         <div class="h-screen w-full flex items-center justify-center bg-gray-700 text-gray-800 text-3xl font-bold">
-            <div class="h-screen w-full">
+            <div class="relative h-screen w-full">
+                @include('partials.consent-placeholder', ['message' => __('home.embed_blocked_map')])
                 <iframe class="w-full h-full"
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.3350374173847!2d18.1712462!3d48.90900870000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47149803901bc2bb%3A0xe8cd9179b092c7ec!2zUGFuYWvigJlzIEthdmlhcmXFiCBDdWtyw6FyZcWIIE5hIEtvcnpl!5e0!3m2!1sen!2ssk!4v1753391753390!5m2!1sen!2ssk"
+                    data-consent-src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.3350374173847!2d18.1712462!3d48.90900870000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47149803901bc2bb%3A0xe8cd9179b092c7ec!2zUGFuYWvigJlzIEthdmlhcmXFiCBDdWtyw6FyZcWIIE5hIEtvcnpl!5e0!3m2!1sen!2ssk!4v1753391753390!5m2!1sen!2ssk"
                     style="border:0;" allowfullscreen="" loading="lazy">
                 </iframe>
             </div>
@@ -1060,6 +1053,10 @@
     <footer class="bg-stone-900 text-gray-200 py-8">
         <div class="mt-2 text-center text-xs text-gray-500">
             &copy; 2025 Na Korze. cukráreň & kaviareň.
+            <span class="mx-2">·</span>
+            <button type="button" data-cc="show-preferencesModal" class="underline hover:text-gray-300">
+                {{ __('home.cookie_settings') }}
+            </button>
         </div>
     </footer>
 

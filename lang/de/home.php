@@ -43,5 +43,8 @@ return [
     'qr_code_scanner' => 'QR-Code-Scanner',
     'scanned_code' => 'Gescannten Code:',
     'qr_instructions' => 'Richten Sie die Kamera auf einen QR-Code. Der Scanner startet automatisch.',
+    'embed_blocked_map' => 'Google Maps setzt Cookies. Die Karte wird erst nach Ihrer Zustimmung angezeigt.',
+    'embed_blocked_instagram' => 'Dieser Instagram-Beitrag setzt Cookies. Er wird erst nach Ihrer Zustimmung angezeigt.',
+    'embed_allow' => 'Erlauben und anzeigen',
+    'cookie_settings' => 'Cookie-Einstellungen',
 ];
-

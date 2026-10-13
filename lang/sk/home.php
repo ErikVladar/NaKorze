@@ -43,4 +43,8 @@ return [
     'qr_code_scanner' => 'QR Kód Skener',
     'scanned_code' => 'Skenu detekovaný kód:',
     'qr_instructions' => 'Namierte kameru na QR kód. Skener sa spustí automaticky.',
+    'embed_blocked_map' => 'Mapa Google ukladá súbory cookie. Zobrazí sa až po vašom súhlase.',
+    'embed_blocked_instagram' => 'Príspevok z Instagramu ukladá súbory cookie. Zobrazí sa až po vašom súhlase.',
+    'embed_allow' => 'Povoliť a zobraziť',
+    'cookie_settings' => 'Nastavenia cookies',
 ];

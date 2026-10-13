@@ -43,5 +43,8 @@ return [
     'qr_code_scanner' => 'QR Code Scanner',
     'scanned_code' => 'Scanned code:',
     'qr_instructions' => 'Point the camera at a QR code. The scanner will start automatically.',
+    'embed_blocked_map' => 'Google Maps sets cookies. It will be shown once you give your consent.',
+    'embed_blocked_instagram' => 'This Instagram post sets cookies. It will be shown once you give your consent.',
+    'embed_allow' => 'Allow and show',
+    'cookie_settings' => 'Cookie settings',
 ];
-

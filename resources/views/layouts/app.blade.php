@@ -34,18 +34,7 @@
     {{-- <script src="https://cdn.tailwindcss.com"></script> --}}
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B2FEJMLP9W"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-
-        function gtag() {
-            dataLayer.push(arguments);
-        }
-        gtag('js', new Date());
-
-        gtag('config', 'G-B2FEJMLP9W');
-    </script>
+    @include('partials.google-analytics')
 
 
     <!-- Lightbox2 CSS -->
@@ -535,6 +524,10 @@
     <footer class="bg-stone-900 text-gray-200 py-8">
         <div class="mt-2 text-center text-xs text-gray-500">
             &copy; 2025 Na Korze. cukráreň & kaviareň.
+            <span class="mx-2">·</span>
+            <button type="button" data-cc="show-preferencesModal" class="underline hover:text-gray-300">
+                {{ __('home.cookie_settings') }}
+            </button>
         </div>
         </div>
 
