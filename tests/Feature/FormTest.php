@@ -12,6 +12,16 @@ class FormTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function tearDown(): void
+    {
+        // Form submissions write QR code PNGs into public/; remove the ones created by tests
+        foreach (Coupon::pluck('qr_code_path')->filter() as $path) {
+            @unlink(public_path($path));
+        }
+
+        parent::tearDown();
+    }
+
     /**
      * Test that the form page displays with cities.
      */
@@ -29,7 +39,7 @@ class FormTest extends TestCase
     {
         $city = City::factory()->create();
         
-        $response = $this->post('/formular', [
+        $response = $this->withSession(['instagram_coupon_unlocked' => true])->post('/formular', [
             'name' => 'Test User',
             'email' => 'test@example.com',
             'phone' => '123456789',
@@ -54,7 +64,7 @@ class FormTest extends TestCase
      */
     public function test_form_submission_without_city(): void
     {
-        $response = $this->post('/formular', [
+        $response = $this->withSession(['instagram_coupon_unlocked' => true])->post('/formular', [
             'name' => 'Test User 2',
             'email' => 'test2@example.com',
             'phone' => '123456789',
