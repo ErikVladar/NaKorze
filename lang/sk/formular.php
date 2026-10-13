@@ -3,7 +3,7 @@
 return [
     'nav_home' => 'Domovská stránka',
     'form_title' => 'Osobné informácie',
-    'form_description' => 'Zadajte prosím svoje osobné údaje pre možnosť získať kupón pre 1 bezplatný nápoj alebo dezert. Tieto údaje zbierame v súlade s GDPR.',
+    'form_description' => 'Zadajte prosím svoje osobné údaje pre možnosť získať kupón pre 1 bezplatnú kávu alebo čaj. Tieto údaje zbierame v súlade s GDPR.',
     'form_name' => 'Celé meno',
     'form_name_placeholder' => 'Zadajte svoje celé meno',
     'form_email' => 'E-mailová adresa',
@@ -32,7 +32,7 @@ return [
     'success_title' => 'Kupón úspešne vygenerovaný',
     'coupon_reward_text' => 'Ako vďaka za vyplnenie nášho formulára sme vám vygenerovali špeciálny zľavový kupón!',
     'your_coupon_code' => 'Váš kód kupónu',
-    'discount' => '1 nápoj alebo dezert zadarmo',
+    'discount' => '1 káva alebo čaj zadarmo',
     'valid_from' => 'Platný od',
     'valid_until' => 'Platný do',
     'qr_code_label' => 'Naskenujte tento QR kód na overenie vášho kupónu',

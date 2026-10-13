@@ -31,7 +31,8 @@
         function gtag() {
             dataLayer.push(arguments);
         }
-        gtag('js', new Data());
+        gtag('js', new Date());
+
         gtag('config', 'G-B2FEJMLP9W');
     </script>
 
