@@ -41,7 +41,7 @@ return [
     ],
 
     'qr_system' => [
-        'active' env("QR_COUPON_SYSTEM_ACTIVE", false)
+        'active' => env("QR_COUPON_SYSTEM_ACTIVE", false)
     ]
 
 ];
